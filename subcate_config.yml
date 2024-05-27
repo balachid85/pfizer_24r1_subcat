@@ -1,0 +1,2922 @@
+SUBCATE_GROUP:
+  AE:
+    CM:
+      PRIMARY_DOMAIN: AE
+      SECONDARY_DOMAIN: CM
+      PRIMARY_ID_COLUMN: AESPID
+      SECONDARY_ID_COLUMN: CMAENO
+      CATE_WITH_SECONDARY_MATCH: [AECM0,AECM1, AECM2, AECM3, AECM4, AECM5, AECM6,
+            AECM7, AECM1_1, AECM2_1]
+      CATE_WITHOUT_SECONDARY_MATCH: [AECM8]
+
+    OV:
+      PRIMARY_DOMAIN: AE
+      SECONDARY_DOMAIN: AE
+      PRIMARY_ID_COLUMN: AESPID
+      SECONDARY_ID_COLUMN: AESPID
+      CATE_WITHOUT_SECONDARY: [AEOV1 , AEOV2]
+
+    DR:
+      PRIMARY_DOMAIN: AE
+      SECONDARY_DOMAIN: DR
+      PRIMARY_ID_COLUMN: AESPID
+      SECONDARY_ID_COLUMN: ECAENO
+      CATE_WITH_SECONDARY_MATCH: [AEDR0]
+      CATE_WITHOUT_SECONDARY_MATCH:  [AEDR1, AEDR2]
+      CATE_WITH_OTHERS: [AEDR3, AEDR6, AEDR7, AEDR8, AEDR10]
+    
+    DD :
+      PRIMARY_DOMAIN: AE
+      SECONDARY_DOMAIN: DD
+      PRIMARY_ID_COLUMN: AEREFID
+      SECONDARY_ID_COLUMN: DDAENO
+      CATE_WITH_SECONDARY_MATCH: [DHAE1, DHAE2, DHAE3, DHAE4, DHAE5]
+
+  CM:
+    AE:
+      PRIMARY_DOMAIN: CM
+      SECONDARY_DOMAIN: AE
+      PRIMARY_ID_COLUMN: CMAENO
+      SECONDARY_ID_COLUMN: AESPID
+      CATE_WITH_SECONDARY_MATCH: [CMAE0, CMAE1, CMAE2, CMAE3, CMAE7, CMAE8, CMAE1_1, CMAE2_1]
+      CATE_WITHOUT_SECONDARY_MATCH: [CMAE0, CMAE5, CMAE6]
+    OV:
+      PRIMARY_DOMAIN: CM
+      SECONDARY_DOMAIN: CM
+      PRIMARY_ID_COLUMN: CMAENO
+      SECONDARY_ID_COLUMN: CMAENO
+      CATE_WITHOUT_SECONDARY: [CMOV1, CMOV2]
+  DD:
+    AE:
+      PRIMARY_DOMAIN: DD
+      SECONDARY_DOMAIN: AE
+      PRIMARY_ID_COLUMN: DDAENO
+      SECONDARY_ID_COLUMN: AEREFID
+      CATE_WITH_SECONDARY_MATCH: [DHAE0]
+
+  DR:
+    AE:
+      PRIMARY_DOMAIN: DR
+      SECONDARY_DOMAIN: AE
+      PRIMARY_ID_COLUMN: ECAENO
+      SECONDARY_ID_COLUMN: AESPID
+      CATE_WITH_SECONDARY_MATCH: ['DRAE0', 'DRAE4', 'DRAE5', 'DRAE6', 'DRAE7', 'DRAE8', 'DRAE9']
+      CATE_WITHOUT_SECONDARY_MATCH: ['DRAE1', 'DRAE2'] #ae_noids
+
+    OV:
+      PRIMARY_DOMAIN: DR
+      SECONDARY_DOMAIN: DR
+      PRIMARY_ID_COLUMN: ECAENO
+      SECONDARY_ID_COLUMN: ECAENO
+      CATE_WITHOUT_SECONDARY: [DROV1, DROV2]
+
+FIELDS_FOR_UI:
+  BASIC: [STUDYID, SITEID, SUBJID, SUBJECTID, VISITID, VISITINDEX, VISITIDX, ITEMSETIDX, FORMID, FORMIDX, FORMINDEX, MODIFYTS, DATEDATECHANGED, ITEMSETIDX]
+  AECM0:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AETOXGR, AECMGIV]
+  AECM1:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AETOXGR, AECMGIV]
+    CM: [CMTRT, CMSPID, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMAER, CMAENO]
+  AECM2:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AECMGIV,AETOXGR]
+    CM: [CMTRT, CMSPID, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMAER, CMAENO,CMONGO]
+  AECM1_1:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AESEV, AECMGIV]
+    CM: [CMTRT, CMSPID, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO]
+  AECM2_1:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AESEV, AECMGIV]
+    CM: [CMTRT, CMSPID, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO]
+  AECM3:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AETOXGR, AECMGIV]
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMDOSTOT, CMDOSU, CMDOSFRQ, CMROUTE, CMONGO, CMAER, CMAENO]  ## NEED TO CHECK FOR DOSING
+  AECM4:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AETOXGR, AECMGIV]
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMDOSTOT, CMDOSU, CMDOSFRQ, CMROUTE, CMONGO, CMAER, CMAENO, CMSPID]  ## NEED TO CHECK FOR DOSING
+  AECM5:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AETOXGR, AECMGIV]
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO, CMSPID]
+  AECM6:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AETOXGR, AECMGIV]
+  AECM7:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AETOXGR, AECMGIV]
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMDOSTOT, CMDOSU, CMDOSFRQ, CMROUTE, CMAER, CMAENO]  ## NEED TO CHECK FOR DOSING
+  AECM8:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AETOXGR, AECMGIV]
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO, CMSPID]
+  AEOV1:
+    AE: [FORMIDX, AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+    CM: []
+  AEOV2:
+    AE: [FORMIDX, AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+    CM: []
+  AEOV3:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+    CM: []
+  AEOV1_1:
+    AE: [FORMIDX, AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AESEV]
+  AEOV2_1:
+    AE: [FORMIDX, AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AESEV]
+  AEOV3_1:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AESEV]
+  AEDR0:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+    EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  AEDR1:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+    EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  AEDR2:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+    EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  AEDR3:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+#     EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  AEDR4:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+    EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  AEDR5:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6] 
+    EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  AEDR6:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+    EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  AEDR7:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6] #removing the  AETOXGR,
+    EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  AEDR8:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+    EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  AEDR10:
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+    EC: [itemset_ix, visit_nm, formname, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECPDOSE,  ECPDOSEU, ECDOSTOT, ECDOSU, ECDOSADJ, ECADJ, ECAENO]
+  
+  CMAE0:
+    CM: [CMSPID, CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO]
+  CMAE1:
+    CM: [CMTRT, CMSPID, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR, AECMGIV]
+  CMAE2:
+    CM: [CMTRT, CMSPID, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR, AECMGIV]
+  CMAE1_1:
+    CM: [CMTRT, CMSPID, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AESEV, AECMGIV]
+  CMAE2_1:
+    CM: [CMTRT, CMSPID, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AESEV, AECMGIV]
+  CMAE3:
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMDOSTOT, CMDOSU, CMDOSFRQ, CMROUTE, CMONGO, CMAER, CMAENO, CMSPID]    ## NEED TO CHECK FOR DOSING
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR, AECMGIV]
+  CMAE4:
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO, CMSPID]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR, AECMGIV]
+  CMAE5:
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO, CMSPID]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR, AECMGIV]
+  CMAE6:
+    CM: [CMTRT, CMSPID, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO]
+  CMAE7:
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMONGO, CMAER, CMAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR, AECMGIV]
+  CMAE8:
+    CM: [CMTRT, CM_FORMIDX, CMDECOD, CMSTDAT, CMENDAT, CMDOSTOT, CMDOSU, CMDOSFRQ, CMROUTE, CMONGO, CMAER, CMAENO, CMSPID] ## NEED TO CHECK FOR DOSING
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR, AECMGIV]
+  CMOV1:
+    CM: [FORMIDX, CMSPID, CMTRT, CMDECOD, CMSTDAT, CMENDAT, CMDOSTOT, CMDSTXT, CMDOSU, CMDOSFRQ, CMROUTE, CMONGO, CMAER]  ## NEED TO CHECK FOR DOSING
+    AE: []
+  CMOV2:
+    CM: [FORMIDX, CMSPID, CMTRT, CMDECOD, CMSTDAT, CMENDAT, CMDOSTOT, CMDSTXT, CMDOSU, CMDOSFRQ, CMROUTE,  CMONGO, CMAER]  ## NEED TO CHECK FOR DOSING
+#     CM: [FORMIDX, CMSPID, CMTRT, CMDECOD, CMSTDAT, CMENDAT, CMDOSTOT, CMDOSU, CMDOSFRQ, CMROUTE,  CMONGO, CMAER, CMAENO]
+    AE: []
+  
+  AELB0:
+    AE: [AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+    LB: [visit_nm, formname, LBSTAT, LBTEST, LBDAT, LNMTLOW, LBORRES, LNMTHIGH, LNMTUNIT, LBORRESU]
+  AELB1:
+    AE: [AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+    LB: [visit_nm, formname, LBTEST, LBDAT, LNMTLOW, LBORRES, LNMTHIGH, LNMTUNIT, LBORRESU]
+  AELB2:
+    AE: [AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+    LB: [visit_nm, formname, LBTEST, LBDAT, LNMTLOW, LBORRES, LNMTHIGH, LNMTUNIT, LBORRESU]
+  AELB3:
+    AE: [AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+    LB: [visit_nm, formname, LBTEST, LBDAT, LNMTLOW, LBORRES, LNMTHIGH, LNMTUNIT, LBORRESU]
+  AELB4:
+    AE: [AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+    LB: [visit_nm, formname, LBTEST, LBDAT, LNMTLOW, LBORRES, LNMTHIGH, LNMTUNIT, LBORRESU, grade]
+
+  LBAE0:
+    LB : [visit_nm, formname, LBTEST, LBDAT, LNMTLOW, LBORRES, LNMTHIGH, LNMTUNIT, LBORRESU]
+    AE : [AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+  LBAE1:
+    LB : [visit_nm, formname, LBTEST, LBDAT, LNMTLOW, LBORRES, LNMTHIGH, LNMTUNIT, LBORRESU, grade]
+    AE : [AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+  LBAE2:
+    LB : [visit_nm, formname, LBTEST, LBDAT, LNMTLOW, LBORRES, LNMTHIGH, LNMTUNIT, LBORRESU, grade]
+    AE : [AESPID, AEDECOD, AESTDAT, AEENDAT, AEONGO, AETOXGR]
+  LBOV1:
+    LB1: [visit_nm, LBTEST, LBDAT, LBTIM, LBORRES, LNMTUNIT, LBORRESU, cdr_skey]
+    LB2: [visit_nm, LBTEST, LBDAT, LBTIM, LBORRES, LNMTUNIT, LBORRESU, cdr_skey]
+
+  DRAE0:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECADJO, ECAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+  DRAE1:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+  DRAE2:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO]
+  DRAE4:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+  DRAE5:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+  DRAE6:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+  DRAE7:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+  DRAE8:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+  DRAE9:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO]
+    AE: [AETERM, AESPID, AEDECOD, AESTDAT, AEENDAT, AEENDAT, AEONGO, AETOXGR, AEACN, AEACN1, AEACN2, AEACN3, AEACN4, AEACN5, AEACN6, AEREL, AEREL1, AEREL2, AEREL3, AEREL4, AEREL5, AEREL6]
+  DROV1:
+    EC: [EC_MODIFYTS, EC_DATEDATECHANGED, EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO,CDR_SKEY]
+  DROV2:
+    EC: [EC_MODIFYTS, EC_DATEDATECHANGED, EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO,CDR_SKEY]
+  DROV:
+    EC: [EC_ITEMSETIDX, EC_VISITNAM, EC_FORMNAME, ECTRT, ECSTDAT, ECENDAT, ECPDFRQ, ECDOSE,  ECPDOSEU, ECDOSADJ, ECADJ, ECAENO,CDR_SKEY]
+  
+FIELD_NAME_DICT:
+  #AE
+  AESPID: AE Identifier
+  AETERM: AE Term
+  AESTDAT: AE Start Date
+  AEENDAT: AE End Date
+  AEONGO: AE Ongoing
+  AETOXGR: Toxicity grade
+  AEACN: Action taken with treatment
+  AEACN1: Action taken with treatment 1
+  AEACN2: Action taken with treatment 2
+  AEACN3: Action taken with treatment 3
+  AEACN4: Action taken with treatment 4
+  AEACN5: Action taken with treatment 5
+  AEACN6: Action taken with treatment 6
+  AEREL: Event Related to treatment
+  AEREL1: Is the Event Related to treatment 1?
+  AEREL2: Is the Event Related to treatment 2? 
+  AEREL3: Is the Event Related to treatment 3?
+  AEREL4: Is the Event Related to treatment 4?
+  AEREL5: Is the Event Related to treatment 5?
+  AEREL6: Is the Event Related to treatment 6?
+  AEDECOD: Dictionary coded term
+  AECMGIV: Was a Concomitant Medication given?
+  AESEV: Severity
+
+  #CM
+  CMSPID: CM Identifier
+  CMTRT: CM Term
+  CMDECOD: Standardized Medication Name
+  CMSTDAT: CM Start date
+  CMENDAT: CM End date
+  CMONGO: CM Ongoing
+  CMAENO: AE Identifier
+  CMAER: Was this medication given to treat an Adverse Event?
+  CMDOSTOT: Dose
+  CMDOSU: Dose Unit
+  CMDOSFRQ: Dose Frequency
+  CMROUTE: Dose route
+  CMDSTXT: DOSE
+
+  #EC
+  ECADJ: What was the reason the dose was adjusted ?
+  ECPDFRQ: Planned Dose Frequency
+  ECTRT: Treatment Name
+  ECDOSE: Total Dose
+  ECSTDAT: Dose Start Date
+  ECENDAT: Dose End Date
+  ECAENO: EC AE Identifier
+  itemset_ix: Dose Record Number
+  ECPDOSE: Planned Dose
+  ECPDOSEU: Planned Dose Unit
+  ECPDFRQ: Planned Dose Frequency
+  ECDOSTOT: Total Dose
+  ECDOSU: Total Dose Unit
+  ECDOSADJ: Was the dose adjusted from planned ?
+  cdr_skey: INTERNAL ID
+  
+  #LB
+  grade: CTCAE Grade
+  visit_nm: Visit Name
+  formname: Form Name
+  LBDAT: Date of Specimen Collection
+  LBTIM: Time of Specimen Collection
+  LBTEST: Lab Test
+  LBORRES: Result
+  LBORRESU: Original Units
+  cdr_skey: INTERNAL ID
+
+FN_CONFIG:  
+  AEOV1:
+    flags :
+      smc_flag : False
+      llt_flag : False
+    cols:
+      ae_tox_col : [AETOXGR]
+      ae_sev_col : [AESEV]
+      dt_cols: ['AESTDTC','AEENDTC'] 
+      ae_ongo_col : ['AEONGO', 'AEOUT']
+      uniq_id_col : ['cdr_skey'] 
+      ae_term_col : ['AETERM']
+      ae_decod_col : ['AEDECOD']
+      ae_llt_col : ['AELLTCD']
+    vals:
+      AEONGO: 
+        yes_val : ['YES','1','Y']
+        no_val : ['NO','0','NAN', None, 'NONE','NULL','N','', ' ']
+      AEOUT:
+        yes_val : ['RESOLVING','RECOVERING']
+        no_val : ['NOT RESOLVED', 'NOT RECOVERED']
+    
+  AEOV2:
+    flags :
+      smc_flag : False
+      llt_flag : False
+    cols:
+      ae_tox_col : [AETOXGR]
+      ae_sev_col : [AESEV]
+      dt_cols: ['AESTDTC','AEENDTC'] 
+      ae_ongo_col : ['AEONGO', 'AEOUT']
+      uniq_id_col : ['cdr_skey'] 
+      ae_term_col : ['AETERM']
+      ae_decod_col : ['AEDECOD']
+      ae_llt_col : ['AELLTCD']
+    check:
+      AETOXGR : 'YES'
+      AESEV : 'NO'
+    vals:
+      AEONGO: 
+        yes_val : ['YES','1']
+        no_val : ['NO','0','NAN', None, 'NONE','NULL','N','', ' ']
+      AEOUT:
+        yes_val : ['RESOLVING','RECOVERING']
+        no_val : ['NOT RESOLVED', 'NOT RECOVERED']
+
+  AEOV3:
+    flags :
+      smc_flag : False
+      llt_flag : False
+    cols:
+      ae_tox_col : [AETOXGR]
+      ae_sev_col : [AESEV]
+      dt_cols: ['AESTDTC','AEENDTC'] 
+      ae_ongo_col : ['AEONGO', 'AEOUT']
+      uniq_id_col : ['cdr_skey'] 
+      ae_term_col : ['AETERM']
+      ae_decod_col : ['AEDECOD']
+      ae_llt_col : ['AELLTCD']
+    check:
+      AETOXGR : 'YES'
+      AESEV : 'NO'
+    vals:
+      AEONGO: 
+        yes_val : ['YES','1']
+        no_val : ['NO','0','NAN', None, 'NONE','NULL','N','', ' ']
+      AEOUT:
+        yes_val : ['RESOLVING','RECOVERING']
+        no_val : ['NOT RESOLVED', 'NOT RECOVERED']
+
+  AECM0 :
+    use_smc : False
+    match : [match_term]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_term', 'match_date'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'NO'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        #prim_match_key : term
+        #sec_match_key : term
+        prim_match_col : ['AETERM']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : CMAENO
+      str_match : contains
+      match_type : id
+
+    match_term:
+      #prim_match_key : 'term' #smc
+      #sec_match_key : 'term' #smc
+      prim_match_col : AETERM
+      sec_match_col : CMINDC
+      str_match : contains
+      match_type : text 
+  
+    cols :
+      ae_term_col : ['AETERM'] 
+      ae_ref_id_col : ['AENO', 'AEREFID', 'AEREFNO']
+      ae_contrt_col : ['AECONTRT'] 
+      #ae_contrt_col : [] #for Merck studies
+      cm_indc_col : ['CMINDC']
+      cm_ae_id_col : ['CMAENO']
+      uniq_id_col : ['cdr_skey']
+    vals : 
+      ae_contrt_val : 
+        yes_val : ['CONCOMITANT MEDICATIONS', 'YES','1']
+    qt : 
+      AETERM : 'AETERM'
+      AECONTRT : 'AECONTRT'
+
+
+  AECM1 : 
+    use_smc : False
+    match : [match_term]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '_'
+      match_items : [match_term] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'NO' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : CMAENO
+      str_match : contains
+      match_type : id
+    match_term:
+      #prim_match_key : 'term'
+      #sec_match_key : 'term'
+      prim_match_col : AETERM
+      sec_match_col : CMINDC
+      str_match : contains
+      match_type : text    
+      #suppress_sec: True #for smc
+      #suppress_sec_list : [st_date_check] #for smc
+
+    cols :
+      ae_ref_id_col : ['AEREFID']
+      dt_cols: ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC'] 
+      ae_contrt_col : ['AECONTRT'] 
+      #ae_contrt_col : []  #for studies
+      ae_term_col : ['AETERM']
+      cm_ae_id_col : ['CMAENO'] # non-DSL
+      uniq_id_col : ['cdr_skey']
+      cm_trt_col : ['CMTRT']
+    vals : 
+      ae_contrt_val : 
+        yes_val : ['YES','1']
+      
+  AECM2 :
+    use_smc : False
+    match : [match_term]    
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_term', 'match_date'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'NO' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : term_dsl 
+        #suppress_sec: True #for smc
+        #suppress_sec_list: [en_date_check] #for smc
+             
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : CMAENO
+      str_match : contains
+      match_type : id
+    match_term:
+      #prim_match_key : 'term'
+      #sec_match_key : 'term'  
+      prim_match_col : AETERM
+      sec_match_col : CMINDC
+      str_match : contains
+      match_type : text  
+      #suppress_sec: True #for smc
+      #suppress_sec_list: [en_date_check]  #for smc
+    cols:
+      uniq_id_col : ['cdr_skey']
+      ae_contrt_col : ['AECONTRT'] 
+      #ae_contrt_col : [] #for Merck studies
+      ae_term_col : ['AETERM']
+      cm_ae_id_col : ['CMAENO'] # non-DSL
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dt_cols: ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC']
+      cm_trt_col : ['CMTRT']
+    vals: 
+      ae_contrt_val :
+        yes_val : ['YES','1']
+  
+  AECM5 :
+    use_smc : False
+    match : [match_term]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_term', 'match_date'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'NO' #Is prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : CMAENO
+      str_match : contains
+      match_type : id
+    match_term:
+      prim_match_col : AETERM
+      sec_match_col : CMINDC
+      str_match : contains
+      match_type : text    
+    cols:
+      uniq_id_col : ['cdr_skey']
+      ae_ref_id_col : [AEREFID]
+      ae_term_col : ['AETERM']
+      ae_contrt_col : ['AECONTRT'] 
+      #ae_contrt_col : [] #for Merck studies
+      ae_ongo_col : [AEONGO, AEOUT]
+      dt_cols : ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC']
+      cm_trt_col : ['CMTRT']
+      cm_decod_col : ['CMDECOD']
+      cm_ae_id_col : ['CMAENO']
+      cm_id_col: ['CMREFID'] # non-DSL
+      cm_ongo_col : ['CMONGO']
+      cm_indc_col : ['CMINDC']
+      ae_decod_col : ['AEDECOD']
+    vals :
+      ae_contrt_val : 
+        yes_val : ['CONCOMITANT MEDICATIONS','YES',1,'1']
+        no_val : ['NO','0','NAN', None, 'NONE', 0,'NULL','N','',' ']
+      AEONGO: 
+        yes_val : ['YES','1',1]
+        no_val : ['NO','0','NAN', None, 'NONE',0,'NULL','N','',' ']
+      AEOUT:
+        yes_val : ['RESOLVING','RECOVERING']
+        no_val : ['NOT RESOLVED', 'NOT RECOVERED']
+      cm_ongo_val :
+        yes_val : ['YES','1']
+        no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']
+    
+ 
+  AECM7 :
+    use_smc : False
+    match : [] # It should either be `match_dsl` or blank to compare CMINDC & AETERM
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : []
+    match_DSL :
+      cm_ae_id_cols : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']     
+      SEP : '_'
+      match_items : ['match_id'] 
+      id_pref_pres_prim : 'NO' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : CMAENO
+      str_match : contains
+      match_type : id
+    match_term:
+      prim_match_col : AETERM
+      sec_match_col : CMINDC
+      str_match : contains
+      match_type : text   
+    cols:
+      uniq_id_col : ['cdr_skey']
+      ae_ref_id_col : [AEREFID]
+      ae_ongo_col : [AEONGO, AEOUT]
+      dt_cols : ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC']
+      cm_trt_col : ['CMTRT']
+      cm_ae_id_col : ['CMAENO'] # non-DSL
+      ae_contrt_col : ['AECONTRT']
+      cm_id_col : ['CMREFID'] 
+      #ae_contrt_col : [] #for Merck studies
+      cm_ongo_col : ['CMONGO']
+    vals:
+      AEONGO: 
+        yes_val : ['YES','1']
+        no_val : ['NO','0','NAN', None, 'NONE','NULL','N','',' ']
+      AEOUT:
+        yes_val : ['RESOLVING','RECOVERING']
+        no_val : ['NOT RESOLVED', 'NOT RECOVERED']
+      cm_ongo_val :
+        yes_val : ['YES','1']
+        no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']
+      ae_contrt_val :
+        yes_val : ['YES','1']
+    
+  AEMH0 :
+    use_smc : False
+    match_term : 
+      #prim_match_key : 'term' #for smc
+      #sec_match_key : 'term' # for smc
+      prim_match_col : AEDECOD #AETERM for SMC
+      sec_match_col : MHDECOD #MHTERM for SMC
+      str_match : 'equals'
+      match_type : text
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      ae_term_col : ['AETERM']
+      mh_ae_id_col : ['MHAENO']
+      mh_term_col : ['MHTERM']
+      uniq_id_col : ['cdr_skey']    
+      ae_decod_col : ['AEDECOD'] 
+      mh_decod_col : ['MHDECOD']  
+    check:
+      symptoms_list : ['WORSENING', 'EXACERBATION', 'PROGRESSION','FLARE','INCREASED','ELEVATED','INCREASE', 'INCREASING']
+
+  CMAE0 :  
+    use_smc : False 
+    match : [match_term]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    #matching not given as both id and term need to be checked
+    match_id:
+      prim_match_col : CMAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_term:
+      prim_match_col : CMINDC
+      sec_match_col : AETERM
+      str_match : contains
+      match_type : text        
+    cols:
+      cm_ae_id_col : ['CMAENO'] # non-DSL
+      ae_ref_id_col : [AEREFID]
+      cm_indc_col : ['CMINDC']
+      cm_trt_col : ['CMTRT']
+      cm_ongo_col : ['CMONGO']
+      uniq_id_col : ['cdr_skey']      
+
+  CMAE1 :
+    use_smc : False 
+    #match : [match_DSL]
+    #match : [match_id, match_term]
+    match : [match_term]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL    
+    match_condition : ['OR']
+    match_id:
+      prim_match_col : CMAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_term:
+      prim_match_col : CMINDC
+      sec_match_col : AETERM
+      str_match : contains
+      match_type : text   
+    cols:
+      cm_ae_id_col : ['CMAENO'] # non-DSL
+      ae_ref_id_col : [AEREFID]
+      dt_cols : ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC']
+      cm_indc_col : ['CMINDC']
+      uniq_id_col : ['cdr_skey']
+      cm_trt_col : ['CMTRT']
+
+  CMAE1_1 :
+    use_smc : False
+    #non_DSL
+    #match : [match_term]  # only match_term for CMAE1_1
+
+    #DSL
+    match : [match_term]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_term :
+      prim_match_col : CMINDC
+      sec_match_col : AETERM
+      str_match : contains
+      match_type : text   
+    cols:
+      cm_ae_id_col : ['CMAENO'] # non-DSL
+      ae_ref_id_col : [AEREFID]
+      ae_contrt_col : ['AECONTRT'] 
+      #ae_contrt_col : [] #for Merck studies
+      ae_decod_col : ['AEDECOD']
+      ae_sev_col : ['AESEV']
+      dt_cols : ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC']
+      uniq_id_col : ['cdr_skey']
+      cm_trt_col : ['CMTRT']
+      
+  CMAE2 :
+    use_smc : False     
+    match : [match_term]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES'  #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    #match : [match_id, match_term]
+    match_condition : ['OR']
+    match_id:
+      prim_match_col : CMAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_term:
+      prim_match_col : CMINDC
+      sec_match_col : AETERM
+      str_match : contains
+      match_type : text   
+    cols:
+      ae_ref_id_col : [AEREFID]
+      ae_ongo_col : [AEONGO, AEOUT]
+      dt_cols : ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC']
+      cm_indc_col : ['CMINDC']
+      cm_ae_id_col : ['CMAENO'] # non-DSL
+      uniq_id_col : ['cdr_skey'] 
+      cm_trt_col : ['CMTRT']
+    vals :    
+      AEONGO: 
+        yes_val : ['YES','1']
+        no_val : ['NO','0','NAN', None, 'NONE','NULL','N','',' ']
+      AEOUT:
+        yes_val : ['RESOLVING','RECOVERING']
+        no_val : ['NOT RESOLVED', 'NOT RECOVERED']
+      ae_contrt_val : 
+        yes_val : ['YES','1']
+
+  CMAE2_1 :
+    use_smc : False
+    #DSL
+    match : [match_term]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES'  #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    
+    #non_DSL
+    #match : [match_term]  # only match_term for CMAE2_1
+    match_term:
+      prim_match_col : CMINDC
+      sec_match_col : AETERM
+      str_match : contains
+      match_type : text   
+    cols:
+      ae_ref_id_col : [AEREFID]
+      ae_ongo_col : [AEONGO, AEOUT]
+      ae_decod_col : ['AEDECOD']
+      ae_sev_col : ['AESEV']
+      dt_cols : ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC']
+      cm_ae_id_col : ['CMAENO'] # non-DSL
+      uniq_id_col : ['cdr_skey']
+      cm_trt_col : ['CMTRT']
+
+  CMAE4 :
+    #DSL
+    match : [match_term]
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    
+    #non_DSL
+    #match : [match_id, match_term]
+    match_condition : ['OR']
+    match_id:
+      prim_match_col : CMAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_term:
+      prim_match_col : CMINDC
+      sec_match_col : AETERM
+      str_match : contains
+      match_type : text 
+    cols:
+      ae_ref_id_col : ['AEREFID']
+      ae_ongo_col : ['AEONGO', 'AEOUT']
+      ae_contrt_col : ['AECONTRT'] 
+      #ae_contrt_col : [] #for Merck studies
+      ae_term_col : ['AETERM']
+      ae_decod_col : ['AEDECOD']
+      dt_cols : ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC']
+      cm_indc_col : ['CMINDC']
+      cm_ae_id_col : ['CMAENO']
+      cm_ongo_col : ['CMONGO']
+      cm_decod_col : ['CMDECOD']
+      cm_trt_col : ['CMTRT']
+      uniq_id_col : ['cdr_skey']
+    vals:
+      ae_contrt_val : 
+        no_val : ['NO','0','NONE', None, 'NAN','',' ','NULL','N']
+      cm_ongo_val :
+        yes_val : ['YES','1']
+        no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']      
+      AEONGO : 
+        yes_val : ['YES','1']
+        no_val : ['NO','0','NAN', None, 'NONE','NULL','N','', ' ']
+      AEOUT :
+        yes_val : ['RESOLVING','RECOVERING']
+        no_val : ['NOT RESOLVED', 'NOT RECOVERED']
+    flags:
+      smc_flag : False
+  
+  CMAE5 :
+    #match : [match_term]
+    #match : [match_id, match_term]
+    match_condition : ['OR']    
+    match : [match_term]
+    match_DSL :     
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    
+    #non_DSL
+    match_id:
+      prim_match_col : CMAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_term:
+      prim_match_col : CMINDC
+      sec_match_col : AETERM
+      str_match : contains
+      match_type : text
+    cols :
+      ae_ref_id_col : ['AEREFID']
+      ae_term_col : ['AETERM']
+      ae_contrt_col : ['AECONTRT'] 
+      cm_indc_col : ['CMINDC']
+      cm_decod_col : ['CMDECOD']
+      cm_ae_id_col : ['CMAENO']
+      uniq_id_col : ['cdr_skey']
+      cm_trt_col : ['CMTRT']
+      ae_decod_col : ['AEDECOD']
+    vals :
+      ae_contrt_val :
+        yes_val : ['YES','1']
+    flags : 
+      smc_flag : False
+  
+  CMAE6 :
+    #match : [match_id] match_id or match_term only - only one value allowed
+    match : [match_term]
+    match_condition : ['OR']
+    match_DSL :
+      cm_ae_id_cols : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    
+    #non_DSL
+    match_id:
+      prim_match_col : CMAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    cols:
+      uniq_id_col : ['cdr_skey']
+      cm_ae_id_col : ['CMAENO']
+      ae_ref_id_col : [AEREFID]
+      ae_term_col : ['AETERM']
+      ae_id_col : ['AEREFID']
+      ae_endt_col : ['AEENDTC']
+      ae_stdt_col : ['AESTDTC']
+      ae_ongo_col : ['AEONGO']
+      ae_decod_col : ['AEDECOD']
+      cm_trt_col : ['CMTRT']
+
+  CMAE7 :
+    use_smc : False
+    #match : [match_id, match_term]
+    match_condition : ['OR']     
+    match : [match_term]
+    match_DSL :
+      cm_ae_id_cols : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    
+    #non_DSL
+    match_id:
+      prim_match_col : CMAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_term:
+      prim_match_col : CMINDC
+      sec_match_col : AETERM
+      str_match : contains
+      match_type : text
+    cols :
+      ae_ref_id_col : [AEREFID]
+      ae_term_col : ['AETERM']
+      dt_cols : ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC'] 
+      cm_dt_col: ['CMSTDTC','CMENDTC']
+      cm_ae_id_col : ['CMAENO'] # non-DSL
+      cm_decod_col : ['CMDECOD']
+      cm_indc_col : ['CMINDC']
+      cm_trt_col : ['CMTRT']
+      uniq_id_col : ['cdr_skey']
+      ae_decod_col : ['AEDECOD']      
+    vals:
+      UNK_vals : ['UNK','UN']
+    
+  CMOV1:
+    flags :
+      smc_flag : False
+      llt_flag : False
+    #check_fields : [CMDOSE, CMDOSU, CMDOSFRQ, CMROUTE, CMINDC, CMTRT, CMDECOD]
+    check_fields : [CMDOSE, CMDOSFRQ, CMROUTE, CMTRT, CMDECOD]
+    cols :
+      dt_cols : ['CMSTDTC','CMENDTC']      
+      cm_trt_col : ['CMTRT']
+      cm_decod_col : ['CMDECOD']
+      cm_ongo_col : ['CMONGO']
+      uniq_id_col : ['cdr_skey']
+      remove_spl_chars : ['CMDOSE']
+    vals:
+      cm_ongo_val :
+        yes_val : ['YES','1']
+        no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N',' ','']
+     
+  CMOV2:
+    #check_fields : [CMDOSE, CMDOSU, CMDOSFRQ, CMROUTE, CMINDC, CMTRT]
+    check_fields : [CMDOSE, CMDOSFRQ, CMROUTE, CMTRT]
+    cols:
+      cm_trt_col : ['CMTRT']
+      cm_decod_col : ['CMDECOD']
+      uniq_id_col : ['cdr_skey']
+      cm_ongo_col : ['CMONGO']
+      dt_cols : ['CMSTDTC','CMENDTC']
+      remove_spl_chars : ['CMDOSE']
+    vals:
+      cm_ongo_val :
+        yes_val : ['YES','1']
+        no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']
+    flags :
+      smc_flag : False
+      llt_flag : False
+
+  CMMHAE0:
+    #SMC Flag
+    use_smc : False
+    #non_DSL 
+    match_ae : [match_ae_term]
+    match_mh : [match_mh_term]
+    
+    #match_ae : [match_ae_DSL] 
+    #match_mh : [match_mh_DSL]
+    match_ae_DSL:
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    
+    match_mh_DSL :
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'MH'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['MHREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['MHTERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['MHSTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_ae_condition : ['OR']
+    match_mh_condition : ['OR']
+    match_ae_id : 
+      prim_match_col : 'CMAENO'
+      sec_match_col : 'AEREFID'
+      str_match : contains 
+      match_type : id
+    match_ae_term : 
+      prim_match_col : 'CMINDC'
+      sec_match_col : 'AETERM'
+      str_match : contains 
+      match_type : text
+    match_mh_id : 
+      prim_match_col : 'CMMHNO'
+      sec_match_col : 'MHREFID'
+      str_match : contains 
+      match_type : id
+    match_mh_term : 
+      prim_match_col : 'CMINDC'
+      sec_match_col : 'MHTERM'
+      str_match : contains 
+      match_type : text
+    
+    cols :
+      mh_ref_id_col : [MHREFID,MHREFNO,MHNO]
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dt_cols : ['CMSTDTC','CMENDTC','MHSTDTC','MHENDTC']      
+      ae_term_col : ['AETERM']
+      cm_decod_col : ['CMDECOD']
+      mh_term_col : ['MHTERM']
+      mh_decod_col : ['MHDECOD']
+      cm_mh_id_col : ['CMMHNO']
+      cm_ae_id_col : ['CMAENO']
+      cm_trt_col : ['CMTRT']
+      cm_indc_col : ['CMINDC']
+      uniq_id_col : ['cdr_skey']
+      ae_contrt_col : ['AECONTRT']
+      ae_endt_col : ['AEENDTC']
+      ae_id_col : ['AEREFID']
+      ae_decod_col : ['AEDECOD']
+
+    symptoms_list : ['WORSEN','WORSENING', 'EXACERBATION', 'PROGRESSION','FLARE','INCREASED', 'ELEVATED']
+    
+  CMMHAE1:
+    #SMC Flag
+    use_smc : False
+    #non_DSL 
+    match_ae : [match_ae_id, match_ae_term]
+    match_mh : [match_mh_id, match_mh_term]
+    # DSL
+    #match_ae : [match_ae_DSL] 
+    #match_mh : [match_mh_DSL]
+    match_ae_DSL:
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    
+    match_mh_DSL :
+      SEP : '_'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date]
+      id_pref_pres_prim : 'YES' #Prefix present in primary domain?
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'MH'        
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['MHREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        sec_match_col : ['MHTERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        sec_match_col : ['MHSTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    
+    #non_DSL
+    match_ae_condition : ['OR']
+    match_mh_condition : ['OR']
+    match_ae_id : 
+      prim_match_col : 'CMAENO'
+      sec_match_col : 'AEREFID'
+      str_match : contains 
+      match_type : id
+    match_ae_term : 
+      prim_match_col : 'CMINDC'
+      sec_match_col : 'AETERM'
+      str_match : contains 
+      match_type : text
+    match_mh_id : 
+      prim_match_col : 'CMMHNO'
+      sec_match_col : 'MHREFID'
+      str_match : contains 
+      match_type : id
+    match_mh_term : 
+      prim_match_col : 'CMINDC'
+      sec_match_col : 'MHTERM'
+      str_match : contains 
+      match_type : text
+    cols :
+      mh_ref_id_col : [MHREFID,MHREFNO,MHNO]
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dt_cols : ['CMSTDTC','CMENDTC','MHSTDTC','MHENDTC']      
+      ae_term_col : ['AETERM']
+      cm_indc_col : ['CMINDC']
+      cm_mh_id_col : ['CMMHNO']
+      cm_ae_id_col : ['CMAENO']
+      cm_trt_col : ['CMTRT']
+      uniq_id_col : ['cdr_skey']
+      cm_ongo_col : ['CMONGO']
+    vals:
+      cm_ongo_val :
+        yes_val : ['YES','1']
+        no_val : ['NO','0','',' ','NAN','NONE',None,'NULL','N']
+  
+  DHAE0 :
+    match : [match_term]
+    match_condition : []
+    match_id : 
+      prim_match_col : DDAENO
+      sec_match_col : AEREFID
+      str_match : contains 
+      match_type : id
+    match_term :
+      prim_match_col : DDDESC
+      sec_match_col : AETERM
+      str_match : contains
+      match_type : text
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dh_ae_id_col : ['DDAENO']
+      dh_term_col : ['DDDESC']
+      ae_term_col : ['AETERM']
+      ae_stdt_col : ['AESTDTC']
+      ae_endt_col : ['AEENDTC']
+
+  DHAE1 :
+    match : ['match_term']
+    match_condition : []
+    match_id : 
+      prim_match_col : AEREFID
+      sec_match_col : DDAENO
+      str_match : contains 
+      match_type : id
+    match_term :
+      prim_match_col : AETERM
+      sec_match_col : DDDESC
+      str_match : contains
+      match_type : text
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      ae_tox_col : [AETOXGR]
+      dh_term_col : [DDDESC]
+      ae_term_col : [AETERM]
+      uniq_id_col : ['cdr_skey']
+    vals:
+      ae_tox_val : ['GRADE 5']
+  
+  DHAE2 :
+    match : ['match_term']
+    match_condition : []
+    match_id : 
+      prim_match_col : AEREFID
+      sec_match_col : DDAENO
+      str_match : contains 
+      match_type : id
+    match_term :
+      prim_match_col : AETERM
+      sec_match_col : DDDESC
+      str_match : contains
+      match_type : text
+    cols:
+      ae_ref_id_col : [AEREFID]
+      ae_ser_col : ['AESER']
+      uniq_id_col : ['cdr_skey']
+      dh_ae_id_col : ['DDAENO']
+    vals:
+      ae_ser_val : ['YES']  
+
+  DHAE3 :
+    match : ['match_term']
+    match_condition : []
+    match_id : 
+      prim_match_col : AEREFID
+      sec_match_col : DDAENO
+      str_match : contains 
+      match_type : id
+    match_term :
+      prim_match_col : AETERM
+      sec_match_col : DDDESC
+      str_match : contains
+      match_type : text
+    cols:
+      uniq_id_col : ['cdr_skey']
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      ae_tox_col : ['AETOXGR']
+      dh_ae_id_col : ['DDAENO']
+    vals:
+      ae_tox_val : ['GRADE 5']
+
+  DHAE4 :
+    match : ['match_term']
+    match_condition : []
+    match_id : 
+      prim_match_col : AEREFID
+      sec_match_col : DDAENO
+      str_match : contains 
+      match_type : id
+    match_term :
+      prim_match_col : AETERM
+      sec_match_col : DDDESC
+      str_match : contains
+      match_type : text
+    cols:
+      dt_cols : ['AESTDTC','AEENDTC']
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dh_term_col : [DDDESC]
+      ae_term_col : [AETERM]
+      dh_ae_id_col : ['DDAENO']
+      uniq_id_col : ['cdr_skey']
+    vals:
+      ae_dt_null_val : ['NAN','NONE','',' ','NULL']
+    
+  DHAE5 :
+    match : ['match_term']
+    match_condition : []
+    match_id : 
+      prim_match_col : AEREFID
+      sec_match_col : DDAENO
+      str_match : contains 
+      match_type : id
+    match_term :
+      prim_match_col : AETERM
+      sec_match_col : DDDESC
+      str_match : contains
+      match_type : text
+    cols:
+      dt_cols : ['AESTDTC','AEENDTC']
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      ae_ongo_col : ['AEONGO', 'AEOUT']
+      dh_term_col : [DDDESC]
+      ae_term_col : [AETERM]
+      dh_ae_id_col : ['DDAENO']
+      uniq_id_col : ['cdr_skey']
+    vals:
+      AEONGO: 
+        yes_val : ['YES','1']
+        no_val : ['NO','0','NAN', None, 'NONE','NULL','N',' ','']
+      AEOUT:
+        yes_val : ['RESOLVING','RECOVERING']
+        no_val : ['NOT RESOLVED', 'NOT RECOVERED']
+      ae_dt_null_val : ['NAN','NONE','',' ','NULL']
+    
+  MHAE0:
+    #SMC Flag
+    use_smc : False
+    match_term : 
+      prim_match_col : MHDECOD
+      sec_match_col : AEDECOD
+      str_match : equals
+      match_type : text
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      ae_term_col : ['AETERM']
+      mh_term_col : ['MHTERM']
+      ae_decod_col : ['AEDECOD']
+      mh_decod_col : ['MHDECOD']      
+      mh_ongo_col : ['MHONGO']
+      mh_ae_id_col : ['MHAENO']
+      uniq_id_col : ['cdr_skey']
+    vals:
+      mh_ongo_val :
+        yes_val : ['YES','1']
+        no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']      
+    check:
+      symptoms_list : ['WORSEN','WORSENING', 'EXACERBATION', 'PROGRESSION','FLARE','INCREASED', 'ELEVATED']
+      
+  MHCM0:
+    cols :
+      mh_term_col : ['MHTERM']
+      mh_contrt_col : ['MHCONTRT']
+      cm_id_col : ['CMREFID']
+      cm_trt_col : ['CMTRT']
+      cm_decod_col : ['CMDECOD']
+      cm_stdt_col : ['CMSTDTC']
+      cm_indc_col : ['CMINDC']
+      #mh_contrt_col : [] #for Merck studies
+    vals:
+      mh_contrt_val :
+        yes_val : ['YES','1']
+
+  MHCM1:
+    #SMC Flag
+    use_smc : False
+    match : [match_term] 
+    #match : [match_term] #only match_term for non-DSL
+
+    match_DSL:
+      SEP : '_'
+      match_items : ['match_term'] 
+      id_pref_pres_prim : 'NO' #Prefix present in primary domain?
+      term_pos : 1  
+      match_term:
+        prim_match_col : ['MHTERM']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['MHSTDTC']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5']
+        str_match : 'equals'
+        match_type : date_dsl
+
+    match_term : 
+      prim_match_col : MHTERM
+      sec_match_col : CMINDC
+      str_match : contains
+      match_type : text
+    cols:
+      dt_cols : ['MHSTDTC','MHENDTC','CMSTDTC','CMENDTC']
+      mh_term_col : ['MHTERM']
+      uniq_id_col : ['cdr_skey'] 
+      
+  MHCM2:
+    #SMC Flag
+    use_smc : False
+    match : [match_term]
+    #match : [match_term] # only match_term
+    match_DSL:
+      SEP : '_'
+      match_items : ['match_term'] 
+      id_pref_pres_prim : 'NO' # Prefix present in primary domain?
+      term_pos : 1
+      match_term:
+        prim_match_col : ['MHTERM']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        str_match : 'contains'
+        match_type : term_dsl      
+    #non - DSL
+    match_term : 
+      prim_match_col : MHTERM
+      sec_match_col : CMINDC
+      str_match : contains
+      match_type : text
+    cols : 
+      dt_cols : ['MHSTDTC','MHENDTC', 'CMSTDTC','CMENDTC']
+      mh_term_col : ['MHTERM']
+      cm_indc_col : ['CMINDC']
+      cm_trt_col : ['CMTRT']
+      uniq_id_col : ['cdr_skey'] 
+
+  MHCM3:
+    #SMC Flag
+    use_smc : False
+    match : [match_term]
+    #match : [match_term] #only match_term
+    match_DSL:
+      SEP : '_'
+      match_items : ['match_term'] 
+      id_pref_pres_prim : 'NO' #Prefix present in primary domain?
+      term_pos : 1
+      match_term:
+        prim_match_col : ['MHTERM']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        str_match : 'contains'
+        match_type : term_dsl
+    #non-DSL
+    match_term : 
+      prim_match_col : MHTERM
+      sec_match_col : CMINDC
+      str_match : contains
+      match_type : text
+    cols :
+      dt_cols : ['MHSTDTC','MHENDTC']
+      cm_trt_col : ['CMTRT']
+      cm_ongo_col : ['CMONGO']
+      mh_term_col : ['MHTERM']
+      uniq_id_col : ['cdr_skey'] 
+    vals :
+      cm_ongo_val :
+        yes_val : ['YES','1']
+        no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']
+    
+  MHCM4:
+    #SMC Flag
+    use_smc : False
+    match : [match_term]
+    #match : [match_term]
+    match_DSL:
+      SEP : '_'
+      match_items : ['match_term'] 
+      id_pref_pres_prim : 'NO' #Prefix present in primary domain?
+      term_pos : 1
+      match_term:
+        prim_match_col : ['MHTERM']
+        sec_match_col : ['CMAENO','CMAE2','CMAE3','CMAE4','CMAE5'] 
+        str_match : 'contains'
+        match_type : term_dsl
+
+    #non-DSL match  
+    match_term : 
+      prim_match_col : MHTERM
+      sec_match_col : CMINDC
+      str_match : contains
+      match_type : text
+    cols :
+      dt_cols : ['MHSTDTC','MHENDTC', 'CMSTDTC','CMENDTC']
+      uniq_id_col : ['cdr_skey'] 
+  
+  MHOV1 :
+    flags :
+      smc_flag : False
+      llt_flag : False
+    cols :
+      uniq_id_col : ['cdr_skey'] 
+      mh_term_col : ['MHTERM']
+      mh_decod_col : ['MHDECOD']
+      mh_tox_col : ['MHTOXGR'] # Leave it as mh_tox_col : [], if tox grade not present
+      dt_cols : ['MHSTDTC','MHENDTC']
+      mh_ongo_col : ['MHONGO']
+      uniq_id_col : ['cdr_skey']
+    vals:
+      mh_ongo_val:
+        yes_val : ['YES','1']
+        no_val : ['NO','0','NAN','',' ','NONE','NULL','N']
+
+  MHOV2 : 
+    flags :
+      smc_flag : False
+      llt_flag : False
+    cols :
+      itemset_ix_col : ['cdr_skey'] 
+      mh_term_col : ['MHTERM']
+      mh_decod_col : ['MHDECOD']
+      mh_tox_col : ['MHTOXGR'] # Leave it as mh_tox_col : [], if tox grade not present
+      dt_cols : ['MHSTDTC','MHENDTC']
+      mh_ongo_col : ['MHONGO']
+      uniq_id_col : ['cdr_skey']
+    vals:
+      mh_ongo_val:
+        yes_val : ['YES','1']
+        no_val : ['NO','0', 'NAN','',' ','NONE','NULL','N']
+
+  MHOV3 : 
+    flags :
+      smc_flag : False
+      llt_flag : False
+    cols :
+      itemset_ix_col : ['cdr_skey'] 
+      mh_term_col : ['MHTERM']
+      mh_decod_col : ['MHDECOD']
+      mh_tox_col : ['MHTOXGR'] # Leave it as mh_tox_col : [], if tox grade not present
+      dt_cols : ['MHSTDTC','MHENDTC']
+      mh_ongo_col : ['MHONGO']
+      uniq_id_col : ['cdr_skey']
+    vals:
+      mh_ongo_val:
+        yes_val : ['YES','1']
+        no_val : ['NO','0', 'NAN','',' ','NONE','NULL']
+
+  LBAE0:
+    match: []
+    cols:
+      lb_test_col: ['LBTEST']
+      dt_cols: ['LBDTC','AESTDTC','AEENDTC']
+      aeptcd_col: ['AEPTCD']
+      aeterm_col: ['AETERM']
+      lb_res_col: ['LBORRES','LBORRESU','LBORNRLO','LBORNRHI']
+    vals: []
+    qt:
+      grade: 'grade' 
+  LBAE1:
+    match: []
+    cols:
+      lb_test_col: ['LBTEST']
+      dt_cols: ['LBDTC','AESTDTC','AEENDTC']
+      aeptcd_col: ['AEPTCD']
+      aeterm_col: ['AETERM']
+      lb_res_col: ['LBORRES','LBORRESU','LBORNRLO','LBORNRHI']
+    vals:
+      grade_min: 3
+      grade_max: 4
+      ctcae_version: 'VERSION 4'
+    qt:
+      grade: 'grade'  
+  LBAE2:
+    match: []
+    cols:
+      lb_test_col: ['LBTEST']
+      dt_cols: ['LBDTC','AESTDTC','AEENDTC']
+      aeptcd_col: ['AEPTCD']
+      aeterm_col: ['AETERM']
+      aetox_col: ['AETOXGR']
+      lb_res_col: ['LBORRES','LBORRESU','LBORNRLO','LBORNRHI']
+    vals:
+      grade_min: 3
+      grade_max: 4
+      ctcae_version: 'VERSION 4'
+    qt:
+      grade: 'grade'  
+      AETOXGR: 'AETOXGR'
+  LBOV1:
+    cols:
+      lb_test_col: ['LBTEST']
+      dt_cols: ['LBDTC']
+      lb_res_col: ['LBORRES','LBORRESU','LBORNRLO','LBORNRHI']
+    vals:
+      grade_min: 3
+      grade_max: 4
+      ctcae_version: 'VERSION 4'
+    qt:
+      LBDTC: 'LBDTC'
+  AELB1:
+    match: []
+    cols:
+      lb_test_col: ['LBTEST']
+      dt_cols: ['LBDTC','AESTDTC','AEENDTC']
+      aeptcd_col: ['AEPTCD']
+      aeterm_col: ['AETERM']
+      lb_res_col: ['LBORRES','LBORRESU','LBORNRLO','LBORNRHI']
+    vals:
+      grade_min: 3
+      grade_max: 4
+      ctcae_version: 'VERSION 4'
+    qt:
+      AETERM: 'AETERM'
+  AELB2:
+    match: []
+    cols:
+      lb_test_col: ['LBTEST']
+      dt_cols: ['LBDTC','AESTDTC','AEENDTC']
+      aeptcd_col: ['AEPTCD']
+      aeterm_col: ['AETERM']
+      aeongo_col: ['AEONGO']
+      lb_res_col: ['LBORRES','LBORRESU','LBORNRLO','LBORNRHI']
+    vals:
+      aeongo_yes_val: ['YES','Y','1','1.0']
+      aeongo_no_val: ['NO','N','0','0.0','NAN','NULL','','NONE']
+      grade_min: 3
+      grade_max: 4
+      ctcae_version: 'VERSION 4'
+    qt:
+      AE:  
+        AETERM: 'AETERM'
+        AESTDTC: 'AESTDTC'
+        AEENDTC: 'AEENDTC'
+      LB:
+        LBTEST: 'LBTEST'
+        visit_nm: 'visit_nm'
+  AELB3:
+    match: []
+    cols:
+      lb_test_col: ['LBTEST']
+      dt_cols: ['LBDTC','AEENDTC','AESTDTC']
+      aeptcd_col: ['AEPTCD']
+      aeterm_col: ['AETERM']
+      lb_res_col: ['LBORRES','LBORRESU','LBORNRLO','LBORNRHI']
+    vals:
+      grade_min: 3
+      grade_max: 4
+      ctcae_version: 'VERSION 4'
+    qt:
+      LBDTC: 'LBDTC'
+      AEENDTC: 'AEENDTC'
+  AELB4:
+    match: []
+    cols:
+      lb_test_col: ['LBTEST']
+      dt_cols: ['LBDTC','AESTDTC','AEENDTC']
+      aeptcd_col: ['AEPTCD']
+      aeterm_col: ['AETERM']
+      aetox_col: ['AETOXGR']
+      lb_res_col: ['LBORRES','LBORRESU','LBORNRLO','LBORNRHI']
+    vals:
+      grade_min: 3
+      grade_max: 4
+      ctcae_version: 'VERSION 4'
+    qt:
+      grade: 'grade'  
+      AETOXGR: 'AETOXGR'
+  AEDR0 :
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dr_ae_id_col: ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:
+      aeacn_val: ['NOT APPLICABLE', 'DOSE NOT CHANGED', 'UNKNOWN', 'NONE']
+      adj_val: ['Adverse Events:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'Adverse Events', 'Adverse Event']
+    qt:
+      AEREFID: AEREFID
+      AETERM: AETERM
+      AEACN: AEACN
+  
+  AEDR1 :
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dr_ae_id_col: ['EXAENO']
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:
+      aeacn_val: ['NOT APPLICABLE']
+      adj_val: ['Adverse Events:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'Adverse Events', 'Adverse Event']
+    qt:
+      ECADJ: 'EXADJ'
+
+  AEDR2 :
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+      ae_ongo_col: ['AEONGO']
+    vals:
+      no_ongo_val: ['N','NO','0','0.0','','NAN','NONE','NULL']
+      yes_ongo_val: ['Y','YES','1','1.0']
+      aeacn_val: ['DOSE INCREASED', 'DOSE REDUCED', 'DRUG INTERRUPTED', 'DOSE NOT CHANGED', 'UNKNOWN', 'DRUG WITHDRAWN', 'NONE']
+      adj_val: ['Adverse Events:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'Adverse Events', 'Adverse Event']
+    qt:
+      AEACN: AEACN
+  AEDR3:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:
+      aeacn_val: ['DOSE INCREASED', 'DOSE REDUCED', 'DRUG INTERRUPTED', 'DOSE DISCONTINUED']
+      adj_val: ['ADVERSE EVENTS:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'ADVERSE EVENTS'] 
+    qt:
+      AEACN: AEACN
+  AEDR4:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:
+      aeacn_val: ['DOSE INCREASED', 'DOSE REDUCED', 'DRUG INTERRUPTED', 'DOSE DISCONTINUED']
+      adj_val: ['ADVERSE EVENTS:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'ADVERSE EVENTS'] 
+    qt:
+      AEREFID: AEREFID
+      visit: visit_nm
+  AEDR5:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:
+      aeacn_val: ['DOSE INCREASED']
+      adj_val: ['ADVERSE EVENTS:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'ADVERSE EVENTS'] 
+    qt:
+      ECADJ: 'EXADJ'
+  AEDR6:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:
+      aeacn_val: ['DOSE REDUCED']
+      adj_val: ['ADVERSE EVENTS:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'ADVERSE EVENTS'] 
+    qt:
+      ECADJ: 'EXADJ'
+  AEDR7:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AENO, AEREFID, AEREFNO]
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:  
+      aeacn_val: ['DRUG INTERRUPTED']
+      adj_val: ['ADVERSE EVENTS:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'ADVERSE EVENTS'] 
+    qt:
+      ECADJ: 'EXADJ'
+  AEDR8:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AEREFID, AENO,  AEREFNO]
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:  
+      aerel_val: ['RELATED','YES','Y']
+      adj_val: ['ADVERSE EVENTS:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'ADVERSE EVENTS'] 
+      washout_period: 30
+    qt:
+      ECADJ: 'EXADJ'
+  AEDR9:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AEREFID, AENO,  AEREFNO]
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      aeacn_col: ['AEACN']
+      aerel_col: ['AEREL']
+    vals:  
+      aeacn_val: ['DOSE INCREASED', 'DOSE REDUCED', 'DOSE INTERRUPTED', 'DRUG INTERRUPTED', 'DOSE DISCONTINUED']
+      aerel_val: ['NOT RELATED','NO','N']
+      adj_val: ['ADVERSE EVENTS:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'ADVERSE EVENTS'] 
+    qt:
+      AEACN: 'AEACN'
+      AEREL: 'AEREL'
+  AEDR10:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['AEREFID']
+        sec_match_col : ['EXAENO']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['AETERM']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['AESTDTC']
+        sec_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : AEREFID
+      sec_match_col : EXAENO
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : AESTDTC
+      sec_match_col : EXSTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      ae_ref_id_col : [AEREFID, AENO,  AEREFNO]
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      dt_cols: ['AESTDTC','AEENDTC','EXSTDTC','EXENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+    vals:  
+      aerel_val: ['RELATED','YES','Y']
+      adj_val: ['ADVERSE EVENTS:', 'ADVERSE EVENT(S)', 'ADVERSE EVENT', 'ADVERSE EVENTS'] 
+      ex_dose_val: ['0','0.0','NAN','NONE','','NULL']
+    qt:
+      ECADJ: 'EXADJ'
+  DRAE1:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['EXAENO']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : EXAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : EXSTDTC
+      sec_match_col : AESTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      ae_ref_id_col: ['AEREFID'] # First element in the list only used in code [0]
+      dt_cols: ['EXSTDTC','EXENDTC','AESTDTC','AEENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:
+      adj_val: ['ADVERSE EVENT','ADVERSE EVENTS', 'ADVERSE EVENT(S)']
+    qt:
+      EXAENO: 'EXAENO'
+  DRAE2:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['EXAENO']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : EXAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : EXSTDTC
+      sec_match_col : AESTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      ae_ref_id_col: ['AEREFID'] # First element in the list only used in code [0]
+      dt_cols: ['EXSTDTC','EXENDTC','AESTDTC','AEENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+    vals:
+      adj_val: ['ADVERSE EVENT','ADVERSE EVENTS', 'ADVERSE EVENT(S)']
+    qt:
+      EXAENO: 'EXAENO'
+  DRAE3:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['EXAENO']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : EXAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : EXSTDTC
+      sec_match_col : AESTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      ae_ref_id_col: ['AEREFID'] # First element in the list only used in code [0]
+      dt_cols: ['EXSTDTC','EXENDTC','AESTDTC','AEENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      ex_trt_col: ['EXTRT']
+      aeacn_col: ['AEACN']
+    vals:
+      aeacn_val: ['DOSE INCREASED']
+      adj_val: ['ADVERSE EVENT','ADVERSE EVENTS', 'ADVERSE EVENT(S)']
+    qt:
+      EXSTDTC: EXSTDTC
+  DRAE4:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['EXAENO']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : EXAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : EXSTDTC
+      sec_match_col : AESTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      ae_ref_id_col: ['AEREFID'] # First element in the list only used in code [0]
+      dt_cols: ['EXSTDTC','EXENDTC','AESTDTC','AEENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      ex_trt_col: ['EXTRT']
+      aeacn_col: ['AEACN']
+    vals:
+      aeacn_val: ['DOSE REDUCED']
+      adj_val: ['ADVERSE EVENT','ADVERSE EVENTS', 'ADVERSE EVENT(S)']
+    qt:
+      EX1:
+        EXSTDTC: 'EXSTDTC'
+        EXENDTC: 'EXENDTC'
+      EX2:
+        EXSTDTC: 'EXSTDTC'
+        EXENDTC: 'EXENDTC'
+      AE:
+        AESTDTC: 'AESTDTC'
+        AEENDTC: 'AEENDTC'
+  DRAE5:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['EXAENO']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : EXAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : EXSTDTC
+      sec_match_col : AESTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      ae_ref_id_col: ['AEREFID'] # First element in the list only used in code [0]
+      dt_cols: ['EXSTDTC','EXENDTC','AESTDTC','AEENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      ex_trt_col: ['EXTRT']
+      aeacn_col: ['AEACN']
+    vals:
+      aeacn_val: ['DRUG INTERRUPTED']
+      adj_val: ['ADVERSE EVENT','ADVERSE EVENTS', 'ADVERSE EVENT(S)']
+    qt:
+      ECADJ: 'EXADJ'
+  DRAE6:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['EXAENO']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : EXAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : EXSTDTC
+      sec_match_col : AESTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      ae_ref_id_col: ['AEREFID'] # First element in the list only used in code [0]
+      dt_cols: ['EXSTDTC','EXENDTC','AESTDTC','AEENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      ex_trt_col: ['EXTRT']
+      aeacn_col: ['AEACN']
+    vals:
+      aeacn_val: ['DOSE INCREASED']
+      adj_val: ['ADVERSE EVENT','ADVERSE EVENTS', 'ADVERSE EVENT(S)']
+    qt:
+      ECADJ: 'EXADJ'
+  DRAE7:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['EXAENO']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : EXAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : EXSTDTC
+      sec_match_col : AESTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      ae_ref_id_col: ['AEREFID'] # First element in the list only used in code [0]
+      dt_cols: ['EXSTDTC','EXENDTC','AESTDTC','AEENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      ex_trt_col: ['EXTRT']
+      aeacn_col: ['AEACN']
+    vals:
+      aeacn_val: ['DOSE REDUCED']
+      adj_val: ['ADVERSE EVENT','ADVERSE EVENTS', 'ADVERSE EVENT(S)']
+    qt:
+      ECADJ: 'EXADJ'
+  DRAE8:
+    match : [match_id]
+    #match : [match_id, match_term] #[match_DSL]
+    match_condition : ['OR']
+    match_DSL :     
+      SEP : '-'
+      match_items : ['match_id'] #[match_id] #, match_term, match_date] 
+      id_pref_pres_prim : 'YES'
+      id_pos : 0
+      term_pos : 1
+      date_pos : 2
+      match_id:
+        id_prefix : 'AE'        
+        prim_match_col : ['EXAENO']
+        sec_match_col : ['AEREFID']
+        str_match : 'contains'
+        match_type : id_dsl      
+      match_term:
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AETERM']
+        str_match : 'contains'
+        match_type : term_dsl      
+      match_date: 
+        prim_match_col : ['EXAENO','EXOEXADAE1','EXOEXADAE2','EXOEXADAE3',
+                      'EXOEXADAE4','EXOEXADAE5','EXOEXADAEOTH']
+        sec_match_col : ['AESTDTC']
+        str_match : 'equals'
+        match_type : date_dsl
+    #non_DSL
+    match_id:
+      prim_match_col : EXAENO
+      sec_match_col : AEREFID
+      str_match : contains
+      match_type : id
+    match_date:
+      prim_match_col : EXSTDTC
+      sec_match_col : AESTDTC
+      str_match : contains
+      match_type : date
+    cols:
+      dr_ae_id_col: ['EXAENO'] # First element in the list only used in code [0]
+      ae_ref_id_col: ['AEREFID'] # First element in the list only used in code [0]
+      dt_cols: ['EXSTDTC','EXENDTC','AESTDTC','AEENDTC']
+      adj_col: ['EXADJ','EXMISDOS','EXMIDRE','EXRE']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      ex_trt_col: ['EXTRT']
+      aeacn_col: ['AEACN']
+    vals:
+      aeacn_val: ['DRUG INTERRUPTED']
+      adj_val: ['ADVERSE EVENT','ADVERSE EVENTS', 'ADVERSE EVENT(S)']
+    qt:
+      ECADJ: 'EXADJ'
+  DROV1:
+    match: []
+    cols:
+      dt_cols: ['EXSTDTC','EXENDTC']
+      tm_cols: ['EXSTTIM','EXENTIM']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      ex_trt_col: ['EXTRT']
+      ex_route_col: ['EXROUTE']
+      ex_freq_col: ['EXDOSFRQ']
+    vals: []
+    qt:
+      ECADJ: 'EXADJ'
+  DROV2:
+    match: []
+    cols:
+      dt_cols: ['EXSTDTC','EXENDTC']
+      tm_cols: ['EXSTTIM','EXENTIM']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      ex_trt_col: ['EXTRT']
+      ex_route_col: ['EXROUTE']
+      ex_freq_col: ['EXDOSFRQ']
+    vals: []
+    qt:
+      EXSTDTC: EXSTDTC
+  DROV3:
+    match: []
+    cols:
+      dt_cols: ['EXSTDTC','EXENDTC']
+      ex_dose_col: ['EXDOSTOT','EXDOSE']
+      ex_trt_col: ['EXTRT']
+    vals:
+      ex_dt_gap: 1
+    qt:
+      ECADJ: 'EXADJ'

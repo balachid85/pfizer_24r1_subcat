@@ -1,0 +1,936 @@
+"id","account_id","name","type","description","version","active","created_by","created_at","updated_at","query_text","display_fields","fn_config"
+40,1,AEDR0,Subcat,"Action Taken with Study Treatment [AEACTSN] = Not Applicable  None
+ BUT
+ Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID])
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR0,"",""
+41,1,AEDR1,Subcat,"Action Taken with Study Treatment [AEACTSN] = Not Applicable
+ BUT
+ Dosing records indicate that study drug is still being taken during this time, AE falls between start date of first dose and end date of last dose",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR1,"",""
+42,1,AEDR2,Subcat,"Action Taken with Study Treatment [AEACTSN] <> Not Applicable or None
+ BUT
+ Dosing records indicate that study drug is not taken during this time, AE stopped prior to first dose or occurred after last dose
+ 
+ NOTE: If last dose date is within previous 2 months from model run date AND AE Start date is > last dose date then do not raise a prediction (to allow for appropriate data entry)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR2,"",""
+43,1,AEDR3,Subcat,"Action Taken with Study Treatment [AEACTSN] = Dose Reduced  Drug InterruptedDelayed
+ BUT
+ No dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE)=Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR3,"",""
+64,1,DROV3,Subcat,"Between dose records (looking at start and stop dates) there are gaps
+ 
+ Note: Only applicable for daily drug administration study",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DROV3,"",""
+77,1,MHCM1,Subcat,"MHTERM=CMINDC and CMDU=Pre-existing Medical Condition 
+ AND
+ Start date of CM (CMSTDAT) is prior to start date of corresponding MH (MHSTDAT)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHCM1,"",""
+44,1,AEDR5,Subcat,"Action Taken with Study Treatment [AEACTSN] = Dose Reduced  Drug InterruptedDelayed
+ AND
+ Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)
+ BUT
+ AE Start Date [AESTDAT] is after Dose Start Date [ECSTDAT] OR AE End Date [AEENDAT] is prior to Dose Start Date [ECSTDAT]
+ 
+ Note: If Start Date of Dose Interruption  Dose Reduction (EXOSMDAT) is present, do not consider Start date (EXOSTDAT).",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR5,"",""
+76,1,CMMH0,Subcat,Drug Usage (CMDU)=2 (Pre-exist ing Medical Condition) BUT corresponding indication is not present in MHTERM.,1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMMH0,"",""
+67,1,DRAE2,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ Dose record contains AE Identifier
+ [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] or [EXOREAE1]
+ BUT
+ No Adverse Events reported (log empty)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE2,"",""
+39,1,AEOV3,Subcat,"One or more adverse event with same AETERM and AEDECOD, different toxicity grades and have overlapping start and stop date ranges i.e. events should be sequential
+ 
+ *One day overlapping is acceptable, for example, AE end date (previous) = AE start date (Current)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEOV3,"{""AE1"": [""AESPID"",""AETERM"", ""AESTDAT"", ""AEENDAT"", ""AEONGO"", ""AETOXGR""], ""AE2"": [""AESPID"",""AETERM"", ""AESTDAT"", ""AEENDAT"", ""AEONGO"", ""AETOXGR""]}","{""tox_term"" : {""AETOXGR"" : ""str"", ""AESEV"":""int""}}"
+1,1,AECM0,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES
+ AND
+ Concomitant medication form entered
+ BUT
+ No CM records indicate with same Indication CMINDC=AETERM",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM0,"{""AE"": [""AETERM"", ""AESPID"", ""AEDECOD"", ""AESTDAT"", ""AEENDAT"", ""AETOXGR"", ""AECMGIV""]}","{""match"" : { ""prim_match_col"" : ""AETERM"", ""sec_match_col"" : ""CMINDC"", ""str_match"" :""contains"",""match_type"":""text""}, ""AE_REF_ID"" : [""AENO"", ""AEREFID"", ""AEREFNO""]}"
+83,1,MHOV2,Subcat,"One or more Medical history with same MHTERM and MHDECOD, same toxicity grades if collected but have overlapping start and stop date  ongoing ranges i.e. events should be sequential
+ 
+ *If Toxicity Grade is not collected on the study overlapping adverse event predictions will show as MHOV2",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHOV2,"{""MH"":[""MHSTDAT"", ""MHENDAT"", ""MHTERM"", ""MHTERM_PT"", ""MHTOXGR""]}",""
+45,1,AEDR7,Subcat,"Action Taken with Study Treatment [AEACTSN or AEACTSDR) = Dose Reduced
+ AND
+ - start date of dosing record is after start date of adverse event
+ AND
+ - start date of dosing record is before stop date of adverse event
+ AND
+ Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE)=Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)
+ BUT
+ No dosing records indicate that Actual Dose [EXOSDOSE] was reduced from the previous record
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE MODIFICATION and Modified Dose (EXMDOSE) = NULL",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR7,"",""
+69,1,DRAE6,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1] = AESPID
+ AND
+ Dose record, indicates an interruptiondelayed in dose and current Actual Dose [EXOSDOSE] =0
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE INTERRUPTION and Modified Dose (EXMDOSE) =0
+ AND
+ Adverse Event Latest Action Taken with Study Treatment does equal InterruptedDelayed
+ BUT
+ Dose record start date is before the Adverse Event start date or is after the Adverse Event End Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE6,"",""
+46,1,AEDR8,Subcat,"Action Taken with Study Treatment [AEACTSN] = Drug InterruptedDelayed
+ AND
+ - start date of dosing record is after start date of adverse event
+ AND
+ - start date of dosing record is before stop date of adverse event
+ AND
+ Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)
+ BUT
+ Dosing records indicate that an interruption in dose [EXOSDOSE] <> 0 with the same AE ID
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE INTERRUPTION and Modified Dose (EXMDOSE) <> 0",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR8,"",""
+47,1,AEDR10,Subcat,"Relationship to Study Medication [AEREL] = Related
+ BUT
+ Dosing records indicate that study drug is not taken during this time, AE stopped prior to first dose or occurred after last dose plus study defined washout period (such as 30 days after last dose)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR10,"",""
+48,1,AELB0,Subcat,"Adverse Event Term relatescorresponds to a lab related condition (e.g. Anemia, Elevated AST, Hypokalemia etc) but the corresponding lab results are within the normal range. 
+ 
+ Therefore, inconsistent with a reported AE. For example: All lab results are considered normal (within reference range) or all corresponding lab results are marked Not Done or Not Applicable or no corresponding lab results are entered within the patients casebook.
+ 
+ Note: 
+ For NDNA value, please refer """"AnalyteValue"""" instead of """"StdValue"""". For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB0,"",""
+50,1,AELB2,Subcat,"Adverse Event Term = Lab Related Condition e.g. Anemia, Elevated AST, Hypokalemia etc
+ AND 
+ Corresponding Local Lab result identified that has a Lab Sample Collection Date within the AE date range (i.e. ≥ AE Start Date and < AE End Date)
+ BUT
+ Lab Result is within normal range
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB2,"",""
+55,1,CMAE4,Subcat,"Concomitant medication with consistent dates and consistentlogical name but Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT) is not recorded as CONMEDS or YES",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE4,"",""
+56,1,CMAE5,Subcat,Drug usage = AESAE and Indication entered is not matching with the corresponding consistentlogical adverse event,1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE5,"",""
+58,1,CMAE7,Subcat,"Adverse event name is consistentlogical with concomitant medication however medication start andor stop dates are partial i.e. UNKJan2019, UNKUNK2019",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE7,"",""
+62,1,DROV1,Subcat,"Start and stop dates that overlap in entries with the same treatment. If additional information is collected like dosage should be taken into consideration (i.e. if the dates overlap with the same treatment but the dosage is different).
+ 
+ Notice: if start and end times are collected, they need to be considered also when checking overlap.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DROV1,"",""
+65,1,DRAE0,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delayed (EXOMIDRE)=Other
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Other
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Other
+ AND
+ If other, specify = text that corresponds to an Adverse Event Term
+ AND
+ Dose record start date is equal to or after related Adverse Event start date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE0,"",""
+66,1,DRAE1,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ Dose record contains AE Identifier 
+ [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] or [EXOREAE1]
+ But 
+ AE indentifier does not correspond with any AE Identifier listed in the AE log",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE1,"",""
+84,1,MHOV3,Subcat,"One or more Medical history with same MHTERM and MHDECOD, different toxicity grades and have overlapping start and stop dateongoing ranges i.e. events should be sequential
+ 
+ *One day overlapping is acceptable, for example, MH end date (previous) = MH start date (Current)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHOV3,"{""MH"":[""MHSTDAT"", ""MHENDAT"", ""MHTERM"", ""MHTERM_PT"", ""MHTOXGR""]}",""
+68,1,DRAE5,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1] = AESPID
+ AND
+ Dose record, indicates a decrease (compare current dose to previous dose record by sequential dates) was reduced from the previous record
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE MODIFICATION and Modified Dose (EXMDOSE) <> NULL
+ AND
+ Adverse Event Action Taken with Study Treatment does equal DOSE REDUCED
+ BUT
+ Dose record start date is before the Adverse Event start date or is after the Adverse Event End Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE5,"",""
+52,1,CMAE0,Subcat,"Drug Usage=AESAE
+AND 
+AE form entered
+But 
+AE indicatiopn is not same as CM indication CMINDC=AETERM",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE0,"",""
+53,1,CMAE1,Subcat,"Drug Usage=AESAE
+ AND
+ AE records indicate with same Indication CMINDC=AETERM
+ BUT
+ Adverse event start date is after the concomitant medication start date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE1,"",""
+54,1,CMAE2,Subcat,"Drug Usage=AESAE
+ AND
+ AE records indicate with same Indication CMINDC=AETERM
+ BUT
+ Adverse event stop date is before the concomitant medication start date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE2,"",""
+57,1,CMAE6,Subcat,"Drug Usage=AESAE
+ BUT
+ No adverse events are present at all on the corresponding CRF",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE6,"",""
+59,1,CMAE8,Subcat,"Drug Usage=AESAE
+ CM records indicate with same Indication CMINDC=AETERM
+ BUT
+ Adverse event duration is not appropriate for corresponding concomitant medication i.e. adverse event is stopped but concomitant medication was ongoing for an extended period",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE8,"",""
+70,1,DRAE8,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1]= AESPID
+ AND
+ Dose record, indicates a decrease (compare current dose to previous dose record by sequential dates) was reduced from the previous record
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE MODIFICATION and Modified Dose (EXMDOSE) <> NULL
+ AND
+ Dose record start date is equal to or after related Adverse Event start date and is equal or before Adverse Event end date
+ BUT
+ Adverse Event Action Taken with Study Treatment does not equal DOSE REDUCED",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE8,"",""
+71,1,DRAE9,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1]= AESPID
+ AND
+ Dose record, indicates an interruption in dose and current Actual Dose [EXOSDOSE] =0
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE INTERRUPTION and Modified Dose (EXMDOSE) =0
+ AND
+ Dose record start date is equal to or after related Adverse Event start date and is equal or before Adverse Event end date
+ AND
+ Only consider latest action taken
+ BUT
+ Adverse Event Latest Action Taken with Study Treatment does not equal InterruptedDelayed",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE9,"",""
+72,1,LBAE0,Subcat,"Result is outside of the normal reference range
+ When CTCAE grade is applied to lab result, grade = 3 OR 4
+ BUT
+ No correspondingconsistent adverse event term related to the specific lab result are present on the AE CRF
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analytevalue instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,LBAE0,"",""
+73,1,LBAE1,Subcat,"Result is outside of the normal reference range
+ AND
+ When CTCAE grade is applied to lab result, grade = 3 OR 4
+ AND
+ Corresponding Adverse Event Term Identified
+ BUT
+ AE Start Date is more than 5 days prior to Lab Sample Collection Date
+ OR
+ AE start date is more than 30 days after lab sample collection date
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ 
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analytevalue instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,LBAE1,"",""
+74,1,LBAE2,Subcat,"Result is outside of the normal reference range
+ AND
+ When CTCAE grade is applied to lab result, grade = 3 OR 4
+ AND 
+ Corresponding Adverse Event Term Identified
+ AND
+ (AE Start Date is within 5 days prior to or equal to OR within 30 days after Lab Sample Collection Date )
+ BUT
+ Toxicity Grade entered does not match CTCAE grading criteria for corresponding result
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analytevalue instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,LBAE2,"",""
+78,1,MHCM3,Subcat,"MHTERM=CMINDC and CMDU=Pre-existing Medical Condition 
+ AND
+ MH has a stop date (MHENDAT) recorded but CM is ongoing (CMONGO <> NULL)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHCM3,"",""
+79,1,MHCM4,Subcat,"MHTERM=CMINDC and CMDU=Pre-existing Medical Condition 
+ AND 
+ MH Stop date of MH (MHENDAT) is prior to stop date of corresponding CM (CMENDAT)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHCM4,"",""
+80,1,MHAE0,Subcat,"MH is recorded as ongoing (MHONGO <> NULL)
+ AND 
+ AE with same term recorded (AEDECOD=MHDECOD)
+ but not indicated as “worsening” ((AETERM does not contains """"Worsening"""")",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHAE0,"",""
+81,1,AEMH0,Subcat,"AE with “worsening” in event term recorded (AETERM contains """"Worsening""""), 
+ BUT
+ No MH with same indication recorded; query for potential MH to be added (MHDECOD <> AEDECOD)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEMH0,"",""
+102,2,CMMH0,Subcat,Drug Usage (CMDU)=2 (Pre-exist ing Medical Condition) BUT corresponding indication is not present in MHTERM.,1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMMH0,"",""
+49,1,AELB1,Subcat,"Adverse Event Term = Lab Related Condition e.g. Anemia, Elevated AST, Hypokalemia etc
+ AND 
+ Corresponding Local Lab result (outside of reference range) identified that has closest Lab Sample Collection Date to AE Start Date
+ BUT
+ AE Start Date is more than 5 days prior to Lab Sample Collection Date
+ OR
+ AE start date is more than 30 days after lab sample collection date
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB1,"",""
+51,1,AELB4,Subcat,"Adverse Event Term = Lab Related Condition e.g. Anemia, Elevated AST, Hypokalemia etc
+ AND 
+ Corresponding Local Lab result (outside of reference range) identified that is within the AE date range (i.e. ≥ AE Start Date and ≤ AE End Date or AE Ongoing) to AE Start Date
+ BUT
+ Toxicity Grade entered does not match CTCAE grading criteria for corresponding result
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ 
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analyte value instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB4,"",""
+85,2,AECM0,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES
+ AND
+ Concomitant medication form entered
+ BUT
+ No CM records indicate with same Indication CMINDC=AETERM",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM0,"",""
+86,2,AECM1,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES
+ AND
+ CM records indicate with same Indication CMINDC=AETERM
+ BUT
+ Concomitant Medication Start Date is prior to the Adverse Event Start Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM1,"",""
+87,2,AECM2,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES
+ AND
+ CM records indicate with same Indication CMINDC=AETERM
+ BUT
+ Concomitant Medication Start Date is after Adverse Event End Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM2,"",""
+88,2,AECM5,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)<>CONMEDS or YES; though a Concomitant medication with consistent dates and consistentlogical name andor corresponding Indication matching the respective AE record is reported.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM5,"",""
+89,2,AECM6,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES; but no concomitant medications are present at all on the corresponding CRF (i.e. CM log is empty, no records found)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM6,"",""
+90,2,AECM8,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES and a corresponding concomitant medication with consistentlogical name is identified, yet conmed dates does not come within AE dates.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM8,"",""
+92,2,AEOV2,Subcat,"One or more adverse event with same AETERM and AEDECOD, same toxicity grades if collected but have overlapping start and stop date ranges i.e. events should be sequential",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEOV2,"",""
+93,2,AEOV3,Subcat,"One or more adverse event with same AETERM and AEDECOD, different toxicity grades and have overlapping start and stop date ranges i.e. events should be sequential
+ 
+ *One day overlapping is acceptable, for example, AE end date (previous) = AE start date (Current)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEOV3,"",""
+94,2,AEDR0,Subcat,"Action Taken with Study Treatment [AEACTSN] = Not Applicable  None
+ BUT
+ Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID])
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR0,"",""
+95,2,AEDR1,Subcat,"Action Taken with Study Treatment [AEACTSN] = Not Applicable
+ BUT
+ Dosing records indicate that study drug is still being taken during this time, AE falls between start date of first dose and end date of last dose",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR1,"",""
+96,2,AEDR2,Subcat,"Action Taken with Study Treatment [AEACTSN] <> Not Applicable or None
+ BUT
+ Dosing records indicate that study drug is not taken during this time, AE stopped prior to first dose or occurred after last dose
+ 
+ NOTE: If last dose date is within previous 2 months from model run date AND AE Start date is > last dose date then do not raise a prediction (to allow for appropriate data entry)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR2,"",""
+147,3,AEOV3,Subcat,"One or more adverse event with same AETERM and AEDECOD, different toxicity grades and have overlapping start and stop date ranges i.e. events should be sequential
+ 
+ *One day overlapping is acceptable, for example, AE end date (previous) = AE start date (Current)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEOV3,"",""
+97,2,AEDR3,Subcat,"Action Taken with Study Treatment [AEACTSN] = Dose Reduced  Drug InterruptedDelayed
+ BUT
+ No dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE)=Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR3,"",""
+99,2,DROV3,Subcat,"Between dose records (looking at start and stop dates) there are gaps
+ 
+ Note: Only applicable for daily drug administration study",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DROV3,"",""
+100,2,MHCM1,Subcat,"MHTERM=CMINDC and CMDU=Pre-existing Medical Condition 
+ AND
+ Start date of CM (CMSTDAT) is prior to start date of corresponding MH (MHSTDAT)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHCM1,"",""
+101,2,AEDR5,Subcat,"Action Taken with Study Treatment [AEACTSN] = Dose Reduced  Drug InterruptedDelayed
+ AND
+ Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)
+ BUT
+ AE Start Date [AESTDAT] is after Dose Start Date [ECSTDAT] OR AE End Date [AEENDAT] is prior to Dose Start Date [ECSTDAT]
+ 
+ Note: If Start Date of Dose Interruption  Dose Reduction (EXOSMDAT) is present, do not consider Start date (EXOSTDAT).",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR5,"",""
+103,2,DRAE2,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ Dose record contains AE Identifier
+ [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] or [EXOREAE1]
+ BUT
+ No Adverse Events reported (log empty)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE2,"",""
+104,2,MHOV2,Subcat,"One or more Medical history with same MHTERM and MHDECOD, same toxicity grades if collected but have overlapping start and stop date  ongoing ranges i.e. events should be sequential
+ 
+ *If Toxicity Grade is not collected on the study overlapping adverse event predictions will show as MHOV2",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHOV2,"",""
+105,2,AEDR7,Subcat,"Action Taken with Study Treatment [AEACTSN or AEACTSDR) = Dose Reduced
+ AND
+ - start date of dosing record is after start date of adverse event
+ AND
+ - start date of dosing record is before stop date of adverse event
+ AND
+ Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE)=Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)
+ BUT
+ No dosing records indicate that Actual Dose [EXOSDOSE] was reduced from the previous record
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE MODIFICATION and Modified Dose (EXMDOSE) = NULL",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR7,"",""
+106,2,DRAE6,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1] = AESPID
+ AND
+ Dose record, indicates an interruptiondelayed in dose and current Actual Dose [EXOSDOSE] =0
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE INTERRUPTION and Modified Dose (EXMDOSE) =0
+ AND
+ Adverse Event Latest Action Taken with Study Treatment does equal InterruptedDelayed
+ BUT
+ Dose record start date is before the Adverse Event start date or is after the Adverse Event End Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE6,"",""
+107,2,AEDR8,Subcat,"Action Taken with Study Treatment [AEACTSN] = Drug InterruptedDelayed
+ AND
+ - start date of dosing record is after start date of adverse event
+ AND
+ - start date of dosing record is before stop date of adverse event
+ AND
+ Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)
+ BUT
+ Dosing records indicate that an interruption in dose [EXOSDOSE] <> 0 with the same AE ID
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE INTERRUPTION and Modified Dose (EXMDOSE) <> 0",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR8,"",""
+108,2,AEDR10,Subcat,"Relationship to Study Medication [AEREL] = Related
+ BUT
+ Dosing records indicate that study drug is not taken during this time, AE stopped prior to first dose or occurred after last dose plus study defined washout period (such as 30 days after last dose)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR10,"",""
+109,2,AELB0,Subcat,"Adverse Event Term relatescorresponds to a lab related condition (e.g. Anemia, Elevated AST, Hypokalemia etc) but the corresponding lab results are within the normal range. 
+ 
+ Therefore, inconsistent with a reported AE. For example: All lab results are considered normal (within reference range) or all corresponding lab results are marked Not Done or Not Applicable or no corresponding lab results are entered within the patients casebook.
+ 
+ Note: 
+ For NDNA value, please refer """"AnalyteValue"""" instead of """"StdValue"""". For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB0,"",""
+110,2,AELB2,Subcat,"Adverse Event Term = Lab Related Condition e.g. Anemia, Elevated AST, Hypokalemia etc
+ AND 
+ Corresponding Local Lab result identified that has a Lab Sample Collection Date within the AE date range (i.e. ≥ AE Start Date and < AE End Date)
+ BUT
+ Lab Result is within normal range
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB2,"",""
+111,2,CMAE4,Subcat,"Concomitant medication with consistent dates and consistentlogical name but Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT) is not recorded as CONMEDS or YES",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE4,"",""
+112,2,CMAE5,Subcat,Drug usage = AESAE and Indication entered is not matching with the corresponding consistentlogical adverse event,1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE5,"",""
+113,2,CMAE7,Subcat,"Adverse event name is consistentlogical with concomitant medication however medication start andor stop dates are partial i.e. UNKJan2019, UNKUNK2019",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE7,"",""
+115,2,CMOV2,Subcat,"One or more concomitant medications with same coding term [CMDECOD and CMTRT] (also consider route if collected on CRF), but have overlapping start and stop date ranges i.e. medications should be sequential
+ 
+ *One day overlapping is acceptable, for example, CM end date (previous) = CM start date (Current)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMOV2,"",""
+116,2,DROV1,Subcat,"Start and stop dates that overlap in entries with the same treatment. If additional information is collected like dosage should be taken into consideration (i.e. if the dates overlap with the same treatment but the dosage is different).
+ 
+ Notice: if start and end times are collected, they need to be considered also when checking overlap.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DROV1,"",""
+117,2,DRAE0,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delayed (EXOMIDRE)=Other
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Other
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Other
+ AND
+ If other, specify = text that corresponds to an Adverse Event Term
+ AND
+ Dose record start date is equal to or after related Adverse Event start date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE0,"",""
+118,2,DRAE1,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ Dose record contains AE Identifier 
+ [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] or [EXOREAE1]
+ But 
+ AE indentifier does not correspond with any AE Identifier listed in the AE log",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE1,"",""
+119,2,DRAE5,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1] = AESPID
+ AND
+ Dose record, indicates a decrease (compare current dose to previous dose record by sequential dates) was reduced from the previous record
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE MODIFICATION and Modified Dose (EXMDOSE) <> NULL
+ AND
+ Adverse Event Action Taken with Study Treatment does equal DOSE REDUCED
+ BUT
+ Dose record start date is before the Adverse Event start date or is after the Adverse Event End Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE5,"",""
+120,2,CMAE0,Subcat,"Drug Usage=AESAE
+AND 
+AE form entered
+But 
+AE indicatiopn is not same as CM indication CMINDC=AETERM",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE0,"",""
+121,2,CMAE1,Subcat,"Drug Usage=AESAE
+ AND
+ AE records indicate with same Indication CMINDC=AETERM
+ BUT
+ Adverse event start date is after the concomitant medication start date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE1,"",""
+122,2,CMAE2,Subcat,"Drug Usage=AESAE
+ AND
+ AE records indicate with same Indication CMINDC=AETERM
+ BUT
+ Adverse event stop date is before the concomitant medication start date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE2,"",""
+123,2,CMAE6,Subcat,"Drug Usage=AESAE
+ BUT
+ No adverse events are present at all on the corresponding CRF",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE6,"",""
+124,2,CMAE8,Subcat,"Drug Usage=AESAE
+ CM records indicate with same Indication CMINDC=AETERM
+ BUT
+ Adverse event duration is not appropriate for corresponding concomitant medication i.e. adverse event is stopped but concomitant medication was ongoing for an extended period",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE8,"",""
+125,2,DRAE8,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1]= AESPID
+ AND
+ Dose record, indicates a decrease (compare current dose to previous dose record by sequential dates) was reduced from the previous record
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE MODIFICATION and Modified Dose (EXMDOSE) <> NULL
+ AND
+ Dose record start date is equal to or after related Adverse Event start date and is equal or before Adverse Event end date
+ BUT
+ Adverse Event Action Taken with Study Treatment does not equal DOSE REDUCED",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE8,"",""
+126,2,DRAE9,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1]= AESPID
+ AND
+ Dose record, indicates an interruption in dose and current Actual Dose [EXOSDOSE] =0
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE INTERRUPTION and Modified Dose (EXMDOSE) =0
+ AND
+ Dose record start date is equal to or after related Adverse Event start date and is equal or before Adverse Event end date
+ AND
+ Only consider latest action taken
+ BUT
+ Adverse Event Latest Action Taken with Study Treatment does not equal InterruptedDelayed",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE9,"",""
+127,2,LBAE0,Subcat,"Result is outside of the normal reference range
+ When CTCAE grade is applied to lab result, grade = 3 OR 4
+ BUT
+ No correspondingconsistent adverse event term related to the specific lab result are present on the AE CRF
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analytevalue instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,LBAE0,"",""
+128,2,LBAE1,Subcat,"Result is outside of the normal reference range
+ AND
+ When CTCAE grade is applied to lab result, grade = 3 OR 4
+ AND
+ Corresponding Adverse Event Term Identified
+ BUT
+ AE Start Date is more than 5 days prior to Lab Sample Collection Date
+ OR
+ AE start date is more than 30 days after lab sample collection date
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ 
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analytevalue instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,LBAE1,"",""
+129,2,LBAE2,Subcat,"Result is outside of the normal reference range
+ AND
+ When CTCAE grade is applied to lab result, grade = 3 OR 4
+ AND 
+ Corresponding Adverse Event Term Identified
+ AND
+ (AE Start Date is within 5 days prior to or equal to OR within 30 days after Lab Sample Collection Date )
+ BUT
+ Toxicity Grade entered does not match CTCAE grading criteria for corresponding result
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analytevalue instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,LBAE2,"",""
+131,2,MHCM3,Subcat,"MHTERM=CMINDC and CMDU=Pre-existing Medical Condition 
+ AND
+ MH has a stop date (MHENDAT) recorded but CM is ongoing (CMONGO <> NULL)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHCM3,"",""
+132,2,MHCM4,Subcat,"MHTERM=CMINDC and CMDU=Pre-existing Medical Condition 
+ AND 
+ MH Stop date of MH (MHENDAT) is prior to stop date of corresponding CM (CMENDAT)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHCM4,"",""
+133,2,MHAE0,Subcat,"MH is recorded as ongoing (MHONGO <> NULL)
+ AND 
+ AE with same term recorded (AEDECOD=MHDECOD)
+ but not indicated as “worsening” ((AETERM does not contains """"Worsening"""")",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHAE0,"",""
+134,2,AEMH0,Subcat,"AE with “worsening” in event term recorded (AETERM contains """"Worsening""""), 
+ BUT
+ No MH with same indication recorded; query for potential MH to be added (MHDECOD <> AEDECOD)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEMH0,"",""
+136,2,MHOV3,Subcat,"One or more Medical history with same MHTERM and MHDECOD, different toxicity grades and have overlapping start and stop dateongoing ranges i.e. events should be sequential
+ 
+ *One day overlapping is acceptable, for example, MH end date (previous) = MH start date (Current)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHOV3,"",""
+137,2,AELB1,Subcat,"Adverse Event Term = Lab Related Condition e.g. Anemia, Elevated AST, Hypokalemia etc
+ AND 
+ Corresponding Local Lab result (outside of reference range) identified that has closest Lab Sample Collection Date to AE Start Date
+ BUT
+ AE Start Date is more than 5 days prior to Lab Sample Collection Date
+ OR
+ AE start date is more than 30 days after lab sample collection date
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB1,"",""
+138,2,AELB4,Subcat,"Adverse Event Term = Lab Related Condition e.g. Anemia, Elevated AST, Hypokalemia etc
+ AND 
+ Corresponding Local Lab result (outside of reference range) identified that is within the AE date range (i.e. ≥ AE Start Date and ≤ AE End Date or AE Ongoing) to AE Start Date
+ BUT
+ Toxicity Grade entered does not match CTCAE grading criteria for corresponding result
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ 
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analyte value instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB4,"",""
+139,3,AECM0,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES
+ AND
+ Concomitant medication form entered
+ BUT
+ No CM records indicate with same Indication CMINDC=AETERM",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM0,"",""
+140,3,AECM1,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES
+ AND
+ CM records indicate with same Indication CMINDC=AETERM
+ BUT
+ Concomitant Medication Start Date is prior to the Adverse Event Start Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM1,"",""
+141,3,AECM2,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES
+ AND
+ CM records indicate with same Indication CMINDC=AETERM
+ BUT
+ Concomitant Medication Start Date is after Adverse Event End Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM2,"",""
+142,3,AECM5,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)<>CONMEDS or YES; though a Concomitant medication with consistent dates and consistentlogical name andor corresponding Indication matching the respective AE record is reported.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM5,"",""
+143,3,AECM6,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES; but no concomitant medications are present at all on the corresponding CRF (i.e. CM log is empty, no records found)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM6,"",""
+144,3,AECM8,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES and a corresponding concomitant medication with consistentlogical name is identified, yet conmed dates does not come within AE dates.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM8,"",""
+146,3,AEOV2,Subcat,"One or more adverse event with same AETERM and AEDECOD, same toxicity grades if collected but have overlapping start and stop date ranges i.e. events should be sequential",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEOV2,"",""
+135,2,MHOV1,Subcat,"Duplicate Medical history with same MHTERM, MHDECOD, start date and stop date and toxicity grade",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate Medical history with same MHTERM, MHDECOD, start date and stop date and toxicity grade","",""
+148,3,AEDR0,Subcat,"Action Taken with Study Treatment [AEACTSN] = Not Applicable  None
+ BUT
+ Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID])
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR0,"",""
+149,3,AEDR1,Subcat,"Action Taken with Study Treatment [AEACTSN] = Not Applicable
+ BUT
+ Dosing records indicate that study drug is still being taken during this time, AE falls between start date of first dose and end date of last dose",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR1,"",""
+150,3,AEDR2,Subcat,"Action Taken with Study Treatment [AEACTSN] <> Not Applicable or None
+ BUT
+ Dosing records indicate that study drug is not taken during this time, AE stopped prior to first dose or occurred after last dose
+ 
+ NOTE: If last dose date is within previous 2 months from model run date AND AE Start date is > last dose date then do not raise a prediction (to allow for appropriate data entry)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR2,"",""
+151,3,AEDR3,Subcat,"Action Taken with Study Treatment [AEACTSN] = Dose Reduced  Drug InterruptedDelayed
+ BUT
+ No dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE)=Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR3,"",""
+153,3,DROV3,Subcat,"Between dose records (looking at start and stop dates) there are gaps
+ 
+ Note: Only applicable for daily drug administration study",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DROV3,"",""
+154,3,MHCM1,Subcat,"MHTERM=CMINDC and CMDU=Pre-existing Medical Condition 
+ AND
+ Start date of CM (CMSTDAT) is prior to start date of corresponding MH (MHSTDAT)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHCM1,"",""
+155,3,AEDR5,Subcat,"Action Taken with Study Treatment [AEACTSN] = Dose Reduced  Drug InterruptedDelayed
+ AND
+ Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)
+ BUT
+ AE Start Date [AESTDAT] is after Dose Start Date [ECSTDAT] OR AE End Date [AEENDAT] is prior to Dose Start Date [ECSTDAT]
+ 
+ Note: If Start Date of Dose Interruption  Dose Reduction (EXOSMDAT) is present, do not consider Start date (EXOSTDAT).",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR5,"",""
+156,3,CMMH0,Subcat,Drug Usage (CMDU)=2 (Pre-exist ing Medical Condition) BUT corresponding indication is not present in MHTERM.,1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMMH0,"",""
+157,3,DRAE2,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ Dose record contains AE Identifier
+ [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] or [EXOREAE1]
+ BUT
+ No Adverse Events reported (log empty)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE2,"",""
+158,3,MHOV2,Subcat,"One or more Medical history with same MHTERM and MHDECOD, same toxicity grades if collected but have overlapping start and stop date  ongoing ranges i.e. events should be sequential
+ 
+ *If Toxicity Grade is not collected on the study overlapping adverse event predictions will show as MHOV2",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHOV2,"",""
+159,3,AEDR7,Subcat,"Action Taken with Study Treatment [AEACTSN or AEACTSDR) = Dose Reduced
+ AND
+ - start date of dosing record is after start date of adverse event
+ AND
+ - start date of dosing record is before stop date of adverse event
+ AND
+ Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE)=Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)
+ BUT
+ No dosing records indicate that Actual Dose [EXOSDOSE] was reduced from the previous record
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE MODIFICATION and Modified Dose (EXMDOSE) = NULL",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR7,"",""
+160,3,DRAE6,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1] = AESPID
+ AND
+ Dose record, indicates an interruptiondelayed in dose and current Actual Dose [EXOSDOSE] =0
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE INTERRUPTION and Modified Dose (EXMDOSE) =0
+ AND
+ Adverse Event Latest Action Taken with Study Treatment does equal InterruptedDelayed
+ BUT
+ Dose record start date is before the Adverse Event start date or is after the Adverse Event End Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE6,"",""
+178,3,CMAE8,Subcat,"Drug Usage=AESAE
+ CM records indicate with same Indication CMINDC=AETERM
+ BUT
+ Adverse event duration is not appropriate for corresponding concomitant medication i.e. adverse event is stopped but concomitant medication was ongoing for an extended period",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE8,"",""
+161,3,AEDR8,Subcat,"Action Taken with Study Treatment [AEACTSN] = Drug InterruptedDelayed
+ AND
+ - start date of dosing record is after start date of adverse event
+ AND
+ - start date of dosing record is before stop date of adverse event
+ AND
+ Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event with consistent AE Identifier ( [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] = [AESPID] )
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event with consistent AE identifier (EXOREAE1=AESPID)
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event with consistent AE identifier (EXOADAE1=AESPID)
+ BUT
+ Dosing records indicate that an interruption in dose [EXOSDOSE] <> 0 with the same AE ID
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE INTERRUPTION and Modified Dose (EXMDOSE) <> 0",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR8,"",""
+162,3,AEDR10,Subcat,"Relationship to Study Medication [AEREL] = Related
+ BUT
+ Dosing records indicate that study drug is not taken during this time, AE stopped prior to first dose or occurred after last dose plus study defined washout period (such as 30 days after last dose)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEDR10,"",""
+163,3,AELB0,Subcat,"Adverse Event Term relatescorresponds to a lab related condition (e.g. Anemia, Elevated AST, Hypokalemia etc) but the corresponding lab results are within the normal range. 
+ 
+ Therefore, inconsistent with a reported AE. For example: All lab results are considered normal (within reference range) or all corresponding lab results are marked Not Done or Not Applicable or no corresponding lab results are entered within the patients casebook.
+ 
+ Note: 
+ For NDNA value, please refer """"AnalyteValue"""" instead of """"StdValue"""". For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB0,"",""
+164,3,AELB2,Subcat,"Adverse Event Term = Lab Related Condition e.g. Anemia, Elevated AST, Hypokalemia etc
+ AND 
+ Corresponding Local Lab result identified that has a Lab Sample Collection Date within the AE date range (i.e. ≥ AE Start Date and < AE End Date)
+ BUT
+ Lab Result is within normal range
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB2,"",""
+165,3,CMAE4,Subcat,"Concomitant medication with consistent dates and consistentlogical name but Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT) is not recorded as CONMEDS or YES",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE4,"",""
+166,3,CMAE5,Subcat,Drug usage = AESAE and Indication entered is not matching with the corresponding consistentlogical adverse event,1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE5,"",""
+167,3,CMAE7,Subcat,"Adverse event name is consistentlogical with concomitant medication however medication start andor stop dates are partial i.e. UNKJan2019, UNKUNK2019",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE7,"",""
+169,3,CMOV2,Subcat,"One or more concomitant medications with same coding term [CMDECOD and CMTRT] (also consider route if collected on CRF), but have overlapping start and stop date ranges i.e. medications should be sequential
+ 
+ *One day overlapping is acceptable, for example, CM end date (previous) = CM start date (Current)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMOV2,"",""
+187,3,MHAE0,Subcat,"MH is recorded as ongoing (MHONGO <> NULL)
+ AND 
+ AE with same term recorded (AEDECOD=MHDECOD)
+ but not indicated as “worsening” ((AETERM does not contains """"Worsening"""")",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHAE0,"",""
+170,3,DROV1,Subcat,"Start and stop dates that overlap in entries with the same treatment. If additional information is collected like dosage should be taken into consideration (i.e. if the dates overlap with the same treatment but the dosage is different).
+ 
+ Notice: if start and end times are collected, they need to be considered also when checking overlap.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DROV1,"",""
+171,3,DRAE0,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delayed (EXOMIDRE)=Other
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Other
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Other
+ AND
+ If other, specify = text that corresponds to an Adverse Event Term
+ AND
+ Dose record start date is equal to or after related Adverse Event start date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE0,"",""
+172,3,DRAE1,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ Dose record contains AE Identifier 
+ [EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5] or [EXOREAE1]
+ But 
+ AE indentifier does not correspond with any AE Identifier listed in the AE log",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE1,"",""
+173,3,DRAE5,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1] = AESPID
+ AND
+ Dose record, indicates a decrease (compare current dose to previous dose record by sequential dates) was reduced from the previous record
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE MODIFICATION and Modified Dose (EXMDOSE) <> NULL
+ AND
+ Adverse Event Action Taken with Study Treatment does equal DOSE REDUCED
+ BUT
+ Dose record start date is before the Adverse Event start date or is after the Adverse Event End Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE5,"",""
+174,3,CMAE0,Subcat,"Drug Usage=AESAE
+AND 
+AE form entered
+But 
+AE indicatiopn is not same as CM indication CMINDC=AETERM",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE0,"",""
+175,3,CMAE1,Subcat,"Drug Usage=AESAE
+ AND
+ AE records indicate with same Indication CMINDC=AETERM
+ BUT
+ Adverse event start date is after the concomitant medication start date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE1,"",""
+176,3,CMAE2,Subcat,"Drug Usage=AESAE
+ AND
+ AE records indicate with same Indication CMINDC=AETERM
+ BUT
+ Adverse event stop date is before the concomitant medication start date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE2,"",""
+177,3,CMAE6,Subcat,"Drug Usage=AESAE
+ BUT
+ No adverse events are present at all on the corresponding CRF",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMAE6,"",""
+179,3,DRAE8,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1]= AESPID
+ AND
+ Dose record, indicates a decrease (compare current dose to previous dose record by sequential dates) was reduced from the previous record
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE MODIFICATION and Modified Dose (EXMDOSE) <> NULL
+ AND
+ Dose record start date is equal to or after related Adverse Event start date and is equal or before Adverse Event end date
+ BUT
+ Adverse Event Action Taken with Study Treatment does not equal DOSE REDUCED",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE8,"",""
+180,3,DRAE9,Subcat,"Dosing records indicate with Reason for Modification  Interruption  Delay (EXOMIDRE) =Adverse Event 
+ OR
+ Reason for Dose Reduction from the Previous Cycle (EXORE) =Adverse Event
+ OR
+ Reason for Dose InterruptionDiscontinuationReduction in the Current Cycle (EXOADJ)=Adverse Event
+ AND
+ AE Identifier in dosing record is equal to AE ID in AE form ([EXOADAE1 or EXOADAE2 or EXOADAE3 or EXOADAE4 or EXOADAE5]) or [EXOREAE1]= AESPID
+ AND
+ Dose record, indicates an interruption in dose and current Actual Dose [EXOSDOSE] =0
+ OR
+ Dose Interruption  Dose Discontinuati on  Dose Modification (EXOCHCAT)=DOSE INTERRUPTION and Modified Dose (EXMDOSE) =0
+ AND
+ Dose record start date is equal to or after related Adverse Event start date and is equal or before Adverse Event end date
+ AND
+ Only consider latest action taken
+ BUT
+ Adverse Event Latest Action Taken with Study Treatment does not equal InterruptedDelayed",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,DRAE9,"",""
+181,3,LBAE0,Subcat,"Result is outside of the normal reference range
+ When CTCAE grade is applied to lab result, grade = 3 OR 4
+ BUT
+ No correspondingconsistent adverse event term related to the specific lab result are present on the AE CRF
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analytevalue instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,LBAE0,"",""
+182,3,LBAE1,Subcat,"Result is outside of the normal reference range
+ AND
+ When CTCAE grade is applied to lab result, grade = 3 OR 4
+ AND
+ Corresponding Adverse Event Term Identified
+ BUT
+ AE Start Date is more than 5 days prior to Lab Sample Collection Date
+ OR
+ AE start date is more than 30 days after lab sample collection date
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ 
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analytevalue instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,LBAE1,"",""
+183,3,LBAE2,Subcat,"Result is outside of the normal reference range
+ AND
+ When CTCAE grade is applied to lab result, grade = 3 OR 4
+ AND 
+ Corresponding Adverse Event Term Identified
+ AND
+ (AE Start Date is within 5 days prior to or equal to OR within 30 days after Lab Sample Collection Date )
+ BUT
+ Toxicity Grade entered does not match CTCAE grading criteria for corresponding result
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analytevalue instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,LBAE2,"",""
+185,3,MHCM3,Subcat,"MHTERM=CMINDC and CMDU=Pre-existing Medical Condition 
+ AND
+ MH has a stop date (MHENDAT) recorded but CM is ongoing (CMONGO <> NULL)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHCM3,"",""
+186,3,MHCM4,Subcat,"MHTERM=CMINDC and CMDU=Pre-existing Medical Condition 
+ AND 
+ MH Stop date of MH (MHENDAT) is prior to stop date of corresponding CM (CMENDAT)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHCM4,"",""
+188,3,AEMH0,Subcat,"AE with “worsening” in event term recorded (AETERM contains """"Worsening""""), 
+ BUT
+ No MH with same indication recorded; query for potential MH to be added (MHDECOD <> AEDECOD)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AEMH0,"",""
+190,3,MHOV3,Subcat,"One or more Medical history with same MHTERM and MHDECOD, different toxicity grades and have overlapping start and stop dateongoing ranges i.e. events should be sequential
+ 
+ *One day overlapping is acceptable, for example, MH end date (previous) = MH start date (Current)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,MHOV3,"",""
+191,3,AELB1,Subcat,"Adverse Event Term = Lab Related Condition e.g. Anemia, Elevated AST, Hypokalemia etc
+ AND 
+ Corresponding Local Lab result (outside of reference range) identified that has closest Lab Sample Collection Date to AE Start Date
+ BUT
+ AE Start Date is more than 5 days prior to Lab Sample Collection Date
+ OR
+ AE start date is more than 30 days after lab sample collection date
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB1,"",""
+192,3,AELB4,Subcat,"Adverse Event Term = Lab Related Condition e.g. Anemia, Elevated AST, Hypokalemia etc
+ AND 
+ Corresponding Local Lab result (outside of reference range) identified that is within the AE date range (i.e. ≥ AE Start Date and ≤ AE End Date or AE Ongoing) to AE Start Date
+ BUT
+ Toxicity Grade entered does not match CTCAE grading criteria for corresponding result
+ 
+ Note: For GFRE, NEUTP, EOSP, BASOP, LYMP, MONOP: kindly refer AnalyteValue, LabUnits, LabLow, LabHigh instead of StdValue, StdUnits, StdLow, StdHigh.
+ 
+ For AST, ALT, ALP, consider baseline visit (The visit next to screening visit) AST, ALT, ALP Analyte value instead of ULN.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AELB4,"",""
+184,3,LBOV1,Subcat,Duplicate records for each lab test with same date and time (if collected) with at least 1 duplicated lab result,1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,Duplicate records for each lab test with same date and time (if collected) with at least 1 duplicated lab result,"",""
+189,3,MHOV1,Subcat,"Duplicate Medical history with same MHTERM, MHDECOD, start date and stop date and toxicity grade",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate Medical history with same MHTERM, MHDECOD, start date and stop date and toxicity grade","",""
+114,2,CMOV1,Subcat,"Duplicate concomitant medications with same coding term [CMDECOD and CMTRT] (also consider route if collected on CRF), start and stop dates. Also consider duplicate route if collected on CRF.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate concomitant medications with same coding term [CMDECOD and CMTRT] (also consider route if collected on CRF), start and stop dates. Also consider duplicate route if collected on CRF.","",""
+168,3,CMOV1,Subcat,"Duplicate concomitant medications with same coding term [CMDECOD and CMTRT] (also consider route if collected on CRF), start and stop dates. Also consider duplicate route if collected on CRF.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate concomitant medications with same coding term [CMDECOD and CMTRT] (also consider route if collected on CRF), start and stop dates. Also consider duplicate route if collected on CRF.","",""
+63,1,DROV2,Subcat,"Duplicate entries for the same treatment (Same treatment, same start date, same stop date,also consider dosage if recorded)
+ 
+ Notice: if start and end times are collected, they need to be considered also when check the duplication.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate entries for the same treatment (Same treatment, same start date, same stop date,also consider dosage if recorded)
+ 
+ Notice: if start and end times are collected, they need to be considered also when check the duplication.","",""
+98,2,DROV2,Subcat,"Duplicate entries for the same treatment (Same treatment, same start date, same stop date,also consider dosage if recorded)
+ 
+ Notice: if start and end times are collected, they need to be considered also when check the duplication.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate entries for the same treatment (Same treatment, same start date, same stop date,also consider dosage if recorded)
+ 
+ Notice: if start and end times are collected, they need to be considered also when check the duplication.","",""
+152,3,DROV2,Subcat,"Duplicate entries for the same treatment (Same treatment, same start date, same stop date,also consider dosage if recorded)
+ 
+ Notice: if start and end times are collected, they need to be considered also when check the duplication.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate entries for the same treatment (Same treatment, same start date, same stop date,also consider dosage if recorded)
+ 
+ Notice: if start and end times are collected, they need to be considered also when check the duplication.","",""
+91,2,AEOV1,Subcat,"Duplicate adverse events with same AETERM, AEDECOD, start date and stop date and toxicity grade",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate adverse events with same AETERM, AEDECOD, start date and stop date and toxicity grade","",""
+145,3,AEOV1,Subcat,"Duplicate adverse events with same AETERM, AEDECOD, start date and stop date and toxicity grade",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate adverse events with same AETERM, AEDECOD, start date and stop date and toxicity grade","",""
+75,1,LBOV1,Subcat,Duplicate records for each lab test with same date and time (if collected) with at least 1 duplicated lab result,1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,Duplicate records for each lab test with same date and time (if collected) with at least 1 duplicated lab result,"",""
+130,2,LBOV1,Subcat,Duplicate records for each lab test with same date and time (if collected) with at least 1 duplicated lab result,1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,Duplicate records for each lab test with same date and time (if collected) with at least 1 duplicated lab result,"",""
+7,1,AEOV1,Subcat,"Duplicate adverse events with same AETERM, AEDECOD, start date and stop date and toxicity grade",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate adverse events with same AETERM, AEDECOD, start date and stop date and toxicity grade","{""AE1"": [""AESPID"",""AETERM"", ""AESTDAT"", ""AEENDAT"", ""AEONGO"", ""AETOXGR""], ""AE2"": [""AESPID"",""AETERM"", ""AESTDAT"", ""AEENDAT"", ""AEONGO"", ""AETOXGR""]}","{""tox_term"" : {""AETOXGR"" : ""str"", ""AESEV"":""int""}}"
+3,1,AECM2,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES
+ AND
+ CM records indicate with same Indication CMINDC=AETERM
+ BUT
+ Concomitant Medication Start Date is after Adverse Event End Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM2,"{""AE"": [""AETERM"", ""AESPID"", ""AEDECOD"", ""AESTDAT"", ""AEENDAT"", ""AETOXGR"", ""AECMGIV""],
+ ""CM"": [""CMTRT"", ""CMSPID"", ""CM_FORMIDX"",""CMDECOD"", ""CMSTDAT"",""CMENDAT"", ""CMAER"", ""CMAENO""]}","{""match"" : { ""prim_match_col"" : ""AETERM"", ""sec_match_col"" : ""CMINDC"", ""str_match"" :""contains"",""match_type"":""text""}, ""AE_REF_ID"" : [""AENO"", ""AEREFID"", ""AEREFNO""]}"
+2,1,AECM1,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES
+ AND
+ CM records indicate with same Indication CMINDC=AETERM
+ BUT
+ Concomitant Medication Start Date is prior to the Adverse Event Start Date",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM1,"{""AE"": [""AETERM"", ""AESPID"", ""AEDECOD"", ""AESTDAT"", ""AEENDAT"", ""AETOXGR"", ""AECMGIV""],
+ ""CM"": [""CMTRT"", ""CMSPID"", ""CM_FORMIDX"",""CMDECOD"", ""CMSTDAT"",""CMENDAT"", ""CMAER"", ""CMAENO""]}","{""match"" : { ""prim_match_col"" : ""AETERM"", ""sec_match_col"" : ""CMINDC"", ""str_match"" :""contains"",""match_type"":""text""}, ""AE_REF_ID"" : [""AENO"", ""AEREFID"", ""AEREFNO""]}"
+5,1,AECM6,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES; but no concomitant medications are present at all on the corresponding CRF (i.e. CM log is empty, no records found)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM6,"{""AE"": [""AETERM"", ""AESPID"", ""AEDECOD"", ""AESTDAT"", ""AEENDAT"", ""AETOXGR"", ""AECMGIV""],
+ ""CM"": [""CMTRT"", ""CMSPID"", ""CM_FORMIDX"",""CMDECOD"", ""CMSTDAT"",""CMENDAT"", ""CMAER"", ""CMAENO""]}","{""match"" : { ""prim_match_col"" : ""AETERM"", ""sec_match_col"" : ""CMINDC"", ""str_match"" :""contains"",""match_type"":""text""}, ""AE_REF_ID"" : [""AENO"", ""AEREFID"", ""AEREFNO""]}"
+60,1,CMOV1,Subcat,"Duplicate concomitant medications with same coding term [CMDECOD and CMTRT] (also consider route if collected on CRF), start and stop dates. Also consider duplicate route if collected on CRF.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate concomitant medications with same coding term [CMDECOD and CMTRT] (also consider route if collected on CRF), start and stop dates. Also consider duplicate route if collected on CRF.","{""CM1"": [""FORMIDX"", ""CMSPID"", ""CMTRT"", ""CMDECOD"", ""CMSTDAT"", 
+""CMENDAT"", ""CMDOSTOT"", ""CMDOSU"", ""CMDOSFRQ"",""CMROUTE"", ""CMONGO"", ""CMAER"", 
+""CMAENO""],""CM2"": [""FORMIDX"", ""CMSPID"", ""CMTRT"", ""CMDECOD"", ""CMSTDAT"",
+ ""CMENDAT"", ""CMDOSTOT"", ""CMDOSU"", ""CMDOSFRQ"",""CMROUTE"", ""CMONGO"", ""CMAER"",""CMAENO""]}","{""check_fields"":[""CMDECOD"",""CMTRT"",""CMDOSU"", ""CMDOSFRQ"",""CMROUTE"",""CMINDC""]}"
+61,1,CMOV2,Subcat,"One or more concomitant medications with same coding term [CMDECOD and CMTRT] (also consider route if collected on CRF), but have overlapping start and stop date ranges i.e. medications should be sequential
+ 
+ *One day overlapping is acceptable, for example, CM end date (previous) = CM start date (Current)",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,CMOV2,"{""CM1"": [""FORMIDX"", ""CMSPID"", ""CMTRT"", ""CMDECOD"", ""CMSTDAT"", 
+""CMENDAT"", ""CMDOSTOT"", ""CMDOSU"", ""CMDOSFRQ"",""CMROUTE"", ""CMONGO"", ""CMAER"", 
+""CMAENO""],""CM2"": [""FORMIDX"", ""CMSPID"", ""CMTRT"", ""CMDECOD"", ""CMSTDAT"",
+ ""CMENDAT"", ""CMDOSTOT"", ""CMDOSU"", ""CMDOSFRQ"",""CMROUTE"", ""CMONGO"", ""CMAER"",""CMAENO""]}","{""check_fields"":[""CMDECOD"",""CMTRT"",""CMDOSU"", ""CMDOSFRQ"",""CMROUTE"",""CMINDC""]}"
+4,1,AECM5,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)<>CONMEDS or YES; though a Concomitant medication with consistent dates and consistentlogical name andor corresponding Indication matching the respective AE record is reported.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM5,"{""AE"": [""AETERM"", ""AESPID"", ""AEDECOD"", ""AESTDAT"", ""AEENDAT"", ""AETOXGR"", ""AECMGIV""],
+ ""CM"": [""CMTRT"", ""CMSPID"", ""CM_FORMIDX"",""CMDECOD"", ""CMSTDAT"",""CMENDAT"", ""CMAER"", ""CMAENO""]}","{""match"" : { ""prim_match_col"" : ""CMINDC"", ""sec_match_col"" :""AETERM"", ""str_match"" :""contains"",""match_type"":""text""}, ""AE_REF_ID"" : [""AENO"", ""AEREFID"", ""AEREFNO""]}"
+38,1,AEOV2,Subcat,"One or more adverse event with same AETERM and AEDECOD, same toxicity grades if collected but have overlapping start and stop date ranges i.e. events should be sequential",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AE with a Start Date and End Date or Is the event Ongoing overlaps with AE with a Start Date and End Date or Is the event Ongoing.,"{""AE1"": [""AESPID"",""AETERM"", ""AESTDAT"", ""AEENDAT"", ""AEONGO"", ""AETOXGR""], ""AE2"": [""AESPID"",""AETERM"", ""AESTDAT"", ""AEENDAT"", ""AEONGO"", ""AETOXGR""]}","{""tox_flag"" : ""TRUE"", ""aeterm_flag"" : ""FALSE""}"
+82,1,MHOV1,Subcat,"Duplicate Medical history with same MHTERM, MHDECOD, start date and stop date and toxicity grade",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,"Duplicate Medical history with same MHTERM, MHDECOD, start date and stop date and toxicity grade","{""MH"":[""MHSTDAT"", ""MHENDAT"", ""MHTERM"", ""MHTERM_PT"", ""MHTOXGR""]}",""
+6,1,AECM8,Subcat,"Intervention (Procedure, Surgery, Concomitant Medications) (AECONTRT)=CONMEDS or YES and a corresponding concomitant medication with consistentlogical name is identified, yet conmed dates does not come within AE dates.",1,true,2,2022-04-06 15:15:04.637,2022-04-06 15:15:04.637,AECM8,"{""AE"": [""AETERM"", ""AESPID"", ""AEDECOD"", ""AESTDAT"", ""AEENDAT"", ""AETOXGR"", ""AECMGIV""],
+ ""CM"": [""CMTRT"", ""CMSPID"", ""CM_FORMIDX"",""CMDECOD"", ""CMSTDAT"",""CMENDAT"", ""CMAER"", ""CMAENO""]}","{""match"" : { ""prim_match_col"" : ""AETERM"", ""sec_match_col"" : ""CMINDC"", ""str_match"" :""contains"",""match_type"":""text""}, ""AE_REF_ID"" : [""AENO"", ""AEREFID"", ""AEREFNO""]}"

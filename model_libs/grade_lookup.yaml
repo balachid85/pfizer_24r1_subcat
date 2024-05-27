@@ -1,0 +1,64 @@
+VERSION 3:  
+  ANEMIA : f_get_v3_hgb
+  THROMBOCYTOPENIA : f_get_v3_plts
+  LEUKOPENIA : f_get_v3_wbc
+  INCREASED PT : f_get_v3_pt_quick
+  HYPERBILIRUBINEMIA : f_get_v3_bili_tot
+  HYPOALBUMINEMIA : f_get_v3_alb
+  INCREASED AST : f_get_v3_ast
+  INCREASED CK : f_get_v3_ck
+  INCREASED ALT : f_get_v3_alt
+  INCREASED GGT : f_get_v3_ggt
+  INCREASED AP : f_get_v3_ap
+  HYPERCREATINEMIA : f_get_v3_creat
+  HYPERNATREMIA : f_get_v3_na
+  HYPERKALEMIA : f_get_v3_k
+  HYPOBICARBONATEMIA : f_get_v3_hco3
+  HYPERCALCEMIA : f_get_v3_ca
+  HYPOPHOSPHATEMIA : f_get_v3_phosphate
+  HYPERCHOLESTEROLEMIA : f_get_v3_chol_ran
+  HYPERTRIGLYCERIDEMIA : f_get_v3_tg_ran
+  HYPERGLYCEMIA : [f_get_v3_gluc_fast, f_get_v3_gluc_ran]
+  INCREASED PTT : f_get_v3_ptt
+  HYPERMAGNESEMIA : f_get_v3_mg
+  INCREASED AMYLASE : f_get_v3_amylase_s
+  NEUTROPENIA : f_get_v3_neut_a
+  LYMPHOPENIA : f_get_v3_lymph_a
+  INCREASED INR : f_get_v3_pt_inr
+  INCREASED LIPASE : f_get_v3_lipase_s
+  HYPERCHOLESTEROLEMIA : f_get_v3_chol_fast
+  HYPERTRIGLYCERIDEMIA : f_get_v3_tg_fast
+
+VERSION 4:
+  ANEMIA : f_get_v4_hgb
+  THROMBOCYTOPENIA : f_get_v4_plts
+  LEUKOPENIA : f_get_v4_wbc
+  INCREASED PT : f_get_v4_pt_quick
+  HYPERBILIRUBINEMIA : f_get_v4_bili_tot
+  HYPOALBUMINEMIA : f_get_v4_alb
+  INCREASED AST : f_get_v4_ast
+  INCREASED CK : f_get_v4_ck
+  INCREASED ALT : f_get_v4_alt
+  INCREASED GGT : f_get_v4_ggt
+  INCREASED AP : f_get_v4_ap
+  HYPERCREATINEMIA : f_get_v4_creat
+  CHRONIC KIDNEY DISEASE : [f_get_v4_creat_cl, f_get_v4_glom_filt_rate]
+  HYPERNATREMIA : f_get_v4_na
+  HYPERKALEMIA : f_get_v4_k
+  HYPERCALCEMIA : f_get_v4_ca
+  HYPOPHOSPHATEMIA : f_get_v4_phosphate
+  HYPERCHOLESTEROLEMIA : [f_get_v4_chol_ran, f_get_v4_chol_fast]
+  HYPERTRIGLYCERIDEMIA : [f_get_v4_tg_ran, f_get_v4_tg_fast]
+  HYPERGLYCEMIA : [f_get_v4_gluc_fast, f_get_v4_gluc_ran]
+  INCREASED PTT : f_get_v4_ptt
+  INCREASED FIBRINOGEN : f_get_v4_fbgn
+  HYPERMAGNESEMIA : f_get_v4_mg
+  HYPERCALCEMIA : f_get_v4_ca_ion
+  INCREASED AMYLASE : f_get_v4_amylase_s
+  NEUTROPENIA : f_get_v4_neut_a
+  LYMPHOCYTE COUNT INCREASED : f_get_v4_lymph_a
+  LYMPHOPENIA : f_get_v4_lymph_a
+  INCREASED INR : f_get_v4_pt_inr
+  INCREASED LIPASE : f_get_v4_lipase_s
+
+
