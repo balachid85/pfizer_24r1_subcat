@@ -1,0 +1,64 @@
+ctcname,labcode,lparm,pfizer_loinc_name,aeterm,aeptcd,aedecod,lab_test
+ANEMIA,1,hgb,hemoglobin,anemia,10002034,Anaemia,"hemoglobin, hgb"
+CHRONIC KIDNEY DISEASE,49,creat_cl,creatinine clearance,chronic kidney disease,10064848,Chronic kidney disease,creatinine clearance
+CHRONIC KIDNEY DISEASE,464,glom_filt_rate,glomerular filtration rate,chronic kidney disease,0,na,glomerular filteration rate
+HEMOGLOBIN INCREASED,1,hgb,hemoglobin,hemoglobin increased,0,na,"hemoglobin, hgb"
+Hyperbilirubinemia,21,bili_tot,bilirubin (total),hyperbilirubinemia,10020578,Hyperbilirubinaemia,bilirubin total
+HYPERCALCEMIA,58,ca,calcium,"hypercalcemia, blood calcium increased",10020583,Hypercalcaemia,calcium
+HYPERCALCEMIA,209,ca_ion,ionized calcium,hypercalcemia,0,na,ionized calcium
+Hypercholesterolemia,63,chol_ran,cholesterol,"hypercholesterolemia, cholesterol high, high cholesterol, blood cholesterol increased, blood cholesterol",10020603,Hypercholesterolemia,total choleterol
+Hypercholesterolemia,1478,chol_fast,cholesterol (fasting),hypercholesterolemia,0,na,fasting cholesterol
+Hypercreatinemia,48,creat,creatinine,"hypercreatinemia, creatinine increased, blood creatinine increased, blood creatinine",10005483,Blood creatinine increased,creatine
+HYPERGLYCEMIA,67,gluc_fast,glucose (fasting),hyperglycemia,0,na,fasting glucose
+HYPERGLYCEMIA,68,gluc_ran,glucose,"hyperglycemia, blood glucose increased",10020635,Hyperglycaemia,glucose
+HYPERKALEMIA,55,k,potassium,"hyperkalemia, blood potassium increased",10020646,Hyperkalaemia,potassium
+HYPERMAGNESEMIA,199,mg,magnesium,"hypermagnesemia, blood magnesium increased",10020669,Hypermagnesaemia,magnesium
+HYPERNATREMIA,54,na,sodium,"hypernatremia, blood sodium increased",10020679,Hypernatraemia,sodium
+HYPERTRIGLYCERIDEMIA,64,tg_ran,triglycerides,hypertriglyceridemia,10020869,Hypertriglyceridaemia,triglycerides
+HYPERTRIGLYCERIDEMIA,1479,tg_fast,triglycerides (fasting),hypertriglyceridemia,0,na,fasting triglycerides
+HYPOALBUMINEMIA,25,alb,albumin,"hypoalbuminemia, blood albumin decreased ",10020942,Hypoalbuminaemia,albumin
+Hypobicarbonatemia,57,hco3,bicarbonate,hypobicarbonatemia,0,na,bicarbonate
+HYPOCALCEMIA,58,ca,calcium,"hypocalcemia, blood calcium decreased",10020947,Hypocalcaemia,calcium
+HYPOCALCEMIA,209,ca_ion,ionized calcium,hypocalcemia,0,na,ionized calcium
+HYPOGLYCEMIA,67,gluc_fast,glucose (fasting),hypoglycemia,0,na,fasting glucose
+HYPOGLYCEMIA,68,gluc_ran,glucose,"hypoglycemia, blood glucose decreased",10020993,Hypoglycaemia,glucose
+HYPOKALEMIA,55,k,potassium,"hypokalemia, blood potassium decreased",10021015,Hypokalaemia,potassium
+HYPOMAGNESEMIA,199,mg,magnesium,"hypomagnesemia, blood magnesium decreased",10021027,Hypomagnesaemia,magnesium
+HYPONATREMIA,54,na,sodium,"hyponatremia, blood sodium decreased",10021036,Hyponatraemia,sodium
+HYPOPHOSPHATEMIA,59,phosphate,phosphate,"hypophosphatemia, blood phosphorus decreased",10021058,Hypophosphataemia,"phosphate, phosphorus"
+Increased ALT,30,alt,alanine aminotransferase (alt),"increased alt, alanine aminotransferase increased",10001551,Alanine aminotransferase increased,"alanine aminotranferase, alt"
+Decreased ALT,0,alt,alanine aminotransferase (alt),"decreased alt, alanine aminotransferase decreased",10001549,Decreased ALT,"alanine aminotranferase, alt"
+Increased Amylase,219,amylase_s,amylase,"increased amylase, serum amylase increased, amylase increased",10002016,Amylase increased,amylase
+Decreased amylase,0,0,0,decreased amylase,10002014,Decreased amylase,amylase
+Increased AP,35,ap,alkaline phosphatase,"increased ap, alkaline phosphatase increased, blood alkaline phosphatase increased, blood alkaline phosphatase",10059570,Blood alkaline phosphatase increased,alkaline phosphatase
+Increased AST,28,ast,aspartate aminotransferase (ast),"increased ast, aspartate aminotransferase increased",10003481,Aspartate aminotransferase increased,"asparate aminotransferase, ast"
+Decreased AST,0,ast,aspartate aminotransferase (ast),"decreased ast, aspartate aminotransferase decreased",10003479,Decreased AST,"asparate aminotransferase, ast"
+Increased CK,29,ck,creatine kinase,"increased ck, ck increased, cpk increased, creatine phosphokinase increased, blood creatine phosphokinase increased",10005470,Blood creatine phosphokinase increased,creatine kinase
+Increased Fibrinogen,136,fbgn,fibrinogen,increased fibrinogen,0,na,fibrinogen
+Increased GGT,31,ggt,gamma glutamyl transferase (ggt),"increased ggt, gamma glutamyltransferase increased",10017693,Gamma-glutamyltransferase increased,"gamma glutamyl transferase, ggt"
+Increased INR,704,pt_inr,prothrombin time inr,"increased inr, international normalised ratio abnormal",10022595,International normalised ratio increased,"international normalized ratio, inr"
+Increased Lipase,711,lipase_s,lipase,increased lipase,10024574,Lipase increased,lipase
+Increased PT,19,pt_quick,prothrombin time,"increased pt, prothrombin increased",10037051,Prothrombin level increased,prothrombin time
+Increased PTT,122,ptt,partial thromboplastin time,increased ptt,0,na,partial thromboplastin time
+Leukopenia,7,wbc,white blood cells,"leukopenia, white blood cells decreased",10024384,Leukopenia,"white blood cells, wbc"
+LYMPHOCYTE COUNT INCREASED,11,lymph_pw,lymphocytes (%),lymphocyte count increased,0,na,lymphocytes
+LYMPHOCYTE COUNT INCREASED,611,lymph_a,lymphocytes (absolute),lymphocyte count increased,10025258,Lymphocyte count increased,lymphocytes absolute
+LYMPHOPENIA,11,lymph_pw,lymphocytes (%),lymphopenia,0,na,lymphocytes
+LYMPHOPENIA,611,lymph_a,lymphocytes (absolute),lymphopenia,10025327,Lymphopenia,lymphocytes absolute
+Neutropenia,8,neut_pw,neutrophils (%),neutropenia,0,na,lymphocytes
+Neutropenia,608,neut_a,neutrophils (absolute),neutropenia,10029354,Neutropenia,lymphocytes absolute
+Proteinuria,78,prot_u,urine protein,"proteinuria, protein urine present",10037032,Proteinuria,"urine protein, urine protein quantitative random, urine 24hr protein"
+Thrombocytopenia,5,plts,platelets,"thrombocytopenia, platelet count decreased",10043554,Thrombocytopenia,"platelets, plt, plts"
+0,0,0,white blood cells,leukocytosis,10024378,Leukocytosis,"white blood cell, white blood cells, white blood cells count, white blood cell count, wbc"
+0,0,0,0,"activated partial thromboplastin time prolonged, prolonget aptt",10000636,Activated partial thromboplastin time prolonged,"activated partial thromboplastin time, aptt"
+0,0,0,0,febrile neutropenia,10016288,Febrile neutropenia,"neutrophils absolute, anc"
+0,0,0,0,blood bilirubin increased,10005364,Blood bilirubin increased,bilirubin total
+0,0,0,0,"cd4 lymphocytes decreased, lymphocyte count decreased",10025256,Lymphocyte count decreased,lymphocytes absolute
+0,0,0,0,"hypofibrinogenemia, fibrinogen decreased",0,na,0
+0,0,0,0,lipase increased,10024574,Lipase increased,lipase
+0,0,0,0,neutrophil count decreased,10029366,Neutrophil count decreased,neutrophils absolute
+0,0,0,0,pancreatic enzymes decreased,0,na,"amylase, lipase"
+0,0,0,0,"hyperuricemia, blood uric acid increased",10020903,Hyperuricaemia,uric acid
+0,0,0,0,acute coronary syndrome,0,na,"electrocardiogram, ecg, ekg"
+0,0,0,0,"acute kidney injury, aki, arf",10069339,Acute kidney injury,creatine
+0,0,0,0,corneal ulcer,0,na,tuberculin 

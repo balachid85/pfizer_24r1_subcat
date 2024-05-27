@@ -1,0 +1,93 @@
+"id","account_id","domain","item_name","item_label","created_by","updated_by","created_at","updated_at"
+1,1,AE,AEYN,Did the Subject experience any adverse events?,123,,,2022-09-01 16:54:42.464
+2,1,AE,AELBL,<b> Please DO NOT record any DLT Adverse Events on this form; please complete separate DLT Adverse Event form instead <b>,123,,,2022-09-01 16:54:42.464
+3,1,AE,AETERM,Adverse Event term,123,,,2022-09-01 16:54:42.464
+4,1,AE,AESTDAT,Start Date,123,,,2022-09-01 16:54:42.464
+5,1,AE,AEONGO,Tick if the AE is Ongoing,123,,,2022-09-01 16:54:42.464
+6,1,AE,AEENDAT,End Date,123,,,2022-09-01 16:54:42.464
+7,1,AE,AEIR,Is this AE an immune-related AE (irAE)?,123,,,2022-09-01 16:54:42.464
+8,1,AE,AEIRR,Is this an AE an Infusion Related Reaction (IRR)?,123,,,2022-09-01 16:54:42.464
+9,1,AE,AETOXGR,Grade,123,,,2022-09-01 16:54:42.464
+10,1,AE,AESER,"Is the adverse event
+ 
+ serious? <br >
+ 
+ <br >
+ 
+ <b> If Yes, please complete and submit SAE Reporting Form accordingly <b>",123,,,2022-09-01 16:54:42.464
+11,1,AE,AESCONG,"Is the adverse event
+ 
+ associated with a
+ 
+ congenital anomaly or
+ 
+ birth defect?",123,,,2022-09-01 16:54:42.464
+12,1,AE,AESDISAB,"Did the adverse event
+ 
+ result in persistent or
+ 
+ significant disability or
+ 
+ incapacity?",123,,,2022-09-01 16:54:42.464
+13,1,AE,AESDTH,"Did the adverse event
+ 
+ result in death?",123,,,2022-09-01 16:54:42.464
+14,1,AE,AESHOSP,"Did the adverse event
+ 
+ result in initial or
+ 
+ prolonged
+ 
+ hospitalization for the
+ 
+ patient?",123,,,2022-09-01 16:54:42.464
+15,1,AE,AESLIFE,"Is the adverse event life
+ 
+ threatening?",123,,,2022-09-01 16:54:42.464
+16,1,AE,AESMIE,"Is the adverse event
+ 
+ associated with other
+ 
+ serious or important
+ 
+ medical events?",123,,,2022-09-01 16:54:42.464
+17,1,AE,AEREL,Relationship to study treatment,123,,,2022-09-01 16:54:42.464
+18,1,AE,AEACN,Action taken with ADG126?,123,,,2022-09-01 16:54:42.464
+19,1,AE,AECONTRT,Was a treatment given for this adverse event?,123,,,2022-09-01 16:54:42.464
+20,1,AE,AEACNOTH,Was any other action taken?,123,,,2022-09-01 16:54:42.464
+21,1,AE,AEACNSP,"If Yes, specify",123,,,2022-09-01 16:54:42.464
+22,1,AE,AEOUT,Outcome,123,,,2022-09-01 16:54:42.464
+23,1,AE,AEDIS,"Did the adverse event
+ 
+ cause the subject to be
+ 
+ discontinued from the
+ 
+ study?",123,,,2022-09-01 16:54:42.464
+24,1,AE,AEDLTSP1,DLT Classification,123,,,2022-09-01 16:54:42.464
+25,1,AE,AEDLTSP_OTH,"If Other, specify",123,,,2022-09-01 16:54:42.464
+26,1,CM,CMYN,Any current or prior ongoing concomitant medications reported?,123,,,2022-09-01 16:54:42.464
+27,1,CM,CM_LBL,"Include all concomitant medication taken prior which are ongoing during the study and
+ 
+ taken during the study.",123,,,2022-09-01 16:54:42.464
+28,1,CM,CMINGRD,List all active Ingredient(s)(OPTIONAL),123,,,2022-09-01 16:54:42.464
+29,1,CM,CMINDC,Indication,123,,,2022-09-01 16:54:42.464
+30,1,CM,CMDSTXT,Dose,123,,,2022-09-01 16:54:42.464
+31,1,CM,CMDOSU,Unit,123,,,2022-09-01 16:54:42.464
+32,1,CM,CMUNTOTH,"If Other, specify",123,,,2022-09-01 16:54:42.464
+33,1,CM,CMDOSFREQ,Frequency,123,,,2022-09-01 16:54:42.464
+34,1,CM,CMFREOTH,"If Other, specify",123,,,2022-09-01 16:54:42.464
+35,1,CM,CMROUTE,Route of Administration,123,,,2022-09-01 16:54:42.464
+36,1,CM,CMRTOTH,"If Other, specify",123,,,2022-09-01 16:54:42.464
+37,1,CM,CMDOSE,DOSE,123,,,2022-09-01 16:54:42.464
+38,1,CM,CMONGO,"Tick if
+ 
+ medicationtherapy is
+ 
+ still ongoing?",123,,,2022-09-01 16:54:42.464
+39,1,MH,MHTERM,MH term,123,,,2022-09-01 16:54:42.464
+40,1,MH,MHONGO,MH ongoing,123,,,2022-09-01 16:54:42.464
+41,1,MH,MHSTDAT,MH start date,123,,,2022-09-01 16:54:42.464
+42,1,MH,MHENDAT,MH dateEnd ,123,,,2022-09-01 16:54:42.464
+43,1,MH,MHTERM_PT,MH term,123,,,2022-09-01 16:54:42.464
+44,1,MH,MHTOXGR,MH toxicity grade,123,,,2022-09-01 16:54:42.464
