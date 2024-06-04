@@ -10,8 +10,8 @@ import pandas as pd
 from math import ceil
 import traceback
 from requests.adapters import HTTPAdapter, Retry
-from sqlalchemy import text, create_engine
-from pfizer_study_get_vol import pfizer_adapters
+# from sqlalchemy import text, create_engine
+# from pfizer_study_get_vol import pfizer_adapters
 
 
 logging_level = os.environ.get("RULE_LOGGING_LEVEL") or "INFO"
@@ -82,7 +82,8 @@ class BaseSDQApi:
     def get_batch_ids(self, last_run_dt=None):
         params = {
             'last_run_dt': last_run_dt,
-            'ml_model_id': self.rule_id
+            'ml_model_id': self.rule_id,
+            'subcat': self.rule_meta_data['rule_name']
         }
         url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{self.study_id}/get-batch-ids/"
         response = requests.request("GET", url, params=params, verify=Config.SSL_VERIFY)
@@ -175,7 +176,7 @@ class BaseSDQApi:
         
         return fields
     
-    def get_field_dict(self, account_id, study_id, subcat_name, fieldname ):
+    def get_field_dict_yaml(self, account_id, study_id, subcat_name, fieldname ):
         
         fields = {}
         # fields = get_field_labels(self.account_id, domain_name)
@@ -191,11 +192,41 @@ class BaseSDQApi:
             curr_path = os.path.abspath(os.path.join(curr_file_path, '../'))
             subcat_config_path = os.path.join(curr_path, 'subcate_config.yml')
             a = yaml.safe_load(open(subcat_config_path, 'r'))
-        if(fieldname == 'display_fields'):
+        if(str(fieldname).lower() == 'display_fields'):
             fields = a['FIELDS_FOR_UI'][subcat_name]
-        else:
+        elif str(fieldname).lower() == 'fn_config':
             fields = a['FN_CONFIG'][subcat_name]
         return fields
+
+    def get_field_dict(self, account_id, study_id, subcat_name, fieldname):
+        field_data = None
+        try:
+            if str(fieldname).lower() == 'fn_config':
+                url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/get-fn-config/{self.sub_cat}"
+            elif str(fieldname).lower() == 'display_fields':
+                url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/get-dynamic-panel-config/{self.sub_cat}" 
+            
+            response = requests.request("GET", url, verify=Config.SSL_VERIFY, timeout=5)
+            
+            if response.status_code not in (200, 201):
+                logging.error(response.text)
+                raise APIException('Error in fetching fn_config/dynamic panel')
+            
+            response_json = response.json()
+            field_data = response_json['data']
+            return yaml.safe_load(field_data)
+        except Exception as get_field_exc:
+            print('Exception inside get_field_dict is :', get_field_exc)
+            try:
+                field_data = self.get_field_dict_yaml(account_id, study_id, subcat_name, fieldname)
+                return field_data
+            except Exception as yaml_exc:
+                print('Exception in fetching config yaml data', yaml_exc)
+                logging.info(traceback.format_exc())
+            print('Exception in api calling/api not found', get_field_exc)
+            logging.info(traceback.format_exc())
+        
+        return field_data
     
     def _save_tracking_info(self):
         processed_subjects = len(self._get_processed_data_metrics()) if self._data_processed else 0
@@ -480,6 +511,8 @@ class BaseSDQApi:
     def get_unflatten_count(self, study, subject, per_page=10000, formname_list=None, formrefname_list=None,
                             domain_list=None):
         url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{study}/subjects/{subject}"
+        if type(subject) in [list, tuple]:
+            url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{study}/subjects/{subject[0]}/{subject[1]}"
         params = {
             'per_page': per_page,
             'task': 'count',
@@ -500,6 +533,8 @@ class BaseSDQApi:
                            domain_list=None, max_ck_event_id=None):
         print("GETTING UNFLATTEN LIST")
         url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{study}/subjects/{subject}"
+        if type(subject) in [list, tuple]:
+            url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{study}/subjects/{subject[0]}/{subject[1]}"
         params = {
             'page': page,
             'task': 'list',
@@ -542,10 +577,12 @@ class BaseSDQApi:
             "report": payload['report'],
             "modif_dts": payload['modif_dts'],
             "visit_nm": payload.get('visit_nm'),
-            "confid_score": round(payload.get('confid_score', 1), 2),
+            "confid_score": payload.get('confid_score', 0.97),
             "rule_id": self.rule_id,
             "job_id": self.job_id,
             "cdr_skey": payload.get('cdr_skey','0'),
+            "query_target": self.rule_meta_data['item_nm_preconf'],
+            "subcat_description": self.rule_meta_data['rule_desc']
         }
 
         print('_payload is :',_payload)
@@ -554,7 +591,7 @@ class BaseSDQApi:
             _formrefname, _sectionrefname, _inform = self.get_edc_mapping(payload['formrefname'])
             _payload['formrefname'] = _formrefname
             _payload['sectionrefname'] = _sectionrefname
-            _payload['question_present']['SRDM'] = [_inform]
+            _payload['question_present']['INFORM'] = [_inform]
         else:
             _payload['formrefname'] = self.rule_meta_data['formrefname']
             _payload['sectionrefname'] = self.rule_meta_data['sectionrefname']
@@ -583,7 +620,14 @@ class BaseSDQApi:
                 f"""{formrefname} not found in {rm_formrefname} for study: {self.study_id} rule: {self.rule_id} version: {self.version} in rule_master""")
             raise
         _formrefname = rm_formrefname[mapping_index]
-        _sectionrefname = rm_sectionrefname[mapping_index]
+        try:
+            _sectionrefname = rm_sectionrefname[mapping_index]
+            study_src = self.get_study_source()
+            if study_src and str(study_src).upper() == 'RAVE':
+                _sectionrefname = _formrefname # For rave Copy formrefname to sectionrefname
+        except Exception as e:
+            print('sectionrefnm exc:',e)
+            _sectionrefname = _formrefname
         _inform = rm_inform[mapping_index]
         return _formrefname, _sectionrefname, _inform
 
@@ -608,7 +652,7 @@ class BaseSDQApi:
         try:
             _json = {
                 'SRDM': self.rule_meta_data['item_nm_edc'].split(','),
-                'INFORM': self.rule_meta_data['item_nm_preconf'].split(',')
+                'INFORM': self.rule_meta_data['item_nm_edc'].split(',')
             }
         except KeyError as e:
             logging.error(
@@ -618,10 +662,16 @@ class BaseSDQApi:
 
     def _set_processed_data(self, subject, flatten_data):
         for domain, records in flatten_data.items():
-            if subject in self._data_processed:
-                self._data_processed[subject].update({domain: len(records)})
+            if type(subject) in [list,tuple]:
+                if subject[0] in self._data_processed:
+                    self._data_processed[subject[0]].update({domain: len(records)})
+                else:
+                    self._data_processed[subject[0]] = {domain: len(records)}
             else:
-                self._data_processed[subject] = {domain: len(records)}
+                if subject in self._data_processed:
+                    self._data_processed[subject].update({domain: len(records)})
+                else:
+                    self._data_processed[subject] = {domain: len(records)}
 
     def _get_processed_data_metrics(self, subject=None):
         if subject:
@@ -634,10 +684,16 @@ class BaseSDQApi:
         return self._discrepancy_count
 
     def _incr_discrepancy_count(self, subject):
-        if subject in self._discrepancy_count:
-            self._discrepancy_count[subject] += 1
+        if type(subject) in [list, tuple]:
+            if subject[0] in self._discrepancy_count:
+                self._discrepancy_count[subject[0]] += 1
+            else:
+                self._discrepancy_count[subject[0]] = 1
         else:
-            self._discrepancy_count[subject] = 1
+            if subject in self._discrepancy_count:
+                self._discrepancy_count[subject] += 1
+            else:
+                self._discrepancy_count[subject] = 1
 
     '''def get_flatten_data(self, study, subject, per_page=10000, formname_list=None, formrefname_list=None,
                          domain_list=None):
@@ -802,7 +858,7 @@ class BaseSDQApi:
                 
             #url = f"https://account2.sdq-qa1.airesearch.lsac-dev.com/apiservice/v1/predict_medical_code/{inp_text}/{model_nm}"
             url = f"{self.API_HOST}/apiservice/v1/predict_medical_code/{inp_text}/{model_nm}"
-            response = self.request_session.request("GET", url, verify=Config.SSL_VERIFY)
+            response = requests.request("GET", url, verify=Config.SSL_VERIFY)
             if response.status_code not in (200, 201,):
                 print("failed term :" ,inp_text,response.text)
                 top_prediction = {}
@@ -816,16 +872,16 @@ class BaseSDQApi:
                 if item in  top_prediction.keys():
                     select_term[item] = top_prediction[item]
 
-            select_term['original'] = str(inp_text)            
+            select_term['original'] = inp_text            
             #print(f'The medical dictionary for {inp_text} is :',select_term)
             return select_term
         
         except Exception as e:
             print(traceback.format_exc())
             print('Exception in API',e)
-            return {'preferred_term': None,'original': str(inp_text)}
+            return {'preferred_term': None,'original': inp_text}
         
-    def get_aelab_mapping(self):
+    def get_aelab_mapping_csv(self):
         # url = f"{self.API_HOST}/api-service/1/get-aelab-mapping"
         curr_file_path = os.path.realpath(__file__)
         curr_path = os.path.abspath(os.path.join(curr_file_path, '../'))
@@ -840,6 +896,35 @@ class BaseSDQApi:
         print('get_aelab_mapping')
         return df
     
+    def get_aelab_mapping(self):
+        aelb_df = None
+        try:
+            url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/get-aelb-mapping/"        
+            
+            response = requests.request("GET", url, verify=Config.SSL_VERIFY, timeout=5)
+            
+            if response.status_code not in (200, 201):
+                logging.error(response.text)
+                raise APIException('Error in fetching aelb mapping data')
+            
+            response_json = response.json()
+            #print("Data ae lb mapping : ",response_json['data'])
+            # return yaml.safe_load(response_json['data'])
+            return pd.read_json(response_json['data'])
+        
+        except Exception as get_aelb_exc:            
+            print('Checking csv availability for aelb mapping')
+            try:
+                aelb_df = self.get_aelab_mapping_csv()
+                #print("Data : ",aelb_df)
+                return aelb_df
+            except Exception as csv_exc:
+                print('Exception in fetching ae lb data from csv', csv_exc)
+                logging.info(traceback.format_exc())   
+            print('Exception in api', get_aelb_exc)    
+            logging.info(traceback.format_exc()) 
+        return aelb_df
+    
     def get_dm_pred_data(self, study, infer_subcat, subject, col):
         url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{study}/get-dm-pred-data/{infer_subcat}/{subject}/{col}/"
         response = requests.request("GET", url, verify=Config.SSL_VERIFY)
@@ -851,6 +936,8 @@ class BaseSDQApi:
 
     def get_stg_cdr_skey(self, study, stg_ck_event_id):
         url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{study}/get-stg-cdr-skey/{stg_ck_event_id}/"
+        if type(subject) in [list, tuple]:
+            url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{study}/get-dm-pred-data/{infer_subcat}/{subject[0]}/{subject[1]}/{col}/"
         response = requests.request("GET", url, verify=Config.SSL_VERIFY)
         if response.status_code not in (200,):
             logging.error(response.text)
@@ -860,6 +947,8 @@ class BaseSDQApi:
     
     def clear_query(self, study, subject, infer_subcat, cleared_cdr_skey):
         url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{study}/clear-query/{subject}/{infer_subcat}/{cleared_cdr_skey}/"
+        if type(subject) in [list, tuple]:
+            url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{study}/clear-query/{subject[0]}/{subject[1]}/{infer_subcat}/{cleared_cdr_skey}/"
         response = requests.request("POST", url, verify=Config.SSL_VERIFY)
         if response.status_code not in (200,):
             logging.error(response.text)
@@ -895,24 +984,32 @@ class BaseSDQApi:
         return rule_meta.get('auto_closure', False) in (True, 'true')
     
     def get_study_source(self):
-        url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{self.study_id}/get-study-source/"
-        response = requests.request("GET", url, verify=Config.SSL_VERIFY)
-        if response.status_code not in (200,):
-            logging.error(response.text)
-            raise APIException('Error in getting study source data')
-        response_json = response.json()
-        print('respjs-=',response_json)
-        return response_json['data']
+        try:
+            url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{self.study_id}/get-study-source/"
+            response = requests.request("GET", url, verify=Config.SSL_VERIFY)
+            if response.status_code not in (200,):
+                logging.error(response.text)
+                raise APIException('Error in getting study source data')
+            response_json = response.json()
+            print('respjs-=',response_json)
+            return response_json['data']
+        except Exception as E:
+            print(f"### Exception while getting study source for deeplink - {E}")
+            return ""
     
     def get_map_subject_id(self, subj_guid):
-        url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{self.study_id}/get-map-subject-id/{subj_guid}"
-        response = requests.request("GET", url, verify=Config.SSL_VERIFY)
-        if response.status_code not in (200,):
-            logging.error(response.text)
-            raise APIException('Error in getting subject_id')
-        response_json = response.json()
-        print('respjs-subji-=',response_json)
-        return response_json['data']
+        try:
+            url = f"{self.API_HOST}/apiservice/v1/{self.account_id}/{self.study_id}/get-map-subject-id/{subj_guid}"
+            response = requests.request("GET", url, verify=Config.SSL_VERIFY)
+            if response.status_code not in (200,):
+                logging.error(response.text)
+                raise APIException('Error in getting subject_id')
+            response_json = response.json()
+            print('respjs-subji-=',response_json)
+            return response_json['data']
+        except Exception as E:
+            print(f"### Exception while getting Subject ID from Guid for deeplink - {E}")
+            return ""
     
 def run_rule(klass, study_id, account_id, job_id, rule_id, version, thread_id, thread_batch_count, subject_list):
     rule = klass(study_id, account_id, job_id, rule_id, version, thread_id=thread_id, thread_batch_count=thread_batch_count,
