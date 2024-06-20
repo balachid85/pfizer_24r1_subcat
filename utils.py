@@ -1,7 +1,22 @@
+# PROJECT: SDQ 24R1.1 - Subcat Adaptation
+# OBJECT: utils.py
+# DESCRIPTION: <What this code does in short>
+# DATE               JIRA            Function               DESCRIPTION
+# 6/6/2024                       check_sim_match         This function is used here to perform ML related operations. 
+# 6/6/2024                       to_int_DSL                 ????
+# 6/6/2024                       format_datetime         Try - Except functionality is used here for handling of error
+# 6/6/2024                      get_ec_hierarchy        A Extra logic is used for handling , when aetrt_dict is empty.
+# 6/6/2024                      check_cmindc            ????
+# 6/6/2024                      data_helper             A Extra condition is added, where it filters when the value is returned as 'none' string. 
+# 6/6/2024                       bioextractone           This function is used here to perform ML related operations.
+# 6/6/2024                       check_aelab_v2           ????.
+# 6/6/2024                       compare_partial_date           ????.
+# 6/6/2024                       check_term                    ????.
+
+
 from dateutil.parser import parse
 import numpy as np
-import datetime
-from  datetime import date
+from datetime import datetime,date
 import traceback
 import re
 import pandas as pd
@@ -10,10 +25,24 @@ from fuzzywuzzy import process
 from fuzzywuzzy import fuzz
 from operator import *
 
+# Two new functions imported here for ML related operation ( SDQ 24R1.1 - Subcat Adaptation)
+from similarity.check_match import ClinMatcher
+import torch
+
 null_list = ['null',np.nan,'NULL',None,'nan'] 
 
 yes_list = ['YES','Y','yes','y']
 no_list = ['NO','N','no','n']
+
+curr_file_path = os.path.realpath(__file__)
+print('currfile_real=',curr_file_path)
+curr_path = os.path.abspath(os.path.join(curr_file_path, '../'))
+
+GRAPH_CONFIG = str(curr_path) + '/similarity/config/graph_config.yaml'
+MODEL_CONFIG = str(curr_path) + '/similarity/config/model_config.yaml'
+
+cln_match = ClinMatcher(graph_config_file=GRAPH_CONFIG,
+                        model_config_file=MODEL_CONFIG)
 
 aeacn_list = ['AEACN', 'AEACN1', 'AEACN2', 'AEACN3', 'AEACN4','AEACN5', 'AEACN6', 'AEACN7', 'AEACN8', 'AEACN9','AEACN10', 'AEACN11', 'AEACN12', 'AEACN13', 'AEACN14','AEACN15', 'AEACN16', 'AEACN17', 'AEACN18', 'AEACN19','AEACN20'] 
 aerel_list = ['AEREL', 'AEREL1', 'AEREL2', 'AEREL3', 'AEREL4']
@@ -30,57 +59,122 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 study_deeplink = pd.read_csv(os.path.join(current_path,'study_deeplink.csv'))
 study_deeplink_dict = {int(study): deeplink for study, deeplink in zip(study_deeplink.id, study_deeplink.deep_link_url)}    
 
+def check_sim_match(medication, condition):
+    return cln_match.check_similarity(medication=str(medication).lower(), condition=str(condition).lower())
+
+def to_int_DSL(comb_col, sep, pos, typ):
+    int_col = ''
+    comb_col = str(comb_col)
+    new_col = ''
+    if(comb_col != None and pd.notnull(comb_col)):
+        col_list = comb_col.split(sep)
+        if(len(col_list)<=pos):
+            if(typ.upper() == 'DATE'):
+                dt_col = pd.to_datetime(col_list[pos], errors = 'coerce', infer_datetime_format=True)
+                int_col = int(dt_col)
+                col_list[pos] = int_col
+            elif(typ.upper() == 'STR'):
+                int_col = int(float(col_list[pos]))
+                col_list[pos] = int_col
+
+            for i in len(col_list):
+                    new_col = new_col + col_list[i]
+            return new_col[:-1]
+        else:
+            print('Invalid position in to_int_DSL function')
+            return int_col     
+    else:
+        print('Comb col is null')
+        return int_col
+    
 def format_datetime(timestamp, fmt="%d-%b-%Y", report=True):
     dt_obj = None
-    if timestamp in ['', " ", None, 'null', 'nan']:
-        return 'null'
-    elif pd.notnull(timestamp):
-        if isinstance(timestamp, pd.Timestamp):
-            dt_obj = timestamp.to_pydatetime()
-        elif isinstance(timestamp, datetime.date):
-            dt_obj = timestamp
-        elif isinstance(timestamp, np.datetime64):
-            dt_obj = pd.Timestamp(timestamp).to_pydatetime()
-        elif isinstance(timestamp, (int, str, np.int64)):
-            dt_obj = pd.to_datetime(timestamp)#datetime.datetime.utcfromtimestamp(float(timestamp)/1000.) #datetime.datetime.fromtimestamp(19800801)
-        str_ts = datetime.datetime.strftime(dt_obj, fmt)
-        if (report==False):
-            date_ts = datetime.datetime.strptime(str_ts, fmt).date() 
-            return date_ts
-        return str_ts
-    else:
-        return 'null'
-    
-def unk_format_datetime(unk_flag, ae_df, cm_df):
-    
-    if unk_flag:       
-        if 'CMSTDAT_DTR' in cm_df.columns:
-            cm_df['CMSTDAT'] = cm_df['CMSTDAT_DTR']
+    try:
+        if timestamp in ['', " ", None, 'null', 'nan']:
+            return 'null'
+        elif pd.notnull(timestamp):
+            if isinstance(timestamp, pd.Timestamp):
+                dt_obj = timestamp.to_pydatetime()
+            elif isinstance(timestamp, date):
+                dt_obj = timestamp
+            elif isinstance(timestamp, np.datetime64):
+                dt_obj = pd.Timestamp(timestamp).to_pydatetime()
+            elif isinstance(timestamp, (int, str, np.int64)):
+                dt_obj = pd.to_datetime(timestamp)#datetime.datetime.utcfromtimestamp(float(timestamp)/1000.) #datetime.datetime.fromtimestamp(19800801)
+            str_ts = datetime.strftime(dt_obj, fmt)
+            if (report==False):
+                date_ts = datetime.strptime(str_ts, fmt).date() 
+                return date_ts
+            return str_ts
         else:
-            cm_df['CMSTDAT'] = cm_df['CMSTDAT'].apply(format_datetime)
-            
-        if 'CMENDAT_DTR' in cm_df.columns:
-            cm_df['CMENDAT'] = cm_df['CMENDAT_DTR'] 
-        else:
-            cm_df['CMENDAT'] = cm_df['CMENDAT'].apply(format_datetime)
-        
-        if 'AESTDAT_DTR' in ae_df.columns: 
-            ae_df['AESTDAT'] = ae_df['AESTDAT_DTR']
-        else:
-            ae_df['AESTDAT'] = ae_df['AESTDAT'].apply(format_datetime)
-            
-        if 'AEENDAT_DTR' in ae_df.columns: 
-            ae_df['AEENDAT'] = ae_df['AEENDAT_DTR']
-        else:
-            ae_df['AEENDAT'] = ae_df['AEENDAT'].apply(format_datetime)
+            return 'null'
+    except Exception as format_datetime_exc:
+        #print('Exception in format_datetime is :', format_datetime_exc)
+        print(traceback.format_exc())
+        return timestamp
 
-    else:
-        cm_df['CMSTDAT'] = cm_df['CMSTDAT'].apply(format_datetime)
-        cm_df['CMENDAT'] = cm_df['CMENDAT'].apply(format_datetime)
-        ae_df['AESTDAT'] = ae_df['AESTDAT'].apply(format_datetime)
-        ae_df['AEENDAT'] = ae_df['AEENDAT'].apply(format_datetime)
-        
-    return ae_df, cm_df
+# Doubt    
+def format_partial_date(vals):
+    """
+    Params:
+    vals - Either a single value or series of values from DataFrame
+    Return:
+    format_vals - Either a single formatted value or formatted series
+    """
+    try:
+        unlist = ['UN','UNK']
+        month_dict = {'JAN': 1, 'FEB': 2, 'MAR': 3, 'APR': 4, 'MAY': 5, 'JUN': 6, 'JUL': 7, 
+                        'AUG': 8, 'SEP': 9, 'OCT': 10, 'NOV': 11, 'DEC': 12}
+        if type(vals) == str:
+            vals = vals.upper()
+            result_val = ''
+            split_char = [' ','/','-']
+            for s in split_char:
+                if s in vals:
+                    valsplit = vals.split(s)
+                    break
+            try:
+                if int(valsplit[2]):
+                    pass
+            except:
+                return np.nan
+            
+            if valsplit[0] in unlist and valsplit[1] in unlist:
+                # both day and month unknown
+                result_val = '%s-01-01'%(str(valsplit[2]))
+            elif valsplit[0] in unlist:
+                # only day unknown
+                result_val = '%s-%s-01'%(str(valsplit[2]),str(month_dict[valsplit[1]]))
+            elif valsplit[1] in unlist:
+                #only month unknown
+                result_val = '%s-01-%s'%(str(valsplit[2]), str(valsplit[0]))
+            else:
+                result_val = vals
+            
+            if result_val:
+                try:
+                    date_result = datetime.strptime(result_val, '%Y-%m-%d').date()
+                except:
+                    if '-' in result_val:
+                        try:
+                            date_result = datetime.strptime(result_val, '%d-%b-%y').date()
+                        except:
+                            date_result = datetime.strptime(result_val, '%d-%b-%Y').date()
+                    elif ' ' in result_val:
+                        try:
+                            date_result = datetime.strptime(result_val, '%d %b %Y').date()
+                        except:
+                            date_result = datetime.strptime(result_val, '%d %b %y').date()
+                    elif '/' in result_val:
+                        try:
+                            date_result = datetime.strptime(result_val, '%d/%b/%Y').date()
+                        except:
+                            date_result = datetime.strptime(result_val, '%d/%b/%y').date()
+                return date_result
+    except Exception as format_date_exc:
+        #print('Exception in format date :', format_date_exc)
+        print(traceback.format_exc())
+    return vals
 
 def get_date(x):
     if isinstance(x, str):
@@ -97,6 +191,7 @@ def get_date(x):
         #return_val = datetime.datetime.strptime('01JAN1900:12:40:25', '%d%b%Y:%H:%M:%S') 
         return_val = np.nan
     return return_val
+
 def remove_unk(x1, combine = False):
         if '/' in x1:
             a = str(x1).split('/')
@@ -107,6 +202,7 @@ def remove_unk(x1, combine = False):
         if combine:
             a = '/'.join(a)
         return a
+
 def remove_unk_cmov(x1, combine = False):
         if '/' in x1:
             a = str(x1).split('/')
@@ -223,9 +319,9 @@ def get_ae_hierarchy(ae_records, key):
         return new_ae_records
     else:
         return 0 
-
+    
 def get_ec_ae_hierarchy(ae_df, record):
-    ecaeno = record['ECAENO'].values[0]
+    ecaeno = record['EXAENO'].values[0]
     ecaeno = [str(i) for i in ecaeno]
     new_ae = ae_df
     new_ae = new_ae[new_ae['AESPID'].isin(ecaeno)]
@@ -253,92 +349,6 @@ def split_date(x):
         x = x.split(':')[0]
     return x
 
-
-def impute_unk(date_dict:dict,proper=False):
-    '''
-    imputes both date and month if UNK is present in both fields, imputes only date if UNK is only present in date field.
-    If there is no UNK present in the given dictionary in all the fields, the parsed date without imputing will be returned.
-    '''
-    
-    def date_seperator_handler(date):
-        date_and_time = re.split(' |T', date)
-        if len(date_and_time) > 1:
-            date_and_time[1] = date_and_time[1].replace('UNK','00')
-        date = ' '.join(date_and_time)
-        date = date.replace('NUL','00')
-        date = re.sub('-$|/$|:$|^-|^/|^:', '', date)
-        return date
-    
-    # Default date values to be imputed for the respective fields
-    if proper:
-        imp_default_date = {'cmstdat':2, 'aestdat':1, 'aeendat':4, 'cmendat': 3}
-    elif not proper:
-        imp_default_date = {'cmstdat':2, 'aestdat':3, 'aeendat':1, 'cmendat':4}
-        
-    month_flag, date_flag = False, False
-        
-    # Checking whether UNK in present in either date or month field or both
-    unk_flag = False
-    for date_col in date_dict.keys():
-        date_value = split_date(date_dict[date_col])
-        date_list = re.split('-|/', date_value)
-        date_list = [i.upper() for i in date_list]
-        unk_count = [i for i in date_list if 'UNK' in i.upper()]
-        if 'UNK' in date_list:
-            unk_flag = True
-            date_flag = True
-            # [EDIT #1]
-            if len(unk_count) == 2:
-                month_flag = True
-            elif len(unk_count) > 2:
-                return unk_flag,False,{}
-
-    # If UNK is not present, parsed date to be returned without imputation
-    if not unk_flag:
-        parsed_date = {date_col:parse(date_seperator_handler(date_val)) for date_col,date_val in date_dict.items()}
-        return unk_flag,True,parsed_date
-          
-    # [EDIT #2]
-    # [EDIT #4]
-    # Checking if the the day of AE start date or the AE end date is the first day of the month
-    first_day_flag = False
-    day = None
-    if 'aestdat' in date_dict.keys(): 
-        day = date_dict['aestdat'].upper()
-    elif 'aeendat' in date_dict.keys():
-        day = date_dict['aeendat'].upper()
-    if day:
-        day = date_seperator_handler(day.replace('UNK',''))
-        day = parse(day).day
-        if date.today().day != day and day == 1:
-            first_day_flag = True
-            
-    imputed_date = {}
-            
-    # If UNK is present in either of the fields, it will get imputed
-    if month_flag or date_flag:
-        for date_col in date_dict.keys():
-            date_val = date_dict.get(date_col)
-            if date_flag:
-                if isinstance(date_val, str):
-                    date_val = date_val.upper()
-                    date_val = date_seperator_handler(date_val.replace('UNK',''))
-                    date_val = parse(date_val)
-                    # If first_day_flag is true, CMSTDAT, AESTDAT, AEENDAT days are being imputed to 1. Else normal imputation is being done
-                    if first_day_flag:
-                        if date_col in ['aestdat','aeendat','cmstdat']:
-                            date_val = date_val.replace(day=1)
-                        else:
-                            date_val = date_val.replace(day=imp_default_date[date_col])
-                    else:
-                        date_val = date_val.replace(day=imp_default_date[date_col])
-                    if month_flag:
-                        date_val = date_val.replace(month=1)
-
-            imputed_date[date_col] = date_val
-
-        return unk_flag,True,imputed_date
- 
 def get_deeplink(study_id, rec, type='rave', subject_id=''):
     deeplink = ''
     try:
@@ -403,26 +413,26 @@ def get_aereason_col(ae_record, ae_df, ec_records):
     ecadj_flag = False
     misdost_flag = False
     
-    if 'ECADJ' in ec_cols and 'MISDOST' in ec_cols:
-        ecadj_unique = ec_records['ECADJ'].unique().tolist()
+    if 'EXADJ' in ec_cols and 'MISDOST' in ec_cols:
+        ecadj_unique = ec_records['EXADJ'].unique().tolist()
         misdost_unique = ec_records['MISDOST'].unique().tolist()
         if len(ecadj_unique) > len(misdost_unique):
             ecadj_flag = True
         elif len(misdost_unique) > len(ecadj_unique):
             formind = ae_record['form_index'].values[0]
-            result = extractor(ae_record, ae_df, ec_records, 'AESPID', 'ECAENO')
+            result = extractor(ae_record, ae_df, ec_records, 'AESPID', 'EXAENO')
             if (type(result) == tuple) & (type(result) != bool):
                 if len(result[0]) == 0:
                     misdost_flag = False
             else:
                 misdost_flag = True
                          
-    elif 'ECADJ' in ec_cols:
+    elif 'EXADJ' in ec_cols:
         ecadj_flag = True
             
     elif 'MISDOST' in ec_cols:
         formind = ae_record['form_index'].values[0]
-        result = extractor(ae_record, ae_df, ec_records, 'AESPID', 'ECAENO')
+        result = extractor(ae_record, ae_df, ec_records, 'AESPID', 'EXAENO')
         if (type(result) == tuple) & (type(result) != bool):
             if len(result[0]) == 0:
                 misdost_flag = False
@@ -433,52 +443,62 @@ def get_aereason_col(ae_record, ae_df, ec_records):
 
 def get_dose_column(ec_records):
     ec_cols = ec_records.columns.tolist()
-    ecdose_list = [ 'ECDOSE', 'ECDOSTOT']
+    ecdose_list = [ 'EXDOSE', 'EXDOSTOT']
     
-    if 'ECDOSE' in ec_cols and 'ECDOSTOT' in ec_cols:
-        ecdose_unique = ec_records['ECDOSE'].unique().tolist()
-        ecdostot_unique = ec_records['ECDOSTOT'].unique().tolist()
+    if 'EXDOSE' in ec_cols and 'EXDOSTOT' in ec_cols:
+        ecdose_unique = ec_records['EXDOSE'].unique().tolist()
+        ecdostot_unique = ec_records['EXDOSTOT'].unique().tolist()
         if len(ecdose_unique) > len(ecdostot_unique):
-            return 'ECDOSE'
+            return 'EXDOSE'
         else:
-            return 'ECDOSTOT'
-    elif 'ECDOSE' in ec_cols:
-        return 'ECDOSE'
-    elif 'ECDOSTOT' in ec_cols:
-        return 'ECDOSTOT'
-    
+            return 'EXDOSTOT'
+    elif 'EXDOSE' in ec_cols:
+        return 'EXDOSE'
+    elif 'EXDOSTOT' in ec_cols:
+        return 'EXDOSTOT'
+
 def get_ec_hierarchy(ae_record, ec_rec, values, subcat, study, aetrt_dict):
     d = {}
     ec_records = {}
-    subjectid = ae_record['SUBJECTID'].values[0]
-    ec_rec = ec_rec[ec_rec['SUBJECTID'] == subjectid]
+    subjectid = ae_record['subjid'].values[0]
+    # print(ec_rec.columns.tolist())
+    ec_rec = ec_rec[ec_rec['subjid'] == subjectid]
+    aeacn_list = ['AEACN', 'AEACN1', 'AEACN2', 'AEACN3', 'AEACN4','AEACN5', 'AEACN6', 'AEACN7', 'AEACN8', 'AEACN9','AEACN10', 'AEACN11', 'AEACN12', 'AEACN13', 'AEACN14','AEACN15', 'AEACN16', 'AEACN17', 'AEACN18', 'AEACN19','AEACN20'] 
+    aerel_list = ['AEREL', 'AEREL1', 'AEREL2', 'AEREL3', 'AEREL4']
 
-    if subcat == 'AEDR10':
+    if subcat in ['AEDR10']:
         dct = aerel_dict
         lst = aerel_list
         aetrt_dict = {key.replace('AEACN','AEREL') : val for key,val in aetrt_dict.items()}
     else:
         dct = aeacn_dict
         lst = aeacn_list
-        
+
+    if aetrt_dict == {}:
+        col = lst[0]
+        aeacn = ae_record[col].values[0].upper() if not pd.isna(ae_record[col].values[0]) else ''
+        aetrt = 'EXTRT'
+        for val in values:
+            if aeacn.upper() == val.upper():
+                d[aetrt] = aeacn
+                ec_records[aetrt] = ec_rec
+        return ec_records
     for col in ae_record.columns.tolist():
-        #print(f"{col}")
-        if col in lst:
-            aeacn = ae_record[col].values[0]
-            aetrt = aetrt_dict[col]
-            
+        if col.split(' ')[0] in lst:
+            aeacn = ae_record[col].values[0].upper() if not pd.isna(ae_record[col].values[0]) else ''
+            aetrt = aetrt_dict[col.split(' ')[0]]            
             for val in values:
-                if aeacn == val:
+                if aeacn.upper() == val.upper():
                     d[aetrt] = aeacn
-    #print(d.keys())
     for key, val in d.items():
-        new_ec = ec_rec[ec_rec['ECTRT'] == key]
+        new_ec = ec_rec[ec_rec['EXTRT'].str.contains(key)]
         ec_records[key] = new_ec
+        
     return ec_records
 
 def extractor(record, ae_records, cm_records, question1, question2):
-    pivot_form_ind = record['form_index'].values[0]  
-
+    pivot_form_ind = record['form_index'].values[0]
+        
     k = {}
     pivot_ae_subjid = 0
     pivot_ae_subjid = record['subjid'].values[0]
@@ -507,7 +527,7 @@ def extractor(record, ae_records, cm_records, question1, question2):
         if ae_flag == True:
             cm_records1 = cm_records[cm_records['subjid'] == pivot_ae_subjid]['form_index'].unique().tolist()
             cm_records1 = [i for i in cm_records1 if i not in [-1, '-1']]
-            if len(cm_records1) >= 1 and question2 != 'ECAENO':
+            if len(cm_records1) >= 1 and question2 != 'EXAENO':
                 for cm_form_ind in cm_records1:
                     if 1:  
                         #print('cm form index', cm_form_ind)
@@ -547,7 +567,7 @@ def extractor(record, ae_records, cm_records, question1, question2):
                         else:
                             continue
                 return (k, pivot_ae_records, all_records)
-            elif question2 == 'ECAENO':
+            elif question2 == 'EXAENO':
                 pivot_cm_records = cm_records[cm_records['subjid'] == pivot_ae_subjid]
                 pivot_cm_records[question2] = pivot_cm_records[question2].astype(str).apply(id_handler)
                 for q in range(pivot_cm_records.shape[0]):
@@ -569,6 +589,7 @@ def extractor(record, ae_records, cm_records, question1, question2):
             
         else:
             return False
+        
 
 def id_handler(ae_id):
     if type(ae_id) == float and np.isnan(ae_id) == True:
@@ -640,39 +661,29 @@ def get_drug_item(drug, subcat, study, aetrt_dict):
         
     return piv_item_name
 
+def check_cmindc(cmindc):
+    cmindc = str(cmindc).upper()
+    cmindc = re.sub(r'[\W_]+', '', cmindc)
 
+    total_count = 0
+    to_search = ['PREVENT', 'PROPH', 'SUPP', 'PREMED', 'PROFI', 'COVID', 'IMMUNO', 'IV', 'INTRA', 'PROHLYLAXIS', 'LINE',
+                 'CARE', 'SEDATION', 'ANTI', 'FLUSH', 'catheter', 'clearance', 'ip', 'infusion', 'tube', 'placement',
+                 'nutritional', 'procedural', 'port', 'gastroprotector', 'protection', 'dehydration', 'hospitalization',
+                 'sleep', 'prohlylaxis', 'anesthesia', 'colonoscopy', 'control', 'symptoms', 'phrophylaxis',
+                 'pophylaxis', 'porphylaxis', 'prohylaxis', 'conditioning', 'transplant', 'irritation', 'site',
+                 'INTRAV', 'iv', 'saline', 'procedure', 'premeds', 'UNDERLYING', 'health', 'softener', 'rophylaxis',
+                 'protector', 'prohpylaxis', 'suplement', 'maintenance', 'surgery', 'relaxant', 'general healtlh']
 
+    to_search = [i.upper() for i in to_search]
 
+    for search in to_search:
+        if re.search(search, cmindc):
+            total_count += 1
 
-
-#[EDIT #3]
-def check_similar_term_fuzzy(medication_1, medication_2):
-    words=[ 'right lower','right upper','left lower','left upper','right', 'left', 'upper', 'lower', 'middle', 'front', 'back', 'anterior', 'posterior', 'superior', 'inferior']
-    # medication_1 = re.sub(r'[\W_]+', '', medication_1)
-    # medication_2 = re.sub(r'[\W_]+', '', medication_2)
-    # print(medication_2,medication_1)
-#     print(fuzz.WRatio(medication_1,medication_2))
-    if fuzz.WRatio(medication_1,medication_2)>= 90:
-#         print(fuzz.WRatio(medication_1,medication_2))
-        for word in words:
-            try:
-                if any(re.search(word1,medication_1,re.IGNORECASE) for word1 in words) or  any(re.search(word1,medication_1,re.IGNORECASE) for word1 in words):
-                    if (re.search(word,medication_1,re.IGNORECASE)) :
-                        if  (re.search(word,medication_2,re.IGNORECASE)):
-#                             print(word)
-                            return True
-                        else:
-                            return False
-                else:
-                    return True
-            except:
-                return False
-#                 print(medication_1,medication_2)
-#                 import pdb;pdb.set_trace()
-            
+    if total_count > 0:
+        return True
     return False
 
-'''
 def parse_ongo(ongo_val):
     if (type(ongo_val) == int):
         ongo_val = 'YES' if ongo_val == 1 else 'No'
@@ -683,32 +694,18 @@ def parse_ongo(ongo_val):
             ongo_val = ongo_val.upper()
     return ongo_val
 
-def check_term(term2, term1):
-    term1 = str(term1).lower()
-    term2 = str(term2).lower()
-    
-    result = process.extract(term1, [term2], scorer=fuzz.token_sort_ratio)
-    #print(result)
-    result = any([match_ratio for term_in_lablist, match_ratio in result if match_ratio >= 75])
-
-    if term1.lower() == term2.lower():
-        return True
-    elif term1.lower() in term2.lower():
-        return True
-    elif result:
-        return True
-    
-    return False
-'''
-
-'''def ae_cm_mapper(prim_rec,
-              sec_df,
-              subcat,
-              match_type,
-              str_match=None,
-              prim_match_col=None,
-              sec_match_col=None,third_domain='',
-              match_DSL = {}
+def ae_cm_mapper(prim_rec,
+            sec_df,
+            subcat,
+            match_type,
+			use_smc=False,
+            func=None,
+			prim_match_key='TERM',
+            sec_match_key='TERM',
+            str_match=None,
+            prim_match_col=None,
+            sec_match_col=None,third_domain='',suppress_sec=False,suppress_sec_list=[],
+            match_DSL = {}
               ):
     
     def check_id(prim_match_val, sec_df, sec_match_col):
@@ -718,10 +715,8 @@ def check_term(term2, term1):
         for row in sec_df.to_dict(orient='records'):
             sec_ids = id_handler(row[sec_match_col])
             if type(sec_ids) == list:
-                print('entered list if')
                 match_ids = [i for i in sec_ids if i in prim_ids]
                 if len(match_ids) > 0:
-                    print('matid',match_ids)
                     sec_match_df = sec_match_df.append(row, ignore_index=True)
                     match_flag = True
             else:
@@ -729,26 +724,123 @@ def check_term(term2, term1):
         return (match_flag, sec_match_df)
     
     def check_text(prim_match_val, sec_df, sec_match_col, str_match):
+        sec_match_col_copy = sec_match_col
+        #print('prim_match_val, sec_df, sec_match_col, str_match', prim_match_val, sec_df, sec_match_col, str_match)
         match_flag = False
-        #prim_match_val = str(prim_rec[prim_match_col].values[0])
-        sec_df[sec_match_col] = sec_df[sec_match_col].apply(lambda x: str(x).lower())
-        if (str_match == 'contains'):
-            text_only = lambda x: re.sub(r'[\W_]+', '', x)
-            sec_df[sec_match_col] = sec_df[sec_match_col].apply(text_only)
-            
-            prim_match_val = str(prim_match_val)
-            prim_match_val = text_only(prim_match_val)
-            if subcat != 'CMMHAE1':
-                sec_match_df = sec_df[sec_df[sec_match_col].str.contains(prim_match_val.lower())]
-            else:
-                sec_match_df = sec_df[(sec_df[sec_match_col].str.contains(prim_match_val.lower())) | (sec_df[sec_match_col].apply(check_term, args=(prim_match_val,)))]
-
-        else:
-            # #print('--',prim_rec['subjid'].values[0],prim_match_col, prim_match_val)
-            sec_match_df = sec_df[sec_df[sec_match_col] == str(prim_match_val).lower()]
+        col_domain_map = {
+        'AE': {'STDTC': 'AESTDTC', 'ENDTC': 'AEENDTC', 'ONGO': 'AEONGO'},
+        'DR': {'STDTC': 'EXSTDTC', 'ENDTC': 'EXENDTC', 'ONGO':'EXONGO'},
+        'CM': {'STDTC': 'CMSTDTC', 'ENDTC': 'CMENDTC', 'ONGO': 'CMONGO'},
+        'MH': {'STDTC': 'MHSTDTC', 'ENDTC': 'MHENDTC', 'ONGO': 'MHONGO'},
+        'DH': {'STDTC': 'DHSTDTC', 'ENDTC': 'DHENDTC', 'ONGO': 'DHONGO'}
+        }
+        prim_st_col = col_domain_map[prim_domain]['STDTC']
+        prim_end_col = col_domain_map[prim_domain]['ENDTC']
+        prim_ongo_col = col_domain_map[prim_domain]['ONGO']
         
-        if sec_match_df.shape[0] > 0:
-            match_flag = True
+        sec_st_col = col_domain_map[sec_domain]['STDTC']
+        sec_end_col = col_domain_map[sec_domain]['ENDTC']
+        sec_ongo_col = col_domain_map[sec_domain]['ONGO']
+        
+        def data_helper(val,flag,key):
+            ret_dict = {}
+            
+            if val.lower() != 'none':
+                print('data_helper - ', val, key)
+                ret_dict = func(val,mapper=flag,model = key)
+
+                if ret_dict['preferred_term'] is None:
+                    return False, ret_dict['original']
+                else:
+                    return True,ret_dict['preferred_term']
+            else:
+                return True, val
+            
+        # df['flag'], df['values'] = zip(*df['sample'].apply(data_helper))
+        if use_smc and func is not None:
+            predict_medical_code = func
+            print('Before api',prim_match_val,prim_match_key)
+            prim_match_val = predict_medical_code(prim_rec[prim_match_col].values[0],mapper = True,model = prim_match_key).get('preferred_term')
+            print('Prim match values after API is :', prim_match_val)
+            if prim_match_val is None:
+                prim_match_val = prim_rec[prim_match_col].values[0]
+                sec_df['dup_col'] = sec_df[sec_match_col].copy()
+                print('Original value used',prim_match_val,sec_df['dup_col'].unique().tolist())
+            else:
+                sec_df[sec_match_col] = sec_df[sec_match_col].apply(lambda x: str(x).lower())
+                sec_df = sec_df[sec_df[sec_match_col] != 'none']
+                if(len(sec_df) == 0):
+                    return (False, sec_df)
+                sec_df['dup_flag'],sec_df['dup_col'] = zip(*sec_df[sec_match_col].apply(data_helper,args =(True,sec_match_key,)))
+                if False in sec_df['dup_flag'].tolist():
+                    sec_df['dup_col'] = sec_df[sec_match_col]
+                    prim_match_val = prim_rec[prim_match_col].values[0]
+                    print('Original value used',prim_match_val,sec_df['dup_col'].unique().tolist())
+
+                sec_df['dup_col'] = sec_df['dup_col'].apply(lambda x: str(x).lower())
+            prim_match_val = str(prim_match_val).lower()           
+
+        try:
+            sec_match_df = pd.DataFrame()
+            text_only = lambda x: re.sub(r'[\W_]+', '', str(x).lower())
+            print('USE smc inside utils is :', use_smc)
+                  
+            if 'dup_col' not in sec_df.columns.tolist():
+                sec_df['dup_col'] = sec_df[sec_match_col].apply(text_only)
+            else:
+                sec_df['dup_col'] = sec_df['dup_col'].apply(text_only)
+
+            prim_match_val = text_only(str(prim_match_val).lower())
+                        
+            if (str_match == 'contains'):
+                #print('Prim match value is :', prim_match_val)
+                #print(prim_match_val,sec_df['dup_col'].tolist())
+                rev_cont  = lambda x,y: True if str(x).lower() in str(y).lower() else False
+                if subcat != 'CMMHAE1':
+                    if use_smc:
+                        sec_match_df = sec_df[sec_df['dup_col'].str.contains(prim_match_val.lower())]
+                    else:
+                        sec_match_df = sec_df[sec_df['dup_col'].str.contains(prim_match_val.lower())]
+                else:
+                    if use_smc:
+                        sec_match_df = sec_df[(sec_df['dup_col'].str.contains(prim_match_val.lower())) | (sec_df['dup_col'].apply(check_term, args=(prim_match_val,)))]
+                    else:
+                        sec_match_df = sec_df[(sec_df['dup_col'].str.contains(prim_match_val.lower())) | (sec_df['dup_col'].apply(check_term, args=(prim_match_val,)))]
+            else:
+                if use_smc:
+                    sec_match_df = sec_df[sec_df['dup_col'] == str(prim_match_val).lower()]
+                else:
+                    #sec_match_df = sec_df[sec_df[sec_match_col] == str(prim_match_val).lower()]
+                    sec_match_df = sec_df[sec_df['dup_col'] == str(prim_match_val).lower()]
+
+                
+            if (sec_match_df.shape[0] > 0) and (suppress_sec == True):
+                sec_match_df_1 = ''
+                if suppress_sec:
+                    if  'st_date_check' in [str(i).lower() for i in suppress_sec_list]:
+                        sec_match_df_1 = sec_match_df[sec_match_df[sec_st_col].apply(compare_partial_date,args=(prim_rec[prim_st_col].values[0],'>=',))]
+                    if 'en_date_check' in [str(i).lower() for i in suppress_sec_list]:
+                        if len(sec_match_df_1) > 0 :
+                            sec_match_df_1 = sec_match_df_1[sec_match_df_1[sec_st_col].apply(compare_partial_date,args = (prim_rec[prim_end_col].values[0],'<=',))]
+                        else:
+                            if 'en_date_check' in [str(i).lower() for i in suppress_sec_list] and 'st_date_check' not in [str(i).lower() for i in suppress_sec_list]:
+                                # print(sec_match_df[sec_st_col].to_list(),prim_rec[prim_end_col].values[0])
+                                sec_match_df_1 = sec_match_df[sec_match_df[sec_st_col].apply(compare_partial_date,args = (prim_rec[prim_end_col].values[0],'<=',))]
+                    
+                if ('st_date_check' in [str(i).lower() for i in suppress_sec_list] or 'en_date_check' in [str(i).lower() for i in suppress_sec_list]) and len(sec_match_df_1)==0:
+                    match_flag = False
+                else:
+                    if len(sec_match_df_1)>0:
+                        sec_match_df = sec_match_df_1
+                    match_flag = True
+            if len(sec_match_df)>0:
+                match_flag = True
+            else:
+                match_flag = False
+            
+        except Exception as e:
+            print(traceback.format_exc())
+            print(e)
         
         return (match_flag, sec_match_df)                
         
@@ -958,360 +1050,6 @@ def check_term(term2, term1):
             match_flag = True
         return match_flag, sec_match_df    
     return match_flag, sec_match_df
-'''
-
-def ae_cm_mapper(prim_rec,
-            sec_df,
-            subcat,
-            match_type,
-			use_smc=False,
-            func=None,
-			prim_match_key='TERM',
-            sec_match_key='TERM',
-            str_match=None,
-            prim_match_col=None,
-            sec_match_col=None,third_domain='',suppress_sec=False,suppress_sec_list=[],
-            match_DSL = {}
-              ):
-    
-    def check_id(prim_match_val, sec_df, sec_match_col):
-        match_flag = False
-        sec_match_df = pd.DataFrame()
-        prim_ids = id_handler(prim_match_val)
-        for row in sec_df.to_dict(orient='records'):
-            sec_ids = id_handler(row[sec_match_col])
-            if type(sec_ids) == list:
-                print('entered list if')
-                match_ids = [i for i in sec_ids if i in prim_ids]
-                if len(match_ids) > 0:
-                    print('matid',match_ids)
-                    sec_match_df = sec_match_df.append(row, ignore_index=True)
-                    match_flag = True
-            else:
-                print('Seconday domain Ids not list')
-        return (match_flag, sec_match_df)
-    
-    def check_text(prim_match_val, sec_df, sec_match_col, str_match):
-        sec_match_col_copy = sec_match_col
-        print('prim_match_val, sec_df, sec_match_col, str_match', prim_match_val, sec_df, sec_match_col, str_match)
-        match_flag = False
-        col_domain_map = {
-        'AE': {'STDTC': 'AESTDTC', 'ENDTC': 'AEENDTC', 'ONGO': 'AEONGO'},
-        'DR': {'STDTC': 'EXSTDTC', 'ENDTC': 'EXENDTC', 'ONGO':'EXONGO'},
-        'CM': {'STDTC': 'CMSTDTC', 'ENDTC': 'CMENDTC', 'ONGO': 'CMONGO'},
-        'MH': {'STDTC': 'MHSTDTC', 'ENDTC': 'MHENDTC', 'ONGO': 'MHONGO'},
-        'DH': {'STDTC': 'DHSTDTC', 'ENDTC': 'DHENDTC', 'ONGO': 'DHONGO'}
-        }
-        prim_st_col = col_domain_map[prim_domain]['STDTC']
-        prim_end_col = col_domain_map[prim_domain]['ENDTC']
-        prim_ongo_col = col_domain_map[prim_domain]['ONGO']
-        
-        sec_st_col = col_domain_map[sec_domain]['STDTC']
-        sec_end_col = col_domain_map[sec_domain]['ENDTC']
-        sec_ongo_col = col_domain_map[sec_domain]['ONGO']
-        
-        def data_helper(val,flag,key):
-            ret_dict = {}
-            ret_dict = func(val,mapper=flag,model = key)
-            if ret_dict['preferred_term'] is None:
-                return False,ret_dict['original']
-            else:
-                return True,ret_dict['preferred_term']
-            
-        # df['flag'], df['values'] = zip(*df['sample'].apply(data_helper))
-        if use_smc and func is not None:
-            predict_medical_code = func
-            print('beforeapi',prim_match_val,prim_match_key)
-            prim_match_val = predict_medical_code(prim_rec[prim_match_col].values[0],mapper = True,model = prim_match_key).get('preferred_term')
-            print('Prim match values after API is :', prim_match_val)
-            if prim_match_val is None:
-                prim_match_val = prim_rec[prim_match_col].values[0]
-                sec_df['dup_col'] = sec_df[sec_match_col].copy()
-                print('Original value used',prim_match_val,sec_df['dup_col'].unique().tolist())
-            else:
-                print('afterapi',prim_match_val)
-                sec_df[sec_match_col] = sec_df[sec_match_col].apply(lambda x: str(x).lower())
-                # print('before bulk',sec_df[sec_match_col].tolist())
-                sec_df['dup_flag'],sec_df['dup_col'] = zip(*sec_df[sec_match_col].apply(data_helper,args =(True,sec_match_key,)))
-                if False in sec_df['dup_flag'].tolist():
-                    sec_df['dup_col'] = sec_df[sec_match_col]
-                    prim_match_val = prim_rec[prim_match_col].values[0]
-                    print('Original value used',prim_match_val,sec_df['dup_col'].unique().tolist())
-
-                sec_df['dup_col'] = sec_df['dup_col'].apply(lambda x: str(x).lower())
-                # print('after smc',sec_df['dup_col'].tolist())
-            prim_match_val = str(prim_match_val).lower()           
-
-        try:
-            sec_match_df = pd.DataFrame()
-            text_only = lambda x: re.sub(r'[\W_]+', '', str(x).lower())
-            print('USE smc inside utils is :', use_smc)
-            #if use_smc:                
-            if 'dup_col' not in sec_df.columns.tolist():
-                sec_df['dup_col'] = sec_df[sec_match_col].apply(text_only)
-            else:
-                sec_df['dup_col'] = sec_df['dup_col'].apply(text_only)
-
-            prim_match_val = str(prim_match_val).lower()
-            prim_match_val = text_only(prim_match_val)
-            if (str_match == 'contains'):
-                print('Prim match value is :', prim_match_val)
-                # print(prim_match_val,sec_df['dup_col'].tolist())
-                rev_cont  = lambda x,y: True if str(x).lower() in str(y).lower() else False
-                if subcat != 'CMMHAE1':
-                    if use_smc:
-                        sec_match_df = sec_df[sec_df['dup_col'].str.contains(prim_match_val.lower())]
-                    else:
-                        sec_match_df = sec_df[sec_df['dup_col'].str.contains(prim_match_val.lower())]
-                else:
-                    if use_smc:
-                        sec_match_df = sec_df[(sec_df['dup_col'].str.contains(prim_match_val.lower())) | (sec_df['dup_col'].apply(check_term, args=(prim_match_val,)))]
-                    else:
-                        sec_match_df = sec_df[(sec_df['dup_col'].str.contains(prim_match_val.lower())) | (sec_df['dup_col'].apply(check_term, args=(prim_match_val,)))]
-            else:
-                if use_smc:
-                    sec_match_df = sec_df[sec_df['dup_col'] == str(prim_match_val).lower()]
-                else:
-                    #sec_match_df = sec_df[sec_df[sec_match_col] == str(prim_match_val).lower()]
-                    sec_match_df = sec_df[sec_df['dup_col'] == str(prim_match_val).lower()]
-                
-            if (sec_match_df.shape[0] > 0) and (suppress_sec == True):
-                sec_match_df_1 = ''
-                # print(st_date_check,en_date_check,sec_match_df.shape[0],sec_match_df['CMINDC'])
-                if suppress_sec:
-                    if  'st_date_check' in [str(i).lower() for i in suppress_sec_list]:
-                        sec_match_df_1 = sec_match_df[sec_match_df[sec_st_col].apply(compare_partial_date,args=(prim_rec[prim_st_col].values[0],'>=',))]
-                    if 'en_date_check' in [str(i).lower() for i in suppress_sec_list]:
-                        if len(sec_match_df_1) > 0 :
-                            sec_match_df_1 = sec_match_df_1[sec_match_df_1[sec_st_col].apply(compare_partial_date,args = (prim_rec[prim_end_col].values[0],'<=',))]
-                        else:
-                            if 'en_date_check' in [str(i).lower() for i in suppress_sec_list] and 'st_date_check' not in [str(i).lower() for i in suppress_sec_list]:
-                                # print(sec_match_df[sec_st_col].to_list(),prim_rec[prim_end_col].values[0])
-                                sec_match_df_1 = sec_match_df[sec_match_df[sec_st_col].apply(compare_partial_date,args = (prim_rec[prim_end_col].values[0],'<=',))]
-                    
-                if ('st_date_check' in [str(i).lower() for i in suppress_sec_list] or 'en_date_check' in [str(i).lower() for i in suppress_sec_list]) and len(sec_match_df_1)==0:
-                    match_flag = False
-                else:
-                    if len(sec_match_df_1)>0:
-                        sec_match_df = sec_match_df_1
-                    match_flag = True
-            if len(sec_match_df)>0:
-                match_flag = True
-            else:
-                match_flag = False
-            
-        except Exception as e:
-            print(traceback.format_exc())
-            print(e)
-        
-        return (match_flag, sec_match_df)                
-        
-    def check_date(prim_rec, sec_df, prim_dt_col, sec_dt_col, prim_domain, sec_domain):
-        match_flag = False
-        sec_match_df = pd.DataFrame()               
-        prim_rec[prim_dt_col] = prim_rec[prim_dt_col].apply(lambda x: x.date())
-        sec_df[sec_dt_col] = sec_df[sec_dt_col].apply(lambda x: x.date())        
-        sec_match_df = sec_df[sec_df[sec_dt_col].apply(compare_partial_date, args = (prim_rec[prim_dt_col].values[0], '=='))]
-
-        if not sec_match_df.empty:
-            match_flag = True
-        return (match_flag, sec_match_df)
-    
-    sec_match_df = pd.DataFrame()
-    match_flag = False
-    prim_domain = subcat[:2]
-    sec_domain = subcat[2:4]
-    
-    if third_domain!='':
-        sec_domain = subcat[4:6]
-    
-    if (match_type == 'text'):
-        prim_match_val = prim_rec[prim_match_col].values[0]
-        return check_text(prim_match_val, sec_df, sec_match_col, str_match)
-        
-    elif match_type == 'id':
-        prim_match_val = prim_rec[prim_match_col].values[0]
-        return check_id(prim_match_val, sec_df, sec_match_col)
-    
-    elif match_type == 'date':
-        prim_match_val = prim_rec[prim_match_col].values[0]
-        return check_date(prim_match_val, sec_df, prim_match_col, sec_match_col,prim_domain, sec_domain)
-
-    elif match_type.lower() == 'dsl':
-        pref_flg = False
-        #print('The DSL dict is :', match_DSL)
-        match_items = match_DSL['match_items']
-        sep = match_DSL['SEP']      
-        print('Match items are :',match_items)
-        pref_pres = str(match_DSL['id_pref_pres_prim'])#is Prefix in primary domain
-        if(pref_pres.upper() == 'YES'):
-            pref_flg = True  
-            #print('Pref flag is :', pref_flg)
-        
-        for i in match_items:
-            prim_match_cols = match_DSL[i]['prim_match_col']
-            sec_match_cols = match_DSL[i]['sec_match_col']
-            str_match = match_DSL[i]['str_match']            
-            #print('The matched item is :', i)
-            
-            if i.lower() == 'match_id':                
-                new_df = pd.DataFrame()                
-                sec_match_df = pd.DataFrame()
-                pref = str(match_DSL[i]['id_prefix']).strip(' ')
-                pos = match_DSL['id_pos']    
-                #print('Pref, pos is', pref, pos)
-                    
-                for prim_match_col in prim_match_cols:
-                    #print('Prim match_cols is :', prim_match_col)                    
-                    if(len(sec_df) == 0):
-                        return (False, sec_df)
-                    if(pref_flg):
-                        prim_match_val = str(prim_rec[prim_match_col].values[0])
-                        if(str(prim_match_val).upper() in ['',' ','NULL','NAN','NONE']):
-                            #print('Null id')
-                            continue
-                        try:
-                            prim_match_val = prim_match_val.split(sep)[pos]
-                        except:
-                            continue
-                        prim_match_val = str(prim_match_val).replace(pref,'') 
-                    else:
-                        prim_match_val = prim_rec[prim_match_col].values[0]
-                                
-                    new_match_df = pd.DataFrame()                  
-                    for sec_match_col in sec_match_cols:
-                        if(len(sec_df) == 0):
-                            return (False, sec_df)
-                        #print(sec_df[sec_match_col])
-                        try: 
-                            if(pref_flg):
-                                flg, new_sec_df = check_id(prim_match_val, sec_df, sec_match_col)
-                            else:
-                                new_sec_col = 'new_sec_'+sec_match_col+'_col'
-                                try:
-                                    sec_df[new_sec_col] = sec_df[sec_match_col].apply(lambda row : str(row).split(sep)[pos]
-                                                                                    if (not pd.isna(row) and sep in str(row)) 
-                                                                                    else str(row))
-                                except:
-                                    print(traceback.format_exc())
-                                    continue
-
-                                try: 
-                                    sec_df[new_sec_col] = sec_df[new_sec_col].apply(lambda row: str(row).replace(pref,'')
-                                                                                    if (not pd.isna(row) and pref in str(row)) 
-                                                                                    else str(row))
-                                    #print('sec_df new cols', prim_match_val, new_sec_col, sec_df[new_sec_col])
-                                except:
-                                    print(traceback.format_exc())
-                                    continue
-                                flg, new_sec_df = check_id(prim_match_val, sec_df, new_sec_col)
-                                #print('Len of new_sec_df',new_sec_col, len(new_sec_df))
-                            new_match_df = new_match_df.append(new_sec_df)
-                        except:
-                            continue
-                    new_df = new_df.append(new_match_df)
-                print('Len of new_df/sec_df after id checks cols :', len(new_df)) 
-                sec_df = new_df
-                sec_match_df = new_df
-
-            elif i.lower() == 'match_term':
-                #print('Inside match_term')
-                new_df = pd.DataFrame()
-                new_match_df1 = pd.DataFrame()
-                sec_match_df = pd.DataFrame()
-                pos = match_DSL['term_pos']
-                for prim_match_col in prim_match_cols:
-                    if(len(sec_df) == 0):
-                        return (False, sec_df)  
-                    #new_df = pd.DataFrame()                  
-                    if(pref_flg):
-                        prim_match_val = str(prim_rec[prim_match_col].values[0])
-                        try:
-                            prim_match_val = prim_match_val.split(sep)[pos]
-                        except:
-                            continue
-                    else:
-                        prim_match_val = prim_rec[prim_match_col].values[0]
-
-                    new_match_df = pd.DataFrame()
-
-                    for x in sec_match_cols:
-                        if(len(sec_df) == 0):
-                            return (False, sec_df)
-                        try:              
-                            if(not pref_flg):
-                                new_sec_col = x  
-                                new_sec_col = 'new_sec_'+x+'_col'
-                                sec_df1 = sec_df.copy()
-                                sec_df1[new_sec_col] = sec_df[x].copy()
-                                try:                                        
-                                    sec_df1[new_sec_col] = sec_df1[new_sec_col].apply(lambda row : str(row).split(sep)[pos]
-                                                                                    if (not pd.isna(row) and sep in str(row)) 
-                                                                                    else str(row))                                                                                    
-                                except:
-                                    print(traceback.format_exc())
-                                    continue
-                                flg, new_match_df1 = check_text(str(prim_match_val), sec_df1, new_sec_col, str_match)
-                            else:
-                                flg, new_match_df1 = check_text(str(prim_match_val), sec_df, x, str_match)
-                            new_match_df = new_match_df.append(new_match_df1)
-                        except:
-                            print(traceback.format_exc())
-                            continue
-                    new_df = new_df.append(new_match_df)
-                sec_df = new_df
-                sec_match_df = new_df
-                print('Len of sec_df after all term checks', len(sec_df))
-            
-            elif i.lower() == 'match_date':
-                new_df = pd.DataFrame()
-                pos = match_DSL['date_pos']
-                for prim_match_col in prim_match_cols:
-                    if(len(sec_df) == 0):
-                        return (False, sec_df)
-                    if(pref_flg):
-                        #print('Pref flag is ', pref_flg)
-                        prim_match_val = str(prim_rec[prim_match_col].values[0])
-                        try:
-                            prim_match_val = str(prim_match_val).split(sep)
-                            if type(prim_match_val) == list:
-                                prim_match_val = str(prim_match_val[pos])
-                        except:
-                            continue
-                    else:
-                        prim_match_val = str(prim_rec[prim_match_col].values[0])
-                    
-                    new_match_df = pd.DataFrame()
-                    for x in sec_match_cols:
-                        if(len(sec_df) == 0):
-                            return (False, sec_df)
-                        try:
-                            if(not pref_flg):
-                                new_sec_col = 'new_sec_'+x+'_col'
-                                sec_df1 = sec_df.copy()
-                                try:
-                                    sec_df1[new_sec_col] = sec_df1[x].apply(lambda row : str(row).split(sep)[pos]
-                                                                                    if (not pd.isna(row) and sep in str(row)) 
-                                                                                    else str(row))
-                                except:
-                                    continue
-                                
-                                new_sec_df = sec_df1[sec_df1[new_sec_col].apply(compare_partial_date, args = (str(prim_match_val), '=='))]
-                            else:
-                                new_sec_df = sec_df[sec_df[x].apply(compare_partial_date, args = (str(prim_match_val), '=='))]
-                            
-                            new_match_df = new_match_df.append(new_sec_df)
-                        except:
-                            continue
-                    new_df = new_df.append(new_match_df)
-                    print('Len of new_df after date checks:', len(new_df))
-                sec_df = new_df
-                sec_match_df = new_df
-        print('Len of matching df after all checks :', len(sec_match_df))                                                                
-        if(len(sec_match_df)>0):
-            match_flag = True
-        return match_flag, sec_match_df    
-    return match_flag, sec_match_df
 
 def check_aelab(aecode: float, labtest: str, aelab_df):
     """Check aeterm code and labtest to be consistent
@@ -1329,6 +1067,13 @@ def check_aelab(aecode: float, labtest: str, aelab_df):
             # result = process.extract(labtest, valid_labs, scorer=fuzz.partial_token_sort_ratio)
             # print(result)
             return any([match_ratio for term_in_lablist, match_ratio in result if match_ratio >= 80])
+
+def bioextractone(inp, match_list):
+    inp_emb = cln_match.model_infer.embedd_inps(inp)
+    match_embs = cln_match.model_infer.embedd_inps(match_list)
+    cos_scores = torch.nn.functional.cosine_similarity(inp_emb, match_embs).flatten()
+    match_ind = torch.topk(cos_scores, 1).indices[0]
+    return match_list[match_ind], float(cos_scores[match_ind])
 
 
 def check_aelab_v1(aecode: float, labtest: str, aelab_df):
@@ -1363,6 +1108,94 @@ def check_aelab_v1(aecode: float, labtest: str, aelab_df):
                 return True
     return False
 
+def check_aelab_v2(aecode: float,
+                   labtest_list: list, 
+                   aelab_df,
+                   aedecod: str,
+                   labcode_list=None
+                  ):
+    """Check aeterm code and labtest to be consistent
+    Args:
+        aecode (float): aeterm code, for now to test we can use AELLTCD
+        labtest_list (list): labtest list
+        labcode_list (list): labcode list
+    """
+    aecode = int(aecode)
+    aedecod = str(aedecod).strip()
+    match_lab = []
+    match_flag = False
+    
+    def check_aelab_map(aeptcd, labtest_list=None, labcode_list=None, match_thrsh=70):
+        match_lab = []
+        match_flag = False
+        for i, row in aelab_df.iterrows():
+            if type(row['aeptcd']) == str:
+                splchar = ',' if ',' in row['aeptcd'] else '/'
+                try:
+                    aecod = [int(x.strip()) for x in row['aeptcd'].split(splchar)]
+                except:
+                    aecod = [int(x.strip()) for x in re.findall(r'[0-9]+', row['aeptcd'])]
+                    
+            if (aecode == aecod) or (type(aecod) == list and (aecode in aecod)):
+                valid_test_labs = [i.lower().strip() for i in row['lab_test'].split(',')]
+                valid_code_labs = [i.lower().strip() for i in row['labcode'].split(',')]
+                print(f"## Matched Labtest from AELAB lookup - {valid_test_labs}")
+                if labcode_list:
+                    match_lab = []
+                    for labcode in labcode_list:
+                        match_lab = [(lb_test, 1) for lb_test, lb_cd in zip(valid_test_labs, valid_code_labs) if lb_cd.lower() == labcode.lower()]
+                        if len(match_lab) > 0:
+                            return match_lab, True
+                    
+                else:
+                    match_lab = []
+                    match_flag = False
+                    for labtest in labtest_list:
+                        lab_no_spec = re.sub('[^A-Za-z]+', '', labtest).strip()
+                        (match,score) = process.extractOne(lab_no_spec, valid_test_labs, scorer=fuzz.ratio)
+                        print('Inside labest', match, score, lab_no_spec)
+                        if score and (score>=match_thrsh):
+                            match_lab.append([labtest, score])
+                            match_flag = True
+                    if len(match_lab) == 0 :
+                        print(f"Calling Cosing Similarity func")
+                        for labtest in labtest_list:
+                            match_test, score = bioextractone(labtest, valid_test_labs)
+                            score = score*100
+                            if score and (score>=match_thrsh):
+                                match_lab.append([labtest, score])
+                                match_flag = True
+                        
+        return match_lab, match_flag
+    
+    if (labcode_list) and len(labcode_list) > 0:
+        print(f"### Inside Labcode Check filter")
+        match_lab, match_flag = check_aelab_map(aecode, labcode_list=labcode_list)
+        print(f"Matching Lab Score Pair - {match_lab}, {match_flag}")
+        if match_flag is False:
+            print(f"There is no Match using LAB CODE in AELAB MAPPING, Calling Similarity Graph")
+            for labcode, labtest in zip(labcode_list, labtest_list):
+                clg_result = cln_match.check_similarity(aedecod, labcode, only_graph=True)
+                if (clg_result[0] == True):
+                    return labtest.upper()
+                    
+    if (match_flag is False):
+        print(f"### Inside Labtest Check filter")
+        match_lab, match_flag = check_aelab_map(aecode, labtest_list=labtest_list)
+        print(f"Matching Lab Score Pair - {match_lab}, {match_flag}")
+        
+        if match_flag is False:
+            print(f"There is no Match using LAB TEST in AELAB MAPPING, Calling Similarity Model")
+            for labtest in labtest_list:
+                clg_result = cln_match.check_similarity(aedecod, labtest, only_graph = True)
+                if (clg_result[0] == True):
+                    return labtest.upper()
+                if clg_result[1] == True and clg_result[2] > 0.9:
+                    match_lab.append([labtest, clg_result[2]*100])
+                    match_flag = True
+    print('### MATCH LABS ARE :', match_lab)
+    match_test = sorted(match_lab, key=lambda x: x[1], reverse=True)[0][0]
+    return match_test.upper() 
 
 def aeid_finder(ae_record):
     for ind in range(ae_record.shape[0]):
@@ -1398,3 +1231,290 @@ def get_qt_payload(fn_config, piv_rec):
                 print('QT Item Error: ',traceback.format_exc())
     return param_dict
 
+def compare_partial_date(date1, date2, oper):
+    """
+    Compare Partial dates with only present values day/month/year
+    Args:
+        date1 (str) : Partial/Full date
+        date2 (str) : Partial/Full date
+        oper (str) : !=,==,>=,<=,>,<
+    Returns:
+        bool_result (bool) : True/False
+    """
+    unlist = ['UN','UNK']
+    month_dict = {'JAN': '1', 'FEB': '2', 'MAR': '3', 'APR': '4', 'MAY': '5', 'JUN': '6', 'JUL': '7', 
+                    'AUG': '8', 'SEP': '9', 'OCT': '10', 'NOV': '11', 'DEC': '12'}
+    oper_dict = {'<':lt, '>':gt, '>=':ge, '<=':le, '==':eq, '!=':ne}
+    bool_result = False
+    if pd.isna(date1) or date1.strip() in ['nan','NaN','None','null','']:
+        return False
+    elif pd.isna(date2) or date2.strip() in ['nan','NaN','None','null','']:
+        return False
+    if type(date1) == str and type(date2) == str:
+        date1 = date1.upper()
+        date2 = date2.upper()
+        result_date1 = ''
+        result_date2 = ''
+        split_char = [' ','/','-']
+        for s in split_char:
+            if s in date1:
+                date1split = date1.split(s)
+                break
+        for s in split_char:
+            if s in date2:
+                date2split = date2.split(s)
+                break
+        try:
+            if int(date1split[2]):
+                pass
+        except:
+            return bool_result
+        try:
+            if int(date2split[2]):
+                pass
+        except:
+            return bool_result
+        equal = '' if '=' in oper else '='
+        if date1split[0] in unlist and date1split[1] in unlist:
+            # both day and month unknown
+            if date2split[2] not in unlist:
+                bool_result = eval(date1split[2]+oper+date2split[2])
+        elif date1split[0] in unlist:
+            # only day unknown
+            if date2split[0] in unlist and date2split[1] in unlist:
+                # both day and month unknown
+                bool_result = eval(date1split[2]+oper+date2split[2])
+            elif date2split[1] in unlist:
+                # month unknown
+                if date1split[2] not in unlist and date2split[2] not in unlist:
+                    bool_result = eval(date1split[2]+oper+date2split[2])
+            elif date2split[1] not in unlist:
+                bool_result1 = eval(date1split[2]+oper+date2split[2])
+                bool_result2 = eval(month_dict[date1split[1]]+oper+month_dict[date2split[1]])
+                if '=' not in oper:
+                    if bool_result1:
+                        bool_result = bool_result1
+                    elif eval(date1split[2]+'=='+date2split[2]):
+                        bool_result = bool_result2
+                elif oper == '==':
+                    bool_result = bool_result1 and bool_result2
+                elif oper == '!=':
+                    bool_result = bool_result1 or bool_result2
+                else:
+                    if bool_result1:
+                        if eval(date1split[2]+'=='+date2split[2]):
+                            bool_result = bool_result2
+                        else:
+                            bool_result = bool_result1
+                    else:
+                        bool_result = bool_result1
+
+        elif date1split[1] in unlist:
+            # month unknown
+            if date1split[2] not in unlist and date2split[2] not in unlist:
+                bool_result = eval(date1split[2]+oper+date2split[2])
+        elif date2split[0] in unlist and date2split[1] in unlist:
+            # both day and month unknown
+            if date1split[2] not in unlist and date2split[2] not in unlist:
+                bool_result = eval(date1split[2]+oper+date2split[2])
+        elif date2split[0] in unlist:
+            # only day unknown
+            if date1split[0] in unlist and date1split[1] in unlist:
+                # both day and month unknown
+                bool_result = eval(date1split[2]+oper+date2split[2])
+            elif date1split[1] in unlist:
+                # month unknown
+                if date1split[2] not in unlist and date2split[2] not in unlist:
+                    bool_result = eval(date1split[2]+oper+date2split[2])
+            elif date1split[1] not in unlist:
+                bool_result1 = eval(date1split[2]+oper+date2split[2])
+                bool_result2 = eval(month_dict[date1split[1]]+oper+month_dict[date2split[1]])
+                if '=' not in oper:
+                    if bool_result1:
+                        bool_result = bool_result1
+                    elif eval(date1split[2]+'=='+date2split[2]):
+                        bool_result = bool_result2
+                elif oper == '==':
+                    bool_result = bool_result1 and bool_result2
+                elif oper == '!=':
+                    bool_result = bool_result1 or bool_result2
+                else:
+                    if bool_result1:
+                        if eval(date1split[2]+'=='+date2split[2]):
+                            bool_result = bool_result2
+                        else:
+                            bool_result = bool_result1
+                    else:
+                        bool_result = bool_result1
+        elif date2split[1] in unlist:
+            # month unknown
+            if date1split[2] not in unlist and date2split[2] not in unlist:
+                bool_result = eval(date1split[2]+oper+date2split[2])
+        else:
+            # both dates are present - so format datetime values and then compare
+            result_date1 = datetime.strptime(format_datetime(date1),"%d-%b-%Y")
+            result_date2 = datetime.strptime(format_datetime(date2),"%d-%b-%Y")
+            try:
+                bool_result = oper_dict[oper](result_date1, result_date2)
+            except Exception as e:
+                print('date compare exception: ',e)
+    return bool_result
+
+def check_term(term2, term1):
+    term1 = str(term1).lower()
+    term2 = str(term2).lower()
+    
+    result = process.extract(term1, [term2], scorer=fuzz.token_sort_ratio)
+    #print(result)
+    result = any([match_ratio for term_in_lablist, match_ratio in result if match_ratio >= 75])
+
+    if term1.lower() == term2.lower():
+        return True
+    elif term1.lower() in term2.lower():
+        return True
+    elif result:
+        return True
+    
+    return False
+
+def check_similar_term_fuzzy(medication_1, medication_2):
+    words=[ 'right lower','right upper','left lower','left upper','right', 'left', 'upper', 'lower', 'middle', 'front', 'back', 'anterior', 'posterior', 'superior', 'inferior']
+    # medication_1 = re.sub(r'[\W_]+', '', medication_1)
+    # medication_2 = re.sub(r'[\W_]+', '', medication_2)
+    # print(medication_2,medication_1)
+#     print(fuzz.WRatio(medication_1,medication_2))
+    if fuzz.WRatio(medication_1,medication_2)>= 90:
+#         print(fuzz.WRatio(medication_1,medication_2))
+        for word in words:
+            try:
+                if any(re.search(word1,medication_1,re.IGNORECASE) for word1 in words) or  any(re.search(word1,medication_1,re.IGNORECASE) for word1 in words):
+                    if (re.search(word,medication_1,re.IGNORECASE)) :
+                        if  (re.search(word,medication_2,re.IGNORECASE)):
+#                             print(word)
+                            return True
+                        else:
+                            return False
+                else:
+                    return True
+            except:
+                return False
+#                 print(medication_1,medication_2)
+#                 import pdb;pdb.set_trace()
+            
+    return False
+
+def unk_format_datetime(unk_flag, ae_df, cm_df):
+    
+    if unk_flag:       
+        if 'CMSTDAT_DTR' in cm_df.columns:
+            cm_df['CMSTDAT'] = cm_df['CMSTDAT_DTR']
+        else:
+            cm_df['CMSTDAT'] = cm_df['CMSTDAT'].apply(format_datetime)
+            
+        if 'CMENDAT_DTR' in cm_df.columns:
+            cm_df['CMENDAT'] = cm_df['CMENDAT_DTR'] 
+        else:
+            cm_df['CMENDAT'] = cm_df['CMENDAT'].apply(format_datetime)
+        
+        if 'AESTDAT_DTR' in ae_df.columns: 
+            ae_df['AESTDAT'] = ae_df['AESTDAT_DTR']
+        else:
+            ae_df['AESTDAT'] = ae_df['AESTDAT'].apply(format_datetime)
+            
+        if 'AEENDAT_DTR' in ae_df.columns: 
+            ae_df['AEENDAT'] = ae_df['AEENDAT_DTR']
+        else:
+            ae_df['AEENDAT'] = ae_df['AEENDAT'].apply(format_datetime)
+
+    else:
+        cm_df['CMSTDAT'] = cm_df['CMSTDAT'].apply(format_datetime)
+        cm_df['CMENDAT'] = cm_df['CMENDAT'].apply(format_datetime)
+        ae_df['AESTDAT'] = ae_df['AESTDAT'].apply(format_datetime)
+        ae_df['AEENDAT'] = ae_df['AEENDAT'].apply(format_datetime)
+        
+    return ae_df, cm_df
+
+def impute_unk(date_dict:dict,proper=False):
+    '''
+    imputes both date and month if UNK is present in both fields, imputes only date if UNK is only present in date field.
+    If there is no UNK present in the given dictionary in all the fields, the parsed date without imputing will be returned.
+    '''
+    
+    def date_seperator_handler(date):
+        date_and_time = re.split(' |T', date)
+        if len(date_and_time) > 1:
+            date_and_time[1] = date_and_time[1].replace('UNK','00')
+        date = ' '.join(date_and_time)
+        date = date.replace('NUL','00')
+        date = re.sub('-$|/$|:$|^-|^/|^:', '', date)
+        return date
+    
+    # Default date values to be imputed for the respective fields
+    if proper:
+        imp_default_date = {'cmstdat':2, 'aestdat':1, 'aeendat':4, 'cmendat': 3}
+    elif not proper:
+        imp_default_date = {'cmstdat':2, 'aestdat':3, 'aeendat':1, 'cmendat':4}
+        
+    month_flag, date_flag = False, False
+        
+    # Checking whether UNK in present in either date or month field or both
+    unk_flag = False
+    for date_col in date_dict.keys():
+        date_value = split_date(date_dict[date_col])
+        date_list = re.split('-|/', date_value)
+        date_list = [i.upper() for i in date_list]
+        unk_count = [i for i in date_list if 'UNK' in i.upper()]
+        if 'UNK' in date_list:
+            unk_flag = True
+            date_flag = True
+            # [EDIT #1]
+            if len(unk_count) == 2:
+                month_flag = True
+            elif len(unk_count) > 2:
+                return unk_flag,False,{}
+
+    # If UNK is not present, parsed date to be returned without imputation
+    if not unk_flag:
+        parsed_date = {date_col:parse(date_seperator_handler(date_val)) for date_col,date_val in date_dict.items()}
+        return unk_flag,True,parsed_date
+          
+    # [EDIT #2]
+    # [EDIT #4]
+    # Checking if the the day of AE start date or the AE end date is the first day of the month
+    first_day_flag = False
+    day = None
+    if 'aestdat' in date_dict.keys(): 
+        day = date_dict['aestdat'].upper()
+    elif 'aeendat' in date_dict.keys():
+        day = date_dict['aeendat'].upper()
+    if day:
+        day = date_seperator_handler(day.replace('UNK',''))
+        day = parse(day).day
+        if date.today().day != day and day == 1:
+            first_day_flag = True
+            
+    imputed_date = {}
+            
+    # If UNK is present in either of the fields, it will get imputed
+    if month_flag or date_flag:
+        for date_col in date_dict.keys():
+            date_val = date_dict.get(date_col)
+            if date_flag:
+                if isinstance(date_val, str):
+                    date_val = date_val.upper()
+                    date_val = date_seperator_handler(date_val.replace('UNK',''))
+                    date_val = parse(date_val)
+                    # If first_day_flag is true, CMSTDAT, AESTDAT, AEENDAT days are being imputed to 1. Else normal imputation is being done
+                    if first_day_flag:
+                        if date_col in ['aestdat','aeendat','cmstdat']:
+                            date_val = date_val.replace(day=1)
+                        else:
+                            date_val = date_val.replace(day=imp_default_date[date_col])
+                    else:
+                        date_val = date_val.replace(day=imp_default_date[date_col])
+                    if month_flag:
+                        date_val = date_val.replace(month=1)
+
+            imputed_date[date_col] = date_val
+
+        return unk_flag,True,imputed_date
