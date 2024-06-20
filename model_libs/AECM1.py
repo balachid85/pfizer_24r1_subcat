@@ -141,3 +141,4 @@ if __name__ == '__main__':
     version = sys.argv[5]
     rule = AECM1(study_id, account_id, job_id, rule_id, version)
     rule.run()
+    
