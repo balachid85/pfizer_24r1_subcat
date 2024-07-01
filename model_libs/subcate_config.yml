@@ -321,6 +321,7 @@ FIELD_NAME_DICT:
 
 FN_CONFIG:  
   AEOV1:
+    domain_list : ['AE']
     flags :
       smc_flag : False
       llt_flag : False
@@ -340,8 +341,24 @@ FN_CONFIG:
       AEOUT:
         yes_val : ['RESOLVING','RECOVERING']
         no_val : ['NOT RESOLVED', 'NOT RECOVERED']
+    qt :
+      AE1:
+        AESPID: AESPID
+        AETERM: AETERM
+        AEDECOD: AEDECOD
+        AESTDAT: AESTDAT
+        AEENDAT: AEENDAT
+        AETOXGR: AETOXGR
+        AEONGO: AEONGO
+      AE2:
+        AESPID: AESPID
+        AEONGO: AEONGO
+        AETERM: AETERM
+        AESTDAT: AESTDAT
+        AEENDAT: AEENDAT
     
   AEOV2:
+    domain_list : ['AE']
     flags :
       smc_flag : False
       llt_flag : False
@@ -364,8 +381,23 @@ FN_CONFIG:
       AEOUT:
         yes_val : ['RESOLVING','RECOVERING']
         no_val : ['NOT RESOLVED', 'NOT RECOVERED']
-
+    qt :
+      AE1:
+        AESPID: AESPID
+        AETERM: AETERM
+        AEDECOD: AEDECOD
+        AESTDAT: AESTDAT
+        AEENDAT: AEENDAT
+        AETOXGR: AETOXGR
+        AEONGO: AEONGO
+      AE2:
+        AESPID: AESPID
+        AEONGO: AEONGO
+        AETERM: AETERM
+        AESTDAT: AESTDAT
+        AEENDAT: AEENDAT
   AEOV3:
+    domain_list : ['AE']
     flags :
       smc_flag : False
       llt_flag : False
@@ -388,8 +420,23 @@ FN_CONFIG:
       AEOUT:
         yes_val : ['RESOLVING','RECOVERING']
         no_val : ['NOT RESOLVED', 'NOT RECOVERED']
-
+    qt :
+      AE1:
+        AESPID: AESPID
+        AETERM: AETERM
+        AEDECOD: AEDECOD
+        AESTDAT: AESTDAT
+        AEENDAT: AEENDAT
+        AETOXGR: AETOXGR
+        AEONGO: AEONGO
+      AE2:
+        AESPID: AESPID
+        AEONGO: AEONGO
+        AETERM: AETERM
+        AESTDAT: AESTDAT
+        AEENDAT: AEENDAT
   AECM0 :
+    domain_list : ['AE','CM']
     use_smc : False
     match : [match_term]
     #match : [match_id, match_term] #[match_DSL]
@@ -451,6 +498,7 @@ FN_CONFIG:
 
 
   AECM1 : 
+    domain_list : ['AE','CM']
     use_smc : False
     match : [match_term]
     #match : [match_id, match_term] #[match_DSL]
@@ -517,8 +565,19 @@ FN_CONFIG:
     vals : 
       ae_contrt_val : 
         yes_val : ['YES','1']
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+        CMSTDAT: CMSTDAT 
+      AE:
+        AESPID: AESPID 
+        AETERM: AETERM 
+        AESTDAT: AESTDAT
+
       
   AECM2 :
+    domain_list : ['AE','CM']
     use_smc : False
     match : [match_term]    
     #match : [match_id, match_term] #[match_DSL]
@@ -587,8 +646,18 @@ FN_CONFIG:
     vals: 
       ae_contrt_val :
         yes_val : ['YES','1']
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+        CMSTDAT: CMSTDAT 
+      AE:
+        AESPID: AESPID 
+        AETERM: AETERM 
+        AEENDAT: AEENDAT
   
   AECM5 :
+    domain_list : ['AE','CM']
     use_smc : False
     match : [match_term]
     #match : [match_id, match_term] #[match_DSL]
@@ -655,9 +724,17 @@ FN_CONFIG:
       cm_ongo_val :
         yes_val : ['YES','1']
         no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+        CMSTDAT: CMSTDAT 
+        CMENDAT: CMENDAT
+        CMONGO: CMONGO
     
  
   AECM7 :
+    domain_list : ['AE','CM']
     use_smc : False
     match : [] # It should either be `match_dsl` or blank to compare CMINDC & AETERM
     #match : [match_id, match_term] #[match_DSL]
@@ -720,8 +797,14 @@ FN_CONFIG:
         no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']
       ae_contrt_val :
         yes_val : ['YES','1']
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+
     
   AEMH0 :
+    domain_list : ['AE','MH']
     use_smc : False
     match_term : 
       #prim_match_key : 'term' #for smc
@@ -740,8 +823,12 @@ FN_CONFIG:
       mh_decod_col : ['MHDECOD']  
     check:
       symptoms_list : ['WORSENING', 'EXACERBATION', 'PROGRESSION','FLARE','INCREASED','ELEVATED','INCREASE', 'INCREASING']
+    qt :
+      AE:
+        AETERM: AETERM 
 
   CMAE0 :  
+    domain_list : ['AE','CM']
     use_smc : False 
     match : [match_term]
     match_condition : ['OR']
@@ -786,9 +873,17 @@ FN_CONFIG:
       cm_indc_col : ['CMINDC']
       cm_trt_col : ['CMTRT']
       cm_ongo_col : ['CMONGO']
-      uniq_id_col : ['cdr_skey']      
+      uniq_id_col : ['cdr_skey']     
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+      AE:
+        AESPID: AESPID 
+
 
   CMAE1 :
+    domain_list : ['AE','CM']
     use_smc : False 
     #match : [match_DSL]
     #match : [match_id, match_term]
@@ -836,8 +931,18 @@ FN_CONFIG:
       cm_indc_col : ['CMINDC']
       uniq_id_col : ['cdr_skey']
       cm_trt_col : ['CMTRT']
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+        CMSTDAT: CMSTDAT 
+      AE:
+        AESPID: AESPID 
+        AETERM: AETERM 
+        AESTDAT: AESTDAT      
 
   CMAE1_1 :
+    domain_list : ['AE','CM']
     use_smc : False
     #non_DSL
     #match : [match_term]  # only match_term for CMAE1_1
@@ -884,8 +989,18 @@ FN_CONFIG:
       dt_cols : ['AESTDTC','AEENDTC','CMSTDTC','CMENDTC']
       uniq_id_col : ['cdr_skey']
       cm_trt_col : ['CMTRT']
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+        CMSTDAT: CMSTDAT 
+      AE:
+        AESPID: AESPID 
+        AETERM: AETERM 
+        AESTDAT: AESTDAT 
       
   CMAE2 :
+    domain_list : ['AE','CM']
     use_smc : False     
     match : [match_term]
     match_condition : ['OR']
@@ -942,8 +1057,18 @@ FN_CONFIG:
         no_val : ['NOT RESOLVED', 'NOT RECOVERED']
       ae_contrt_val : 
         yes_val : ['YES','1']
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+        CMSTDAT: CMSTDAT 
+      AE:
+        AESPID: AESPID 
+        AETERM: AETERM 
+        AEENDAT: AEENDAT 
 
   CMAE2_1 :
+    domain_list : ['AE','CM']
     use_smc : False
     #DSL
     match : [match_term]
@@ -988,8 +1113,18 @@ FN_CONFIG:
       cm_ae_id_col : ['CMAENO'] # non-DSL
       uniq_id_col : ['cdr_skey']
       cm_trt_col : ['CMTRT']
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+        CMSTDAT: CMSTDAT 
+      AE:
+        AESPID: AESPID 
+        AETERM: AETERM 
+        AEENDAT: AEENDAT 
 
   CMAE4 :
+    domain_list : ['AE','CM']
     #DSL
     match : [match_term]
     match_DSL :     
@@ -1057,8 +1192,19 @@ FN_CONFIG:
         no_val : ['NOT RESOLVED', 'NOT RECOVERED']
     flags:
       smc_flag : False
+    qt :
+      CM:
+        FORM_IX: FORM_IX 
+        CMTRT: CMTRT 
+        CMSTDAT: CMSTDAT 
+        CMENDAT: CMENDAT
+        CMONGO: CMONGO
+      AE:
+        AESPID: AESPID 
+        AETERM: AETERM  
   
   CMAE5 :
+    domain_list : ['AE','CM']
     #match : [match_term]
     #match : [match_id, match_term]
     match_condition : ['OR']    
@@ -1113,8 +1259,12 @@ FN_CONFIG:
         yes_val : ['YES','1']
     flags : 
       smc_flag : False
-  
+    qt :
+      AE:
+        AESPID: AESPID 
+        AETERM: AETERM 
   CMAE6 :
+    domain_list : ['AE','CM']
     #match : [match_id] match_id or match_term only - only one value allowed
     match : [match_term]
     match_condition : ['OR']
@@ -1160,8 +1310,11 @@ FN_CONFIG:
       ae_ongo_col : ['AEONGO']
       ae_decod_col : ['AEDECOD']
       cm_trt_col : ['CMTRT']
+    qt :
+      
 
   CMAE7 :
+    domain_list : ['AE','CM']
     use_smc : False
     #match : [match_id, match_term]
     match_condition : ['OR']     
@@ -1215,8 +1368,16 @@ FN_CONFIG:
       ae_decod_col : ['AEDECOD']      
     vals:
       UNK_vals : ['UNK','UN']
+    qt :
+      CM:
+        CMSTDAT: CMSTDAT 
+        CMENDAT: CMENDAT
+      AE:
+        AESPID: AESPID 
+        AETERM: AETERM 
     
   CMOV1:
+    domain_list : ['CM']
     flags :
       smc_flag : False
       llt_flag : False
@@ -1233,8 +1394,20 @@ FN_CONFIG:
       cm_ongo_val :
         yes_val : ['YES','1']
         no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N',' ','']
+    qt :
+      CM1:
+        FORM_IX: FORM_IX
+        CMTRT: CMTRT
+        CMDECOD: CMDECOD
+        CMSTDAT: CMSTDAT
+        CMENDAT: CMENDAT
+      CM2:
+        FORM_IX: FORM_IX
+        CMTRT: CMTRT
+
      
   CMOV2:
+    domain_list : ['CM']
     #check_fields : [CMDOSE, CMDOSU, CMDOSFRQ, CMROUTE, CMINDC, CMTRT]
     check_fields : [CMDOSE, CMDOSFRQ, CMROUTE, CMTRT]
     cols:
@@ -1251,8 +1424,21 @@ FN_CONFIG:
     flags :
       smc_flag : False
       llt_flag : False
+    qt :
+      CM1:
+        FORM_IX: FORM_IX
+        CMTRT: CMTRT
+        CMDECOD: CMDECOD
+        CMSTDAT: CMSTDAT
+        CMENDAT: CMENDAT
+      CM2:
+        FORM_IX: FORM_IX
+        CMTRT: CMTRT
+        CMSTDAT: CMSTDAT
+        CMENDAT: CMENDAT
 
   CMMHAE0:
+    domain_list : ['AE','CM','MH']
     #SMC Flag
     use_smc : False
     #non_DSL 
@@ -1351,8 +1537,14 @@ FN_CONFIG:
       ae_decod_col : ['AEDECOD']
 
     symptoms_list : ['WORSEN','WORSENING', 'EXACERBATION', 'PROGRESSION','FLARE','INCREASED', 'ELEVATED']
+    qt :
+      CM:
+        CMTRT: CMTRT
+        CMSTDAT: CMSTDAT
+        CMENDAT: CMENDAT
     
   CMMHAE1:
+    domain_list : ['AE','CM','MH']
     #SMC Flag
     use_smc : False
     #non_DSL 
@@ -1447,8 +1639,12 @@ FN_CONFIG:
       cm_ongo_val :
         yes_val : ['YES','1']
         no_val : ['NO','0','',' ','NAN','NONE',None,'NULL','N']
+    qt :
+      CM:
+        CMTRT: CMTRT
   
   DHAE0 :
+    domain_list : ['DD','AE']
     match : [match_term]
     match_condition : []
     match_id : 
@@ -1468,8 +1664,12 @@ FN_CONFIG:
       ae_term_col : ['AETERM']
       ae_stdt_col : ['AESTDTC']
       ae_endt_col : ['AEENDTC']
+    qt :
+      DD:
+        DDAENO: DDAENO
 
   DHAE1 :
+    domain_list : ['AE','DD']
     match : ['match_term']
     match_condition : []
     match_id : 
@@ -1490,8 +1690,13 @@ FN_CONFIG:
       uniq_id_col : ['cdr_skey']
     vals:
       ae_tox_val : ['GRADE 5']
+    qt :
+      AE:
+        AETOXGR: AETOXGR
+        AETERM: AETERM
   
   DHAE2 :
+    domain_list : ['DD','AE']
     match : ['match_term']
     match_condition : []
     match_id : 
@@ -1511,8 +1716,15 @@ FN_CONFIG:
       dh_ae_id_col : ['DDAENO']
     vals:
       ae_ser_val : ['YES']  
+    qt :
+      DD:
+        DDAENO: DDAENO
+      AE:
+        AEREFID: AEREFID
+        AESER: AESER
 
   DHAE3 :
+    domain_list : ['DD','AE']
     match : ['match_term']
     match_condition : []
     match_id : 
@@ -1532,8 +1744,14 @@ FN_CONFIG:
       dh_ae_id_col : ['DDAENO']
     vals:
       ae_tox_val : ['GRADE 5']
+    qt :
+      DD:
+        DDAENO: DDAENO
+      AE:
+        AETOXGR: AETOXGR
 
   DHAE4 :
+    domain_list : ['AE','DD']
     match : ['match_term']
     match_condition : []
     match_id : 
@@ -1555,8 +1773,14 @@ FN_CONFIG:
       uniq_id_col : ['cdr_skey']
     vals:
       ae_dt_null_val : ['NAN','NONE','',' ','NULL']
+    qt :
+      DD:
+        DDAENO: DDAENO
+      AE:
+        AEENDTC: AEENDTC
     
   DHAE5 :
+    domain_list : ['AE','DD']
     match : ['match_term']
     match_condition : []
     match_id : 
@@ -1585,8 +1809,16 @@ FN_CONFIG:
         yes_val : ['RESOLVING','RECOVERING']
         no_val : ['NOT RESOLVED', 'NOT RECOVERED']
       ae_dt_null_val : ['NAN','NONE','',' ','NULL']
+    qt :
+      DD:
+        DDAENO: DDAENO
+      AE:
+        AETERM: AETERM
+        AEONGO: AEONGO
+        AEENDTC: AEENDTC
     
   MHAE0:
+    domain_list : ['AE','MH']
     #SMC Flag
     use_smc : False
     match_term : 
@@ -1609,8 +1841,14 @@ FN_CONFIG:
         no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']      
     check:
       symptoms_list : ['WORSEN','WORSENING', 'EXACERBATION', 'PROGRESSION','FLARE','INCREASED', 'ELEVATED']
+    qt :
+      AE:
+        AEDECOD: AEDECOD
+      MH:
+        MHDECOD: MHDECOD
       
   MHCM0:
+    domain_list : ['CM','MH']
     cols :
       mh_term_col : ['MHTERM']
       mh_contrt_col : ['MHCONTRT']
@@ -1623,8 +1861,14 @@ FN_CONFIG:
     vals:
       mh_contrt_val :
         yes_val : ['YES','1']
+    qt :
+      AE:
+        AEDECOD: AEDECOD
+      MH:
+        MHDECOD: MHDECOD
 
   MHCM1:
+    domain_list : ['CM','MH']
     #SMC Flag
     use_smc : False
     match : [match_term] 
@@ -1655,8 +1899,12 @@ FN_CONFIG:
       dt_cols : ['MHSTDTC','MHENDTC','CMSTDTC','CMENDTC']
       mh_term_col : ['MHTERM']
       uniq_id_col : ['cdr_skey'] 
+    qt :
+      MH:
+        MHTERM: MHTERM
       
   MHCM2:
+    domain_list : ['CM','MH']
     #SMC Flag
     use_smc : False
     match : [match_term]
@@ -1683,8 +1931,14 @@ FN_CONFIG:
       cm_indc_col : ['CMINDC']
       cm_trt_col : ['CMTRT']
       uniq_id_col : ['cdr_skey'] 
+    qt :
+      MH:
+        MHSTDTC: MHSTDTC
+        MHENDTC: MHENDTC
+        MHTERM: MHTERM
 
   MHCM3:
+    domain_list : ['CM','MH']
     #SMC Flag
     use_smc : False
     match : [match_term]
@@ -1715,8 +1969,13 @@ FN_CONFIG:
       cm_ongo_val :
         yes_val : ['YES','1']
         no_val : ['NO','0', 'NAN', None, 'NONE','NULL','N','',' ']
+    qt :
+      MH:
+        MHENDTC: MHENDTC
+        MHTERM: MHTERM
     
   MHCM4:
+    domain_list : ['CM','MH']
     #SMC Flag
     use_smc : False
     match : [match_term]
@@ -1741,8 +2000,13 @@ FN_CONFIG:
     cols :
       dt_cols : ['MHSTDTC','MHENDTC', 'CMSTDTC','CMENDTC']
       uniq_id_col : ['cdr_skey'] 
+    qt :
+      MH:
+        MHSTDTC : MHSTDTC
+        MHENDTC: MHENDTC
   
   MHOV1 :
+    domain_list : ['MH']
     flags :
       smc_flag : False
       llt_flag : False
@@ -1758,8 +2022,17 @@ FN_CONFIG:
       mh_ongo_val:
         yes_val : ['YES','1']
         no_val : ['NO','0','NAN','',' ','NONE','NULL','N']
-
+    qt :
+      MH1:
+        MHDECOD: MHDECOD
+        MHSTDTC: MHSTDTC
+        MHENDTC: MHENDTC
+      MH2:
+        MHDECOD: MHDECOD
+        MHSTDTC: MHSTDTC
+        MHENDTC: MHENDTC
   MHOV2 : 
+    domain_list : ['MH']
     flags :
       smc_flag : False
       llt_flag : False
@@ -1775,8 +2048,16 @@ FN_CONFIG:
       mh_ongo_val:
         yes_val : ['YES','1']
         no_val : ['NO','0', 'NAN','',' ','NONE','NULL','N']
+    qt :
+      MH1:
+        MHSTDTC: MHSTDTC
+        MHENDTC: MHENDTC
+      MH2:
+        MHSTDTC: MHSTDTC
+        MHENDTC: MHENDTC
 
   MHOV3 : 
+    domain_list : ['MH']
     flags :
       smc_flag : False
       llt_flag : False
@@ -1792,8 +2073,17 @@ FN_CONFIG:
       mh_ongo_val:
         yes_val : ['YES','1']
         no_val : ['NO','0', 'NAN','',' ','NONE','NULL']
+    qt :
+      MH1:
+        MHSTDTC: MHSTDTC
+        MHENDTC: MHENDTC
+      MH2:
+        MHSTDTC: MHSTDTC
+        MHENDTC: MHENDTC
+
 
   LBAE0:
+    domain_list : ['AE','LB']
     match: []
     cols:
       lb_test_col: ['LBTEST']
@@ -1805,6 +2095,7 @@ FN_CONFIG:
     qt:
       grade: 'grade' 
   LBAE1:
+    domain_list : ['AE','LB']
     match: []
     cols:
       lb_test_col: ['LBTEST']
@@ -1819,6 +2110,7 @@ FN_CONFIG:
     qt:
       grade: 'grade'  
   LBAE2:
+    domain_list : ['AE','LB']
     match: []
     cols:
       lb_test_col: ['LBTEST']
@@ -1835,6 +2127,7 @@ FN_CONFIG:
       grade: 'grade'  
       AETOXGR: 'AETOXGR'
   LBOV1:
+    domain_list : ['LB']
     cols:
       lb_test_col: ['LBTEST']
       dt_cols: ['LBDTC']
@@ -1846,6 +2139,7 @@ FN_CONFIG:
     qt:
       LBDTC: 'LBDTC'
   AELB1:
+    domain_list : ['AE','LB']
     match: []
     cols:
       lb_test_col: ['LBTEST']
@@ -1860,6 +2154,7 @@ FN_CONFIG:
     qt:
       AETERM: 'AETERM'
   AELB2:
+    domain_list : ['AE','LB']
     match: []
     cols:
       lb_test_col: ['LBTEST']
@@ -1883,6 +2178,7 @@ FN_CONFIG:
         LBTEST: 'LBTEST'
         visit_nm: 'visit_nm'
   AELB3:
+    domain_list : ['AE','LB']
     match: []
     cols:
       lb_test_col: ['LBTEST']
@@ -1898,6 +2194,7 @@ FN_CONFIG:
       LBDTC: 'LBDTC'
       AEENDTC: 'AEENDTC'
   AELB4:
+    domain_list : ['AE','LB']
     match: []
     cols:
       lb_test_col: ['LBTEST']
@@ -1914,6 +2211,7 @@ FN_CONFIG:
       grade: 'grade'  
       AETOXGR: 'AETOXGR'
   AEDR0 :
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -1968,6 +2266,7 @@ FN_CONFIG:
       AEACN: AEACN
   
   AEDR1 :
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2019,6 +2318,7 @@ FN_CONFIG:
       ECADJ: 'EXADJ'
 
   AEDR2 :
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2072,6 +2372,7 @@ FN_CONFIG:
     qt:
       AEACN: AEACN
   AEDR3:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2122,6 +2423,7 @@ FN_CONFIG:
     qt:
       AEACN: AEACN
   AEDR4:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2173,6 +2475,7 @@ FN_CONFIG:
       AEREFID: AEREFID
       visit: visit_nm
   AEDR5:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2224,6 +2527,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   AEDR6:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2275,6 +2579,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   AEDR7:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2326,6 +2631,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   AEDR8:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2378,6 +2684,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   AEDR9:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2433,6 +2740,7 @@ FN_CONFIG:
       AEACN: 'AEACN'
       AEREL: 'AEREL'
   AEDR10:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2485,6 +2793,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   DRAE1:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2534,6 +2843,7 @@ FN_CONFIG:
     qt:
       EXAENO: 'EXAENO'
   DRAE2:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2583,6 +2893,7 @@ FN_CONFIG:
     qt:
       EXAENO: 'EXAENO'
   DRAE3:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2636,6 +2947,7 @@ FN_CONFIG:
     qt:
       EXSTDTC: EXSTDTC
   DRAE4:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2697,6 +3009,7 @@ FN_CONFIG:
         AESTDTC: 'AESTDTC'
         AEENDTC: 'AEENDTC'
   DRAE5:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2750,6 +3063,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   DRAE6:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2803,6 +3117,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   DRAE7:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2856,6 +3171,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   DRAE8:
+    domain_list : ['AE','DR']
     match : [match_id]
     #match : [match_id, match_term] #[match_DSL]
     match_condition : ['OR']
@@ -2909,6 +3225,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   DROV1:
+    domain_list : ['DR']
     match: []
     cols:
       dt_cols: ['EXSTDTC','EXENDTC']
@@ -2921,6 +3238,7 @@ FN_CONFIG:
     qt:
       ECADJ: 'EXADJ'
   DROV2:
+    domain_list : ['DR']
     match: []
     cols:
       dt_cols: ['EXSTDTC','EXENDTC']
@@ -2933,6 +3251,7 @@ FN_CONFIG:
     qt:
       EXSTDTC: EXSTDTC
   DROV3:
+    domain_list : ['DR']
     match: []
     cols:
       dt_cols: ['EXSTDTC','EXENDTC']
@@ -2942,4 +3261,3 @@ FN_CONFIG:
       ex_dt_gap: 1
     qt:
       ECADJ: 'EXADJ'
-
